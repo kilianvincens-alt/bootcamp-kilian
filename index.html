@@ -35,6 +35,57 @@
       color: rgba(255, 255, 255, 0.7);
       font-size: 1.5rem;
       font-weight: 400;
+      margin-bottom: 3rem;
+    }
+
+    .stack-status {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.85);
+      min-width: 320px;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      background: #888;
+      transition: background 0.3s ease;
+    }
+
+    .status-dot.ok { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
+    .status-dot.error { background: #f87171; box-shadow: 0 0 8px #f87171; }
+    .status-dot.loading {
+      background: #C8A2D9;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .status-label {
+      font-weight: 500;
+    }
+
+    .status-value {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.85rem;
+      margin-left: auto;
     }
 
     .signature {
@@ -53,6 +104,50 @@
 <body>
   <h1>✅ Test de la stack</h1>
   <h2>Bootcamp Ops &amp; Product · Delta Business School</h2>
+
+  <div class="stack-status">
+    <div class="status-row">
+      <span class="status-dot ok"></span>
+      <span class="status-label">Frontend</span>
+      <span class="status-value">GitHub Pages</span>
+    </div>
+    <div class="status-row">
+      <span class="status-dot loading" id="supabase-dot"></span>
+      <span class="status-label">Supabase</span>
+      <span class="status-value" id="supabase-status">connexion…</span>
+    </div>
+  </div>
+
   <p class="signature">Setup réalisé via Claude Code</p>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://psmdivtvaewlouobxyxn.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_eJB9sQpnfDr_N-n6Pl424g_75MLG_0U';
+
+    const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const dot = document.getElementById('supabase-dot');
+    const label = document.getElementById('supabase-status');
+
+    (async () => {
+      try {
+        const response = await fetch(`${SUPABASE_URL}/auth/v1/settings`, {
+          headers: { apikey: SUPABASE_ANON_KEY }
+        });
+        if (response.ok) {
+          const settings = await response.json();
+          dot.className = 'status-dot ok';
+          label.textContent = 'connecté';
+        } else {
+          dot.className = 'status-dot error';
+          label.textContent = `erreur HTTP ${response.status}`;
+        }
+      } catch (e) {
+        dot.className = 'status-dot error';
+        label.textContent = 'échec réseau';
+      }
+    })();
+  </script>
 </body>
 </html>
