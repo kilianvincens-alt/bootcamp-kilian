@@ -1,0 +1,22 @@
+# macOS metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# Editor & system
+.vscode/
+*.swp
+*.swo
+*~
+
+# Node (au cas où)
+node_modules/
+*.log
+
+# Env
+.env
+.env.local

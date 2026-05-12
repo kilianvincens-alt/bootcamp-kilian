@@ -16,27 +16,17 @@
       theme: {
         extend: {
           colors: {
-            ink: '#0F1410',
-            'ink-soft': '#1a221d',
-            mint: '#5EE2A0',
-            'mint-deep': '#2ec77f',
-            cream: '#F2EFE7',
-            paper: '#FAF8F2',
-            gold: '#D4AF37',
-            silver: '#B8B8B8',
-            bronze: '#CD7F32',
-            'holo-red': '#FF3B5C',
-            'trust-blue': '#2D6CDF',
-            coral: '#D85A30',
+            ink: '#0F1410', 'ink-soft': '#1a221d',
+            mint: '#5EE2A0', 'mint-deep': '#2ec77f',
+            cream: '#F2EFE7', paper: '#FAF8F2',
+            gold: '#D4AF37', silver: '#B8B8B8', bronze: '#CD7F32',
+            'holo-red': '#FF3B5C', 'trust-blue': '#2D6CDF', coral: '#D85A30',
           },
           fontFamily: {
             sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
             mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
           },
-          borderRadius: {
-            card: '14px',
-            pill: '999px',
-          },
+          borderRadius: { card: '14px', pill: '999px' },
           boxShadow: {
             card: '0 2px 8px -2px rgba(15,20,16,0.06), 0 1px 3px -1px rgba(15,20,16,0.04)',
             hover: '0 8px 24px -8px rgba(15,20,16,0.12), 0 2px 6px -2px rgba(15,20,16,0.06)',
@@ -52,73 +42,101 @@
 
   <style>
     html { -webkit-tap-highlight-color: transparent; }
-    body {
-      font-family: 'Space Grotesk', system-ui, sans-serif;
-      font-feature-settings: "ss01", "cv11";
-      -webkit-font-smoothing: antialiased;
-    }
+    body { font-family:'Space Grotesk',system-ui,sans-serif; font-feature-settings:"ss01","cv11"; -webkit-font-smoothing:antialiased; }
 
     .label-mono {
-      font-family: 'JetBrains Mono', ui-monospace, monospace;
-      text-transform: uppercase;
-      letter-spacing: 0.22em;
-      font-size: 0.68rem;
-      font-weight: 500;
-      color: rgba(15, 20, 16, 0.55);
+      font-family:'JetBrains Mono',ui-monospace,monospace;
+      text-transform:uppercase; letter-spacing:0.22em;
+      font-size:0.68rem; font-weight:500;
+      color:rgba(15,20,16,0.55);
     }
 
-    .display { letter-spacing: -0.03em; line-height: 1.05; }
+    .display { letter-spacing:-0.03em; line-height:1.05; }
 
-    .screen { display: none; }
-    .screen.active { display: block; animation: fadeIn 0.3s ease-out; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .screen { display:none; }
+    .screen.active { display:block; animation:fadeIn 0.3s ease-out; }
+    @keyframes fadeIn { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
 
-    .holo { position: relative; overflow: hidden; }
+    .holo { position:relative; overflow:hidden; }
     .holo::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(120deg, transparent 30%, rgba(94,226,160,0.18) 50%, transparent 70%);
-      mix-blend-mode: overlay;
-      pointer-events: none;
-      animation: shimmer 6s ease infinite;
+      content:''; position:absolute; inset:0;
+      background:linear-gradient(120deg,transparent 30%,rgba(94,226,160,0.18) 50%,transparent 70%);
+      mix-blend-mode:overlay; pointer-events:none; animation:shimmer 6s ease infinite;
     }
-    @keyframes shimmer {
-      0%,100% { transform: translateX(-30%); opacity: 0.3; }
-      50%     { transform: translateX(30%);  opacity: 0.6; }
-    }
+    @keyframes shimmer { 0%,100%{transform:translateX(-30%); opacity:0.3;} 50%{transform:translateX(30%); opacity:0.6;} }
 
-    .auth-verified     { background: rgba(94,226,160,0.15);  color: #15673f; }
-    .auth-pending      { background: rgba(45,108,223,0.12);  color: #1f4ea3; }
-    .auth-unguaranteed { background: rgba(255,59,92,0.12);   color: #b8243f; }
+    .auth-verified     { background:rgba(94,226,160,0.15); color:#15673f; }
+    .auth-pending      { background:rgba(45,108,223,0.12); color:#1f4ea3; }
+    .auth-unguaranteed { background:rgba(255,59,92,0.12);  color:#b8243f; }
 
     .featured-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 0.18em;
-      color: rgba(216, 90, 48, 0.9);
-      text-transform: uppercase;
+      font-family:'JetBrains Mono',monospace; font-size:0.6rem;
+      letter-spacing:0.18em; color:rgba(216,90,48,0.9); text-transform:uppercase;
     }
 
-    .no-scrollbar::-webkit-scrollbar { display: none; }
-    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    .no-scrollbar::-webkit-scrollbar { display:none; }
+    .no-scrollbar { -ms-overflow-style:none; scrollbar-width:none; }
 
     .signature-dot {
-      width: 6px; height: 6px; border-radius: 50%; background: #5EE2A0;
-      box-shadow: 0 0 8px rgba(94,226,160,0.6);
+      width:6px; height:6px; border-radius:50%; background:#5EE2A0;
+      box-shadow:0 0 8px rgba(94,226,160,0.6);
     }
 
-    .nav-item.active { color: #0F1410; }
-    .nav-item:not(.active) { color: rgba(15,20,16,0.45); }
+    .nav-item.active { color:#0F1410; }
+    .nav-item:not(.active) { color:rgba(15,20,16,0.45); }
+
+    /* AI verify pulse */
+    .ai-pulse {
+      animation: aiPulse 1.4s ease-in-out infinite;
+    }
+    @keyframes aiPulse {
+      0%,100% { transform:scale(1); opacity:1; }
+      50%     { transform:scale(1.08); opacity:0.7; }
+    }
+    .ai-scan-line {
+      position:absolute; left:0; right:0; height:2px;
+      background:linear-gradient(90deg,transparent,#5EE2A0,transparent);
+      animation: scan 2s linear infinite;
+    }
+    @keyframes scan {
+      0% { top:0; }
+      100% { top:100%; }
+    }
+
+    /* Toast */
+    .toast {
+      position:fixed; bottom:96px; left:50%; transform:translateX(-50%);
+      background:#0F1410; color:#F2EFE7;
+      padding:10px 18px; border-radius:999px; font-size:0.85rem;
+      box-shadow:0 8px 24px -8px rgba(15,20,16,0.3);
+      z-index:100; opacity:0; transition:opacity 0.3s ease;
+    }
+    .toast.show { opacity:1; }
+
+    /* Condition pills */
+    .cond-pill {
+      flex:1; padding:0.6rem 0; border-radius:10px;
+      font-family:'JetBrains Mono',monospace; font-size:0.75rem;
+      text-align:center; cursor:pointer; transition:all 0.15s ease;
+      border:1.5px solid rgba(15,20,16,0.08);
+    }
+    .cond-pill.active { background:#0F1410; color:#F2EFE7; border-color:#0F1410; }
+
+    /* Photo slot */
+    .photo-slot {
+      aspect-ratio:3/4; border:2px dashed rgba(15,20,16,0.18); border-radius:14px;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:0.4rem; cursor:pointer; transition:all 0.15s ease;
+      background:rgba(15,20,16,0.02);
+    }
+    .photo-slot:hover { border-color:rgba(15,20,16,0.35); }
+    .photo-slot.filled { background:#FAF8F2; border:1.5px solid #5EE2A0; border-style:solid; }
   </style>
 </head>
 <body class="bg-cream text-ink min-h-screen">
 
   <!-- ============== TopBar ============== -->
-  <header class="sticky top-0 z-50 bg-cream/85 backdrop-blur-md border-b border-ink/5">
+  <header class="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-ink/5">
     <div class="max-w-md mx-auto flex items-center justify-between px-4 py-3">
       <a href="#/home" class="flex items-center gap-2">
         <div class="w-9 h-9 rounded-full bg-mint flex items-center justify-center font-bold text-ink">M</div>
@@ -139,7 +157,6 @@
     </div>
   </header>
 
-  <!-- ============== Main ============== -->
   <main class="max-w-md mx-auto px-4 pb-28 pt-2">
 
     <!-- ===== HOME ===== -->
@@ -168,7 +185,7 @@
       <section class="mt-8">
         <div class="flex items-end justify-between mb-3">
           <h2 class="label-mono">Drops</h2>
-          <span class="text-xs font-medium text-ink/55">Tout voir</span>
+          <a href="#/search" class="text-xs font-medium text-ink/55">Tout voir</a>
         </div>
         <div id="drops-row" class="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4 pb-2 snap-x"></div>
       </section>
@@ -176,25 +193,28 @@
       <section class="mt-8">
         <div class="flex items-end justify-between mb-3">
           <h2 class="label-mono">Trending · 7 jours</h2>
-          <span class="text-xs font-medium text-ink/55">Tout voir</span>
+          <a href="#/search" class="text-xs font-medium text-ink/55">Tout voir</a>
         </div>
         <div id="trending-grid" class="grid grid-cols-2 gap-3"></div>
       </section>
 
       <section class="mt-12 mb-6 p-5 bg-ink text-cream rounded-card">
-        <p class="label-mono text-mint mb-2" style="color:#5EE2A0;">La promesse</p>
+        <p class="label-mono mb-2" style="color:#5EE2A0;">La promesse</p>
         <p class="text-lg font-medium display leading-tight">
           Sérieux comme une banque.<br>Désirable comme un sneaker drop.
         </p>
+        <a href="#/pricing" class="inline-flex items-center gap-1.5 mt-4 text-xs font-medium text-mint">
+          Voir nos tarifs <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+        </a>
       </section>
     </section>
 
-    <!-- ===== CARD DETAIL (dynamic) ===== -->
+    <!-- ===== CARD DETAIL ===== -->
     <section id="screen-card" class="screen">
       <div id="card-detail-content"></div>
     </section>
 
-    <!-- ===== TRUST PAGE ===== -->
+    <!-- ===== TRUST ===== -->
     <section id="screen-trust" class="screen">
       <div class="pt-4">
         <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-4">
@@ -205,43 +225,32 @@
       </div>
 
       <div class="mt-8 space-y-3">
-        <div class="bg-paper border border-ink/8 rounded-card p-4">
-          <div class="flex items-start gap-3">
-            <div class="w-9 h-9 rounded-full bg-mint flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">1</div>
-            <div>
-              <p class="font-medium">L'IA vérifie chaque carte mise en vente</p>
-              <p class="text-sm text-ink/60 mt-1">Photo face / dos / tranche obligatoire. Notre modèle vision détecte les anomalies (mauvaises proportions, polices fake, holo aberrant).</p>
-            </div>
+        <div class="bg-paper border border-ink/8 rounded-card p-4 flex items-start gap-3">
+          <div class="w-9 h-9 rounded-full bg-mint flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">1</div>
+          <div>
+            <p class="font-medium">L'IA vérifie chaque carte mise en vente</p>
+            <p class="text-sm text-ink/60 mt-1">Photo face / dos / tranche obligatoire. Notre modèle vision détecte les anomalies (proportions, polices, holo aberrant).</p>
           </div>
         </div>
-
-        <div class="bg-paper border border-ink/8 rounded-card p-4">
-          <div class="flex items-start gap-3">
-            <div class="w-9 h-9 rounded-full bg-trust-blue text-cream flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">2</div>
-            <div>
-              <p class="font-medium">Doute IA ? Un expert humain tranche</p>
-              <p class="text-sm text-ink/60 mt-1">Notre équipe d'experts collectionneurs revoit chaque cas ambigu en moins de 24 h.</p>
-            </div>
+        <div class="bg-paper border border-ink/8 rounded-card p-4 flex items-start gap-3">
+          <div class="w-9 h-9 rounded-full bg-trust-blue text-cream flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">2</div>
+          <div>
+            <p class="font-medium">Doute IA ? Un expert humain tranche</p>
+            <p class="text-sm text-ink/60 mt-1">Notre équipe d'experts collectionneurs revoit chaque cas ambigu en moins de 24 h.</p>
           </div>
         </div>
-
-        <div class="bg-paper border border-ink/8 rounded-card p-4">
-          <div class="flex items-start gap-3">
-            <div class="w-9 h-9 rounded-full bg-cream border-2 border-ink/15 flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">3</div>
-            <div>
-              <p class="font-medium">Toujours un doute ? Badge transparent</p>
-              <p class="text-sm text-ink/60 mt-1">L'annonce reste publiée avec la mention « Authenticité non garantie ». Tu décides en connaissance de cause.</p>
-            </div>
+        <div class="bg-paper border border-ink/8 rounded-card p-4 flex items-start gap-3">
+          <div class="w-9 h-9 rounded-full bg-cream border-2 border-ink/15 flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">3</div>
+          <div>
+            <p class="font-medium">Toujours un doute ? Badge transparent</p>
+            <p class="text-sm text-ink/60 mt-1">L'annonce reste publiée avec la mention « Authenticité non garantie ». Tu décides en connaissance de cause.</p>
           </div>
         </div>
-
-        <div class="bg-paper border border-ink/8 rounded-card p-4">
-          <div class="flex items-start gap-3">
-            <div class="w-9 h-9 rounded-full bg-holo-red text-cream flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">4</div>
-            <div>
-              <p class="font-medium">Fake confirmé ? Suppression et bannissement</p>
-              <p class="text-sm text-ink/60 mt-1">Trois alertes = bannissement définitif du vendeur. Pas de seconde chance pour les arnaqueurs.</p>
-            </div>
+        <div class="bg-paper border border-ink/8 rounded-card p-4 flex items-start gap-3">
+          <div class="w-9 h-9 rounded-full bg-holo-red text-cream flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">4</div>
+          <div>
+            <p class="font-medium">Fake confirmé ? Suppression et bannissement</p>
+            <p class="text-sm text-ink/60 mt-1">Trois alertes = bannissement définitif du vendeur. Pas de seconde chance.</p>
           </div>
         </div>
       </div>
@@ -250,7 +259,7 @@
         <p class="label-mono mb-2" style="color:#5EE2A0;">Et le paiement ?</p>
         <h3 class="text-xl font-bold display mb-3">Argent séquestré · Libéré à réception.</h3>
         <p class="text-sm text-cream/70 leading-relaxed">
-          Quand tu paies, ton argent reste bloqué chez notre partenaire bancaire (Stripe Connect). Le vendeur le reçoit seulement quand tu confirmes que la carte est bien arrivée. Si problème, on rembourse — pas de discussion.
+          Ton argent reste bloqué chez notre partenaire bancaire (Stripe Connect). Le vendeur le reçoit seulement quand tu confirmes que la carte est bien arrivée. Si problème, remboursement automatique.
         </p>
       </div>
 
@@ -258,15 +267,15 @@
         <p class="label-mono mb-3">Commission comparée</p>
         <div class="grid grid-cols-3 gap-2 text-center">
           <div class="p-3 bg-paper border-2 border-mint rounded-card">
-            <p class="label-mono mb-1" style="font-size: 0.6rem;">Minty</p>
+            <p class="label-mono mb-1" style="font-size:0.6rem;">Minty</p>
             <p class="text-lg font-bold text-mint-deep font-mono">5 %</p>
           </div>
           <div class="p-3 bg-paper border border-ink/8 rounded-card">
-            <p class="label-mono mb-1" style="font-size: 0.6rem;">Vinted</p>
+            <p class="label-mono mb-1" style="font-size:0.6rem;">Vinted</p>
             <p class="text-lg font-bold text-ink/60 font-mono">10 %</p>
           </div>
           <div class="p-3 bg-paper border border-ink/8 rounded-card">
-            <p class="label-mono mb-1" style="font-size: 0.6rem;">eBay</p>
+            <p class="label-mono mb-1" style="font-size:0.6rem;">eBay</p>
             <p class="text-lg font-bold text-ink/60 font-mono">12 %</p>
           </div>
         </div>
@@ -330,28 +339,11 @@
       <div class="mt-8 p-4 bg-paper border border-ink/8 rounded-card">
         <p class="label-mono mb-3">Étapes</p>
         <div class="space-y-3">
-          <div class="flex items-center gap-3">
-            <div class="w-6 h-6 rounded-full bg-mint flex items-center justify-center">
-              <i data-lucide="check" class="w-3.5 h-3.5 text-ink"></i>
-            </div>
-            <p class="text-sm">Paiement reçu et séquestré</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-6 h-6 rounded-full bg-ink/10"></div>
-            <p class="text-sm text-ink/50">Vendeur prépare l'envoi</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-6 h-6 rounded-full bg-ink/10"></div>
-            <p class="text-sm text-ink/50">En transit</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-6 h-6 rounded-full bg-ink/10"></div>
-            <p class="text-sm text-ink/50">Livrée — tu confirmes</p>
-          </div>
-          <div class="flex items-center gap-3">
-            <div class="w-6 h-6 rounded-full bg-ink/10"></div>
-            <p class="text-sm text-ink/50">Argent libéré au vendeur</p>
-          </div>
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-mint flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-ink"></i></div><p class="text-sm">Paiement reçu et séquestré</p></div>
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-ink/10"></div><p class="text-sm text-ink/50">Vendeur prépare l'envoi</p></div>
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-ink/10"></div><p class="text-sm text-ink/50">En transit</p></div>
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-ink/10"></div><p class="text-sm text-ink/50">Livrée — tu confirmes</p></div>
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-ink/10"></div><p class="text-sm text-ink/50">Argent libéré au vendeur</p></div>
         </div>
       </div>
       <a href="#/home" class="block w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">
@@ -359,20 +351,21 @@
       </a>
     </section>
 
-    <!-- ===== SEARCH (stub) ===== -->
+    <!-- ===== SEARCH ===== -->
     <section id="screen-search" class="screen">
       <div class="pt-4">
         <h1 class="text-3xl font-bold display">Recherche</h1>
-        <p class="text-sm text-ink/60 mt-3">Catalogue de 18 000 cartes Pokémon. Bientôt connecté à Supabase.</p>
+        <p class="text-sm text-ink/60 mt-3">Toutes les cartes en vente sur Minty.</p>
         <div class="mt-6 relative">
-          <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink/40"></i>
-          <input type="text" placeholder="Charizard, Dracaufeu, Set de Base…" class="w-full bg-paper border border-ink/10 rounded-card py-3 pl-11 pr-4 text-sm outline-none focus:border-ink/30" />
+          <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink/40 z-10"></i>
+          <input id="search-input" type="text" oninput="renderSearch()" placeholder="Charizard, Tortank, Mewtwo…" class="w-full bg-paper border border-ink/10 rounded-card py-3 pl-11 pr-4 text-sm outline-none focus:border-ink/30" />
         </div>
-        <div class="mt-8 grid grid-cols-2 gap-3" id="search-grid"></div>
+        <div class="mt-6 grid grid-cols-2 gap-3" id="search-grid"></div>
+        <p id="search-empty" class="hidden text-sm text-ink/50 mt-8 text-center">Aucun résultat.</p>
       </div>
     </section>
 
-    <!-- ===== SELL (stub) ===== -->
+    <!-- ===== SELL · entry ===== -->
     <section id="screen-sell" class="screen">
       <div class="pt-4">
         <h1 class="text-3xl font-bold display">Vendre une carte.</h1>
@@ -380,28 +373,175 @@
           Sélectionne ta carte dans notre catalogue, ajoute 3 photos, fixe ton prix. L'IA s'occupe du reste.
         </p>
       </div>
-      <div class="mt-6 space-y-3">
+      <div class="mt-6 space-y-2">
         <div class="p-4 bg-paper border border-ink/8 rounded-card flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-mint flex items-center justify-center font-mono text-sm font-bold">1</div>
+          <div class="w-8 h-8 rounded-full bg-mint flex items-center justify-center font-mono text-xs font-bold">1</div>
           <div class="flex-1"><p class="text-sm font-medium">Sélectionne ta carte</p><p class="text-xs text-ink/55">18 000 cartes pré-référencées</p></div>
         </div>
         <div class="p-4 bg-paper border border-ink/8 rounded-card flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center font-mono text-sm font-bold">2</div>
-          <div class="flex-1"><p class="text-sm font-medium">Photos guidées</p><p class="text-xs text-ink/55">Face · Dos · Tranche</p></div>
+          <div class="w-8 h-8 rounded-full bg-ink/8 flex items-center justify-center font-mono text-xs font-bold">2</div>
+          <div class="flex-1"><p class="text-sm font-medium">Photos guidées</p><p class="text-xs text-ink/55">Face · Dos · Tranche (anti-fake)</p></div>
         </div>
         <div class="p-4 bg-paper border border-ink/8 rounded-card flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center font-mono text-sm font-bold">3</div>
-          <div class="flex-1"><p class="text-sm font-medium">État & prix</p><p class="text-xs text-ink/55">Mint · NM · EX · LP · DMG</p></div>
+          <div class="w-8 h-8 rounded-full bg-ink/8 flex items-center justify-center font-mono text-xs font-bold">3</div>
+          <div class="flex-1"><p class="text-sm font-medium">État & prix</p><p class="text-xs text-ink/55">Prix suggéré auto · grading standard</p></div>
         </div>
         <div class="p-4 bg-paper border border-ink/8 rounded-card flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center font-mono text-sm font-bold">4</div>
+          <div class="w-8 h-8 rounded-full bg-ink/8 flex items-center justify-center font-mono text-xs font-bold">4</div>
           <div class="flex-1"><p class="text-sm font-medium">Vérification IA</p><p class="text-xs text-ink/55">Verified · Pending · Unguaranteed</p></div>
         </div>
       </div>
-      <p class="text-xs text-ink/40 mt-8 text-center">— Flow complet à la prochaine itération —</p>
+      <a href="#/sell/pick" class="block w-full mt-8 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">
+        Commencer une vente
+      </a>
+      <a href="#/dashboard" class="block w-full mt-3 py-3 bg-paper border border-ink/15 font-medium rounded-card text-center text-sm hover:bg-ink/5 transition">
+        Voir mes annonces
+      </a>
     </section>
 
-    <!-- ===== TRADE (stub) ===== -->
+    <!-- ===== SELL · pick ===== -->
+    <section id="screen-sell-pick" class="screen">
+      <div class="pt-4">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 bg-mint text-ink rounded-pill">Étape 1 / 4</span>
+        </div>
+        <h1 class="text-2xl font-bold display">Quelle carte tu vends ?</h1>
+        <p class="text-sm text-ink/60 mt-2">Cherche dans notre catalogue. 1 clic = carte sélectionnée.</p>
+        <div class="mt-5 relative">
+          <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink/40 z-10"></i>
+          <input id="sell-pick-input" type="text" oninput="renderSellPickGrid()" placeholder="Charizard, Pikachu…" class="w-full bg-paper border border-ink/10 rounded-card py-3 pl-11 pr-4 text-sm outline-none focus:border-ink/30" />
+        </div>
+      </div>
+      <div class="mt-5 grid grid-cols-3 gap-3" id="sell-pick-grid"></div>
+    </section>
+
+    <!-- ===== SELL · photos ===== -->
+    <section id="screen-sell-photos" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-3">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <div class="flex items-center gap-3 mb-2">
+          <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 bg-mint text-ink rounded-pill">Étape 2 / 4</span>
+        </div>
+        <h1 class="text-2xl font-bold display">3 photos obligatoires.</h1>
+        <p class="text-sm text-ink/60 mt-2">Notre IA vérifie chaque face. Pas de photo = pas d'annonce publiée.</p>
+      </div>
+      <div id="sell-photos-preview" class="mt-5"></div>
+      <div class="mt-5 grid grid-cols-3 gap-3">
+        <div>
+          <p class="label-mono mb-2 text-center">Face</p>
+          <div id="photo-face" class="photo-slot" onclick="togglePhoto('face')">
+            <i data-lucide="plus" class="w-6 h-6 text-ink/40"></i>
+            <span class="text-[10px] text-ink/50">Ajouter</span>
+          </div>
+        </div>
+        <div>
+          <p class="label-mono mb-2 text-center">Dos</p>
+          <div id="photo-back" class="photo-slot" onclick="togglePhoto('back')">
+            <i data-lucide="plus" class="w-6 h-6 text-ink/40"></i>
+            <span class="text-[10px] text-ink/50">Ajouter</span>
+          </div>
+        </div>
+        <div>
+          <p class="label-mono mb-2 text-center">Tranche</p>
+          <div id="photo-edge" class="photo-slot" onclick="togglePhoto('edge')">
+            <i data-lucide="plus" class="w-6 h-6 text-ink/40"></i>
+            <span class="text-[10px] text-ink/50">Ajouter</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 p-3 bg-trust-blue/8 border border-trust-blue/20 rounded-card flex items-start gap-2.5">
+        <i data-lucide="info" class="w-4 h-4 text-trust-blue mt-0.5 flex-shrink-0"></i>
+        <p class="text-xs text-ink/70">Ton smartphone te guide pendant la prise. Cadre précis = vérif IA plus rapide.</p>
+      </div>
+      <button id="sell-photos-cta" disabled onclick="location.hash='#/sell/state'" class="w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition disabled:opacity-30 disabled:cursor-not-allowed">
+        Continuer
+      </button>
+    </section>
+
+    <!-- ===== SELL · state ===== -->
+    <section id="screen-sell-state" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-3">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <div class="flex items-center gap-3 mb-2">
+          <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 bg-mint text-ink rounded-pill">Étape 3 / 4</span>
+        </div>
+        <h1 class="text-2xl font-bold display">État et prix.</h1>
+      </div>
+      <div id="sell-state-card-preview" class="mt-5"></div>
+
+      <div class="mt-5">
+        <p class="label-mono mb-3">État (grading standard TCG)</p>
+        <div class="flex gap-2" id="condition-pills">
+          <div class="cond-pill" data-cond="Mint"  onclick="setCondition('Mint')">Mint</div>
+          <div class="cond-pill active" data-cond="NM" onclick="setCondition('NM')">NM</div>
+          <div class="cond-pill" data-cond="EX"   onclick="setCondition('EX')">EX</div>
+          <div class="cond-pill" data-cond="LP"   onclick="setCondition('LP')">LP</div>
+          <div class="cond-pill" data-cond="DMG"  onclick="setCondition('DMG')">DMG</div>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <div class="flex items-center justify-between mb-2">
+          <p class="label-mono">Prix de vente</p>
+          <p class="text-[11px] text-ink/55" id="suggested-hint">Prix marché 30j : —</p>
+        </div>
+        <div class="p-4 bg-paper border border-ink/10 rounded-card">
+          <input id="price-input" type="number" min="1" step="1" placeholder="0" class="w-full bg-transparent outline-none font-mono text-2xl font-bold placeholder:text-ink/30" oninput="updatePriceFeedback()" />
+          <span class="font-mono text-sm text-ink/40">€</span>
+        </div>
+        <p id="price-feedback" class="text-[11px] text-ink/55 mt-2"></p>
+      </div>
+
+      <div class="mt-6 p-4 bg-paper border border-ink/8 rounded-card text-sm">
+        <p class="label-mono mb-3">Ce que tu touches</p>
+        <div class="space-y-1.5" id="sell-state-breakdown">
+          <div class="flex justify-between"><span class="text-ink/60">Prix de vente</span><span class="font-mono" id="brk-price">—</span></div>
+          <div class="flex justify-between"><span class="text-ink/60">Commission Minty (5 %)</span><span class="font-mono text-coral" id="brk-fee">—</span></div>
+          <div class="flex justify-between pt-2 border-t border-ink/10 mt-2"><span class="font-medium">Tu touches</span><span class="font-mono font-bold" id="brk-net">—</span></div>
+        </div>
+      </div>
+
+      <button id="sell-state-cta" disabled onclick="location.hash='#/sell/verify'" class="w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition disabled:opacity-30 disabled:cursor-not-allowed">
+        Lancer la vérification IA
+      </button>
+    </section>
+
+    <!-- ===== SELL · verify (AI loader) ===== -->
+    <section id="screen-sell-verify" class="screen">
+      <div class="pt-6 text-center">
+        <div class="flex items-center justify-center gap-3 mb-3">
+          <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-0.5 bg-mint text-ink rounded-pill">Étape 4 / 4</span>
+        </div>
+        <h1 class="text-2xl font-bold display">Vérification en cours…</h1>
+        <p class="text-sm text-ink/60 mt-2">Notre IA analyse tes 3 photos. Temps moyen : 2 secondes.</p>
+      </div>
+      <div id="verify-card-preview" class="mt-6 relative aspect-[3/4] max-w-[200px] mx-auto rounded-card overflow-hidden border border-ink/10">
+        <div class="ai-scan-line"></div>
+      </div>
+      <div class="mt-6 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 bg-paper border border-ink/8 rounded-pill ai-pulse">
+          <i data-lucide="scan-line" class="w-4 h-4 text-mint-deep"></i>
+          <span class="text-sm font-mono">Analyse vision…</span>
+        </div>
+      </div>
+      <div class="mt-8 space-y-3 max-w-xs mx-auto" id="verify-steps">
+        <div class="flex items-center gap-3 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-mint-deep"></i><span>Détection des contours</span></div>
+        <div class="flex items-center gap-3 text-sm"><i data-lucide="check-circle-2" class="w-4 h-4 text-mint-deep"></i><span>Vérification typographie</span></div>
+        <div class="flex items-center gap-3 text-sm"><i data-lucide="loader" class="w-4 h-4 text-ink/40 ai-pulse"></i><span class="text-ink/60">Analyse holographique</span></div>
+        <div class="flex items-center gap-3 text-sm"><i data-lucide="circle" class="w-4 h-4 text-ink/20"></i><span class="text-ink/40">Cross-check base de fakes connus</span></div>
+      </div>
+    </section>
+
+    <!-- ===== SELL · published ===== -->
+    <section id="screen-sell-published" class="screen">
+      <div id="sell-published-content"></div>
+    </section>
+
+    <!-- ===== TRADE · entry ===== -->
     <section id="screen-trade" class="screen">
       <div class="pt-4">
         <h1 class="text-3xl font-bold display">Troc <span class="text-mint-deep">·</span> carte contre carte.</h1>
@@ -409,58 +549,242 @@
           Ce que personne ne fait. Propose tes cartes contre celles d'un autre collectionneur. Escrow double envoi pour garantir les deux côtés.
         </p>
       </div>
+
       <div class="mt-6 p-4 bg-paper border border-ink/8 rounded-card">
         <p class="label-mono mb-3">Quota mensuel</p>
         <div class="flex items-center justify-between">
           <div>
-            <p class="text-2xl font-bold font-mono">1 / 1</p>
+            <p id="trade-quota-display" class="text-2xl font-bold font-mono">1 / 1</p>
             <p class="text-xs text-ink/55 mt-1">Troc gratuit ce mois-ci</p>
           </div>
-          <div class="text-right">
+          <a href="#/pricing" class="text-right">
             <p class="font-mono text-xs text-coral font-medium">Minty+ illimité</p>
             <p class="text-xs text-ink/55 mt-1">4,99 €/mois</p>
+          </a>
+        </div>
+      </div>
+
+      <a href="#/trade/propose" class="block w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">
+        Proposer un troc
+      </a>
+
+      <div class="mt-8">
+        <p class="label-mono mb-3">Tes trocs en cours</p>
+        <div id="active-trades-list" class="space-y-2"></div>
+      </div>
+    </section>
+
+    <!-- ===== TRADE · propose (user picker) ===== -->
+    <section id="screen-trade-propose" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-3">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <h1 class="text-2xl font-bold display">Avec qui troquer ?</h1>
+        <p class="text-sm text-ink/60 mt-2">Choisis un vendeur qui a des cartes qui t'intéressent.</p>
+      </div>
+      <div id="trade-users-list" class="mt-6 space-y-2"></div>
+    </section>
+
+    <!-- ===== TRADE · build (n vs n) ===== -->
+    <section id="screen-trade-build" class="screen">
+      <div id="trade-build-content"></div>
+    </section>
+
+    <!-- ===== TRADE · seal ===== -->
+    <section id="screen-trade-seal" class="screen">
+      <div id="trade-seal-content"></div>
+    </section>
+
+    <!-- ===== TRADE · sealed ===== -->
+    <section id="screen-trade-sealed" class="screen">
+      <div class="pt-10 text-center">
+        <div class="w-16 h-16 rounded-full bg-mint flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="check" class="w-8 h-8 text-ink"></i>
+        </div>
+        <h1 class="text-3xl font-bold display">Troc proposé.</h1>
+        <p class="text-sm text-ink/60 mt-3">L'autre collectionneur a 48 h pour accepter ou décliner.</p>
+      </div>
+      <div class="mt-8 p-4 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-3">Étapes</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-mint flex items-center justify-center"><i data-lucide="check" class="w-3.5 h-3.5 text-ink"></i></div><p class="text-sm">Proposition envoyée</p></div>
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-ink/10"></div><p class="text-sm text-ink/50">En attente de réponse (48 h)</p></div>
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-ink/10"></div><p class="text-sm text-ink/50">Si accepté : envoi des deux cartes</p></div>
+          <div class="flex items-center gap-3"><div class="w-6 h-6 rounded-full bg-ink/10"></div><p class="text-sm text-ink/50">Réception confirmée des deux côtés</p></div>
+        </div>
+      </div>
+      <a href="#/trade" class="block w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">
+        Retour aux trocs
+      </a>
+    </section>
+
+    <!-- ===== TRADE · credits (PAYWALL) ===== -->
+    <section id="screen-trade-credits" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-3">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <div class="text-center pt-2">
+          <div class="w-14 h-14 rounded-full bg-coral/15 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="zap" class="w-7 h-7 text-coral"></i>
+          </div>
+          <h1 class="text-2xl font-bold display">Quota mensuel atteint.</h1>
+          <p class="text-sm text-ink/60 mt-3 leading-relaxed">
+            Tu as utilisé ton troc gratuit. Continue d'échanger en débloquant un crédit ou en passant Minty+.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 space-y-3">
+        <div class="p-4 bg-paper border-2 border-coral rounded-card">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-sm font-medium">+1 troc</p>
+              <p class="text-xs text-ink/55 mt-1">Utilisable une fois, valide à vie</p>
+            </div>
+            <p class="font-mono text-xl font-bold text-coral">2,99 €</p>
+          </div>
+          <button onclick="buyCredits('single')" class="w-full mt-3 py-2.5 bg-coral text-cream font-medium rounded-card text-sm">Acheter</button>
+        </div>
+        <div class="p-4 bg-paper border border-ink/8 rounded-card">
+          <div class="flex items-start justify-between">
+            <div>
+              <p class="text-sm font-medium">Pack 5 trocs</p>
+              <p class="text-xs text-ink/55 mt-1">Valide 90 jours · économie 25 %</p>
+            </div>
+            <p class="font-mono text-xl font-bold">9,99 €</p>
+          </div>
+          <button onclick="buyCredits('pack5')" class="w-full mt-3 py-2.5 bg-ink text-cream font-medium rounded-card text-sm">Acheter</button>
+        </div>
+        <div class="p-4 bg-ink text-cream rounded-card">
+          <div class="flex items-start justify-between">
+            <div>
+              <div class="flex items-center gap-1.5">
+                <p class="text-sm font-medium">Minty+</p>
+                <span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-mint text-ink rounded-pill">Best deal</span>
+              </div>
+              <p class="text-xs text-cream/65 mt-1">Trocs illimités · boosts inclus · badge profil · early drops</p>
+            </div>
+            <p class="font-mono text-xl font-bold text-mint">4,99 €<span class="text-xs text-cream/60">/mois</span></p>
+          </div>
+          <button onclick="buyCredits('minty+')" class="w-full mt-3 py-2.5 bg-mint text-ink font-medium rounded-card text-sm">Passer Minty+</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section id="screen-dashboard" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-3">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <h1 class="text-3xl font-bold display">Mes annonces</h1>
+        <p class="text-sm text-ink/60 mt-2">Suivi de tes ventes et de tes statuts d'authentification.</p>
+      </div>
+      <div id="dashboard-stats" class="mt-6 grid grid-cols-3 gap-2"></div>
+      <div id="dashboard-listings" class="mt-6 space-y-3"></div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section id="screen-pricing" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-4">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <p class="label-mono mb-3" style="color:#D85A30;">Pricing</p>
+        <h1 class="text-3xl font-bold display">Transparent. Honnête. Moins cher.</h1>
+      </div>
+
+      <div class="mt-8 p-5 bg-ink text-cream rounded-card">
+        <p class="label-mono mb-2" style="color:#5EE2A0;">Commission</p>
+        <p class="text-5xl font-bold font-mono">5 %</p>
+        <p class="text-sm text-cream/65 mt-2">Prélevée à la livraison confirmée. Pas un centime caché.</p>
+        <div class="mt-5 pt-5 border-t border-cream/10 space-y-2 text-sm">
+          <div class="flex justify-between"><span class="text-cream/55">Vinted</span><span class="font-mono">10 %</span></div>
+          <div class="flex justify-between"><span class="text-cream/55">Whatnot</span><span class="font-mono">8 %</span></div>
+          <div class="flex justify-between"><span class="text-cream/55">eBay</span><span class="font-mono">12 %</span></div>
+          <div class="flex justify-between"><span class="text-cream/55">Cardmarket pros</span><span class="font-mono">5–10 % + fee</span></div>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <p class="label-mono mb-3">Minty+ · l'abonnement</p>
+        <div class="p-5 bg-paper border-2 border-mint rounded-card">
+          <div class="flex items-baseline justify-between mb-3">
+            <p class="text-2xl font-bold display">Minty+</p>
+            <p><span class="font-mono text-3xl font-bold">4,99 €</span><span class="text-xs text-ink/55">/mois</span></p>
+          </div>
+          <p class="text-sm text-ink/60 mb-4">Pour les power-collectors et les vendeurs réguliers.</p>
+          <div class="space-y-2 text-sm">
+            <div class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i><span>Trocs illimités (vs 1 / mois)</span></div>
+            <div class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i><span>Tous les Boosts inclus (Spotlight, Top 7j, Home Featured)</span></div>
+            <div class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i><span>Badge premium sur ton profil</span></div>
+            <div class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i><span>Early access aux nouveaux drops</span></div>
+            <div class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i><span>Support prioritaire (SAV &lt; 12 h)</span></div>
+          </div>
+          <button onclick="buyCredits('minty+')" class="w-full mt-5 py-3.5 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition">
+            Passer Minty+
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-8">
+        <p class="label-mono mb-3">Boosts d'annonces</p>
+        <div class="space-y-2">
+          <div class="p-3 bg-paper border border-ink/8 rounded-card flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">Spotlight · 24 h</p>
+              <p class="text-xs text-ink/55">Tête des recherches sur ta carte</p>
+            </div>
+            <p class="font-mono font-bold">1,99 €</p>
+          </div>
+          <div class="p-3 bg-paper border border-ink/8 rounded-card flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">Top · 7 jours</p>
+              <p class="text-xs text-ink/55">Top 3 résultats set / rareté</p>
+            </div>
+            <p class="font-mono font-bold">4,99 €</p>
+          </div>
+          <div class="p-3 bg-paper border border-ink/8 rounded-card flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium">Home Featured · 48 h</p>
+              <p class="text-xs text-ink/55">Carrousel Home + push abonnés</p>
+            </div>
+            <p class="font-mono font-bold">9,99 €</p>
           </div>
         </div>
       </div>
-      <p class="text-xs text-ink/40 mt-8 text-center">— Flow complet à la prochaine itération —</p>
+
+      <div class="mt-8 mb-6 p-4 bg-mint/10 border border-mint/25 rounded-card text-center">
+        <p class="text-sm font-medium">Tous les Boosts sont inclus avec Minty+</p>
+        <p class="text-xs text-ink/55 mt-1">Tu te paies l'abo en 1 Home Featured / mois.</p>
+      </div>
     </section>
 
-    <!-- ===== PROFILE (stub) ===== -->
+    <!-- ===== PROFILE ===== -->
     <section id="screen-profile" class="screen">
       <div class="pt-6 text-center">
         <img src="https://i.pravatar.cc/150?u=kilian" class="w-20 h-20 rounded-full mx-auto mb-3 object-cover" alt="Avatar" />
         <p class="font-bold text-xl">Kilian_TCG</p>
         <p class="text-xs text-ink/55 mt-1">Membre depuis mai 2026</p>
-        <div class="flex items-center justify-center gap-3 mt-3">
+        <div class="flex items-center justify-center gap-2 mt-3" id="profile-badges">
           <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-1 bg-ink text-cream rounded-pill">Débutant</span>
         </div>
       </div>
-      <div class="mt-6 grid grid-cols-3 gap-2 text-center">
-        <div class="p-3 bg-paper border border-ink/8 rounded-card">
-          <p class="font-mono font-bold">0</p>
-          <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Ventes</p>
-        </div>
-        <div class="p-3 bg-paper border border-ink/8 rounded-card">
-          <p class="font-mono font-bold">0</p>
-          <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Achats</p>
-        </div>
-        <div class="p-3 bg-paper border border-ink/8 rounded-card">
-          <p class="font-mono font-bold">—</p>
-          <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Note</p>
-        </div>
-      </div>
+      <div class="mt-6 grid grid-cols-3 gap-2 text-center" id="profile-stats"></div>
       <div class="mt-8 space-y-2">
-        <a href="#" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
-          <i data-lucide="package" class="w-4 h-4 text-ink/60"></i>
-          <span class="text-sm flex-1">Mes commandes</span>
+        <a href="#/dashboard" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+          <i data-lucide="layout-grid" class="w-4 h-4 text-ink/60"></i>
+          <span class="text-sm flex-1">Mes annonces</span>
           <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40"></i>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
-          <i data-lucide="layers" class="w-4 h-4 text-ink/60"></i>
-          <span class="text-sm flex-1">Ma collection</span>
+        <a href="#/trade" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+          <i data-lucide="arrow-right-left" class="w-4 h-4 text-ink/60"></i>
+          <span class="text-sm flex-1">Mes trocs</span>
           <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40"></i>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+        <a href="#/pricing" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
           <i data-lucide="sparkles" class="w-4 h-4 text-coral"></i>
           <span class="text-sm flex-1 font-medium">Passer à Minty+</span>
           <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40"></i>
@@ -476,15 +800,13 @@
   </main>
 
   <!-- ============== BottomNav ============== -->
-  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-md border-t border-ink/5">
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-cream/95 backdrop-blur-md border-t border-ink/5">
     <div class="max-w-md mx-auto grid grid-cols-5 gap-1 px-2 pt-2 pb-3">
       <a href="#/home" data-route="home" class="nav-item flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition">
-        <i data-lucide="home" class="w-5 h-5" stroke-width="1.5"></i>
-        <span>Accueil</span>
+        <i data-lucide="home" class="w-5 h-5" stroke-width="1.5"></i><span>Accueil</span>
       </a>
       <a href="#/search" data-route="search" class="nav-item flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition">
-        <i data-lucide="search" class="w-5 h-5" stroke-width="1.5"></i>
-        <span>Recherche</span>
+        <i data-lucide="search" class="w-5 h-5" stroke-width="1.5"></i><span>Recherche</span>
       </a>
       <a href="#/sell" data-route="sell" class="nav-item flex flex-col items-center gap-1 transition">
         <div class="w-11 h-11 rounded-full bg-ink text-cream flex items-center justify-center -mt-4 mb-0 shadow-card">
@@ -493,80 +815,110 @@
         <span class="text-[10px] font-medium">Vendre</span>
       </a>
       <a href="#/trade" data-route="trade" class="nav-item flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition">
-        <i data-lucide="arrow-right-left" class="w-5 h-5" stroke-width="1.5"></i>
-        <span>Troc</span>
+        <i data-lucide="arrow-right-left" class="w-5 h-5" stroke-width="1.5"></i><span>Troc</span>
       </a>
       <a href="#/profile" data-route="profile" class="nav-item flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition">
-        <i data-lucide="circle-user-round" class="w-5 h-5" stroke-width="1.5"></i>
-        <span>Profil</span>
+        <i data-lucide="circle-user-round" class="w-5 h-5" stroke-width="1.5"></i><span>Profil</span>
       </a>
     </div>
   </nav>
 
-  <!-- ============================================================ -->
-  <!--                       JAVASCRIPT                              -->
-  <!-- ============================================================ -->
   <script>
-  // ============== SEED DATA ==============
+  // =================================================================
+  //                          SEED DATA
+  // =================================================================
   const CARDS = [
-    { id:'c1',  name:'Dracaufeu',  set:'Set de Base',  number:'4/102',  image:'https://images.pokemontcg.io/base1/4_hires.png',  rarity:'Holo Rare', marketPrice:850 },
-    { id:'c2',  name:'Tortank',    set:'Set de Base',  number:'2/102',  image:'https://images.pokemontcg.io/base1/2_hires.png',  rarity:'Holo Rare', marketPrice:320 },
-    { id:'c3',  name:'Florizarre', set:'Set de Base',  number:'15/102', image:'https://images.pokemontcg.io/base1/15_hires.png', rarity:'Holo Rare', marketPrice:280 },
-    { id:'c4',  name:'Mewtwo',     set:'Set de Base',  number:'10/102', image:'https://images.pokemontcg.io/base1/10_hires.png', rarity:'Holo Rare', marketPrice:195 },
-    { id:'c5',  name:'Alakazam',   set:'Set de Base',  number:'1/102',  image:'https://images.pokemontcg.io/base1/1_hires.png',  rarity:'Holo Rare', marketPrice:90  },
-    { id:'c6',  name:'Pikachu',    set:'Set de Base',  number:'58/102', image:'https://images.pokemontcg.io/base1/58_hires.png', rarity:'Commune',   marketPrice:18  },
-    { id:'c7',  name:'Léviator',   set:'Set de Base',  number:'6/102',  image:'https://images.pokemontcg.io/base1/6_hires.png',  rarity:'Holo Rare', marketPrice:220 },
-    { id:'c8',  name:'Lugia',      set:'Neo Genesis',  number:'9/111',  image:'https://images.pokemontcg.io/neo1/9_hires.png',   rarity:'Holo Rare', marketPrice:450 },
-    { id:'c9',  name:'Mew',        set:'Promo',        number:'8/8',    image:'https://images.pokemontcg.io/basep/8_hires.png',  rarity:'Promo',     marketPrice:140 },
-    { id:'c10', name:'Insécateur', set:'Jungle',       number:'10/64',  image:'https://images.pokemontcg.io/base2/10_hires.png', rarity:'Holo Rare', marketPrice:65  },
-    { id:'c11', name:'Ronflex',    set:'Jungle',       number:'11/64',  image:'https://images.pokemontcg.io/base2/11_hires.png', rarity:'Holo Rare', marketPrice:55  },
-    { id:'c12', name:'Dracolosse', set:'Fossile',      number:'4/62',   image:'https://images.pokemontcg.io/base3/4_hires.png',  rarity:'Holo Rare', marketPrice:140 },
+    { id:'c1',  name:'Dracaufeu',  set:'Set de Base', number:'4/102',  image:'https://images.pokemontcg.io/base1/4_hires.png',  rarity:'Holo Rare', marketPrice:850 },
+    { id:'c2',  name:'Tortank',    set:'Set de Base', number:'2/102',  image:'https://images.pokemontcg.io/base1/2_hires.png',  rarity:'Holo Rare', marketPrice:320 },
+    { id:'c3',  name:'Florizarre', set:'Set de Base', number:'15/102', image:'https://images.pokemontcg.io/base1/15_hires.png', rarity:'Holo Rare', marketPrice:280 },
+    { id:'c4',  name:'Mewtwo',     set:'Set de Base', number:'10/102', image:'https://images.pokemontcg.io/base1/10_hires.png', rarity:'Holo Rare', marketPrice:195 },
+    { id:'c5',  name:'Alakazam',   set:'Set de Base', number:'1/102',  image:'https://images.pokemontcg.io/base1/1_hires.png',  rarity:'Holo Rare', marketPrice:90  },
+    { id:'c6',  name:'Pikachu',    set:'Set de Base', number:'58/102', image:'https://images.pokemontcg.io/base1/58_hires.png', rarity:'Commune',   marketPrice:18  },
+    { id:'c7',  name:'Léviator',   set:'Set de Base', number:'6/102',  image:'https://images.pokemontcg.io/base1/6_hires.png',  rarity:'Holo Rare', marketPrice:220 },
+    { id:'c8',  name:'Lugia',      set:'Neo Genesis', number:'9/111',  image:'https://images.pokemontcg.io/neo1/9_hires.png',   rarity:'Holo Rare', marketPrice:450 },
+    { id:'c9',  name:'Mew',        set:'Promo',       number:'8/8',    image:'https://images.pokemontcg.io/basep/8_hires.png',  rarity:'Promo',     marketPrice:140 },
+    { id:'c10', name:'Insécateur', set:'Jungle',      number:'10/64',  image:'https://images.pokemontcg.io/base2/10_hires.png', rarity:'Holo Rare', marketPrice:65  },
+    { id:'c11', name:'Ronflex',    set:'Jungle',      number:'11/64',  image:'https://images.pokemontcg.io/base2/11_hires.png', rarity:'Holo Rare', marketPrice:55  },
+    { id:'c12', name:'Dracolosse', set:'Fossile',     number:'4/62',   image:'https://images.pokemontcg.io/base3/4_hires.png',  rarity:'Holo Rare', marketPrice:140 },
+    { id:'c13', name:'Magmar',     set:'Fossile',     number:'39/62',  image:'https://images.pokemontcg.io/base3/39_hires.png', rarity:'Peu commune',marketPrice:8 },
+    { id:'c14', name:'Électhor',   set:'Fossile',     number:'15/62',  image:'https://images.pokemontcg.io/base3/15_hires.png', rarity:'Holo Rare', marketPrice:95 },
+    { id:'c15', name:'Artikodin',  set:'Fossile',     number:'2/62',   image:'https://images.pokemontcg.io/base3/2_hires.png',  rarity:'Holo Rare', marketPrice:110 },
+    { id:'c16', name:'Sulfura',    set:'Fossile',     number:'12/62',  image:'https://images.pokemontcg.io/base3/12_hires.png', rarity:'Holo Rare', marketPrice:130 },
   ];
 
   const USERS = [
-    { id:'u1', username:'MaxCollect',  avatar:'https://i.pravatar.cc/150?u=max',    rating:4.9, sales:247, isPower:true },
+    { id:'u1', username:'MaxCollect',  avatar:'https://i.pravatar.cc/150?u=max',    rating:4.9, sales:247, isPower:true  },
     { id:'u2', username:'LeoCards',    avatar:'https://i.pravatar.cc/150?u=leo',    rating:4.7, sales:38,  isMintyPlus:true },
-    { id:'u3', username:'Cécile_TCG',  avatar:'https://i.pravatar.cc/150?u=cecile', rating:4.8, sales:89  },
-    { id:'u4', username:'PokéParis',   avatar:'https://i.pravatar.cc/150?u=paris',  rating:4.6, sales:22  },
-    { id:'u5', username:'Yann_Vintage',avatar:'https://i.pravatar.cc/150?u=yann',   rating:5.0, sales:156, isPower:true },
+    { id:'u3', username:'Cécile_TCG',  avatar:'https://i.pravatar.cc/150?u=cecile', rating:4.8, sales:89   },
+    { id:'u4', username:'PokéParis',   avatar:'https://i.pravatar.cc/150?u=paris',  rating:4.6, sales:22   },
+    { id:'u5', username:'Yann_Vintage',avatar:'https://i.pravatar.cc/150?u=yann',   rating:5.0, sales:156, isPower:true  },
+    { id:'kilian', username:'Kilian_TCG', avatar:'https://i.pravatar.cc/150?u=kilian', rating:0, sales:0 },
   ];
 
-  const LISTINGS = [
-    { id:'l1',  cardId:'c1',  sellerId:'u1', price:820, condition:'NM',  auth:'verified',     boost:'featured',  shipping:4.5 },
-    { id:'l2',  cardId:'c2',  sellerId:'u3', price:310, condition:'EX',  auth:'verified',                          shipping:4.5 },
-    { id:'l3',  cardId:'c4',  sellerId:'u5', price:190, condition:'NM',  auth:'verified',     boost:'spotlight', shipping:3.5 },
-    { id:'l4',  cardId:'c8',  sellerId:'u1', price:440, condition:'Mint',auth:'verified',                          shipping:6.5 },
-    { id:'l5',  cardId:'c5',  sellerId:'u2', price:85,  condition:'NM',  auth:'verified',                          shipping:3.5 },
-    { id:'l6',  cardId:'c6',  sellerId:'u4', price:22,  condition:'EX',  auth:'pending',                           shipping:3.5 },
-    { id:'l7',  cardId:'c7',  sellerId:'u3', price:210, condition:'NM',  auth:'verified',                          shipping:4.5 },
-    { id:'l8',  cardId:'c12', sellerId:'u5', price:135, condition:'EX',  auth:'verified',                          shipping:4.5 },
-    { id:'l9',  cardId:'c3',  sellerId:'u1', price:270, condition:'NM',  auth:'verified',                          shipping:4.5 },
-    { id:'l10', cardId:'c9',  sellerId:'u2', price:145, condition:'NM',  auth:'unguaranteed',                      shipping:3.5 },
-    { id:'l11', cardId:'c10', sellerId:'u4', price:60,  condition:'LP',  auth:'verified',                          shipping:3.5 },
-    { id:'l12', cardId:'c11', sellerId:'u3', price:52,  condition:'EX',  auth:'verified',                          shipping:3.5 },
+  let LISTINGS = [
+    { id:'l1',  cardId:'c1',  sellerId:'u1', price:820, condition:'NM',   auth:'verified',     boost:'featured',  shipping:4.5 },
+    { id:'l2',  cardId:'c2',  sellerId:'u3', price:310, condition:'EX',   auth:'verified',                          shipping:4.5 },
+    { id:'l3',  cardId:'c4',  sellerId:'u5', price:190, condition:'NM',   auth:'verified',     boost:'spotlight', shipping:3.5 },
+    { id:'l4',  cardId:'c8',  sellerId:'u1', price:440, condition:'Mint', auth:'verified',                          shipping:6.5 },
+    { id:'l5',  cardId:'c5',  sellerId:'u2', price:85,  condition:'NM',   auth:'verified',                          shipping:3.5 },
+    { id:'l6',  cardId:'c6',  sellerId:'u4', price:22,  condition:'EX',   auth:'pending',                           shipping:3.5 },
+    { id:'l7',  cardId:'c7',  sellerId:'u3', price:210, condition:'NM',   auth:'verified',                          shipping:4.5 },
+    { id:'l8',  cardId:'c12', sellerId:'u5', price:135, condition:'EX',   auth:'verified',                          shipping:4.5 },
+    { id:'l9',  cardId:'c3',  sellerId:'u1', price:270, condition:'NM',   auth:'verified',                          shipping:4.5 },
+    { id:'l10', cardId:'c9',  sellerId:'u2', price:145, condition:'NM',   auth:'unguaranteed',                      shipping:3.5 },
+    { id:'l11', cardId:'c10', sellerId:'u4', price:60,  condition:'LP',   auth:'verified',                          shipping:3.5 },
+    { id:'l12', cardId:'c11', sellerId:'u3', price:52,  condition:'EX',   auth:'verified',                          shipping:3.5 },
+    { id:'l13', cardId:'c14', sellerId:'u5', price:88,  condition:'NM',   auth:'verified',                          shipping:3.5 },
+    { id:'l14', cardId:'c15', sellerId:'u1', price:105, condition:'NM',   auth:'verified',                          shipping:3.5 },
+    { id:'l15', cardId:'c16', sellerId:'u3', price:125, condition:'EX',   auth:'verified',                          shipping:3.5 },
   ];
 
-  const CART = [];
+  // =================================================================
+  //                            STATE
+  // =================================================================
+  const STATE = {
+    cart: [],
+    myListings: [],        // listings I created via Sell flow
+    myCollection: ['c5','c10','c11','c13'], // card IDs I "own" (pre-seeded for trade)
+    activeTrades: [],
+    tradeQuota: { used: 0, max: 1 },
+    isMintyPlus: false,
+    sellDraft: null,
+    tradeProposal: null,
+  };
 
-  // ============== HELPERS ==============
+  // =================================================================
+  //                            HELPERS
+  // =================================================================
   const findCard    = id => CARDS.find(c => c.id === id);
   const findUser    = id => USERS.find(u => u.id === id);
   const findListing = id => LISTINGS.find(l => l.id === id);
   const formatPrice = n => n.toFixed(2).replace('.', ',') + ' €';
 
+  function toast(msg) {
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.textContent = msg;
+    document.body.appendChild(el);
+    requestAnimationFrame(() => el.classList.add('show'));
+    setTimeout(() => {
+      el.classList.remove('show');
+      setTimeout(() => el.remove(), 300);
+    }, 2200);
+  }
+
   function authBadge(auth) {
     const map = {
-      verified:     { label:'Authentifiée',                cls:'auth-verified',     icon:'shield-check' },
-      pending:      { label:'En vérification',             cls:'auth-pending',      icon:'shield' },
-      unguaranteed: { label:'Authenticité non garantie',   cls:'auth-unguaranteed', icon:'shield-alert' },
+      verified:     { label:'Authentifiée',              cls:'auth-verified',     icon:'shield-check' },
+      pending:      { label:'En vérification',           cls:'auth-pending',      icon:'shield' },
+      unguaranteed: { label:'Authenticité non garantie', cls:'auth-unguaranteed', icon:'shield-alert' },
     };
-    const a = map[auth];
+    const a = map[auth] || map.pending;
     return `<span class="inline-flex items-center gap-1 px-2 py-1 ${a.cls} rounded-pill text-[10px] font-medium font-mono">
       <i data-lucide="${a.icon}" class="w-3 h-3"></i> ${a.label}
     </span>`;
   }
 
-  // ============== RENDER: LISTING CARD ==============
   function renderListingCard(listing, opts = {}) {
     const card = findCard(listing.cardId);
     return `
@@ -588,7 +940,9 @@
     `;
   }
 
-  // ============== HOME ==============
+  // =================================================================
+  //                           HOME / SEARCH
+  // =================================================================
   function renderHome() {
     const drops = LISTINGS.filter(l => l.boost === 'featured' || l.price > 200).slice(0, 6);
     const trending = LISTINGS.filter(l => !drops.includes(l)).slice(0, 8);
@@ -597,10 +951,29 @@
   }
 
   function renderSearch() {
-    document.getElementById('search-grid').innerHTML = LISTINGS.map(l => renderListingCard(l)).join('');
+    const q = (document.getElementById('search-input')?.value || '').toLowerCase().trim();
+    let results = LISTINGS;
+    if (q) {
+      results = LISTINGS.filter(l => {
+        const c = findCard(l.cardId);
+        return c.name.toLowerCase().includes(q) || c.set.toLowerCase().includes(q);
+      });
+    }
+    const grid = document.getElementById('search-grid');
+    const empty = document.getElementById('search-empty');
+    if (results.length === 0) {
+      grid.innerHTML = '';
+      empty.classList.remove('hidden');
+    } else {
+      empty.classList.add('hidden');
+      grid.innerHTML = results.map(l => renderListingCard(l)).join('');
+    }
+    if (window.lucide) lucide.createIcons();
   }
 
-  // ============== CARD DETAIL ==============
+  // =================================================================
+  //                          CARD DETAIL
+  // =================================================================
   function renderCardDetail(listingId) {
     const listing = findListing(listingId);
     if (!listing) { window.location.hash = '#/home'; return; }
@@ -613,18 +986,15 @@
           <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
         </button>
       </div>
-
       <div class="relative aspect-[3/4] bg-paper rounded-card overflow-hidden border border-ink/8 ${card.rarity.includes('Holo') ? 'holo' : ''}">
         <img src="${card.image}" alt="${card.name}" class="w-full h-full object-contain p-4" />
         ${listing.boost ? `<div class="absolute top-3 left-3 featured-label bg-coral/15 px-2 py-1 rounded">Featured · Minty</div>` : ''}
       </div>
-
       <div class="mt-5">
         ${authBadge(listing.auth)}
         <h1 class="text-2xl font-bold display mt-2">${card.name}</h1>
         <p class="text-sm text-ink/60 mt-1">${card.set} · ${card.number} · ${card.rarity}</p>
       </div>
-
       <div class="mt-5 flex items-end justify-between">
         <div>
           <p class="label-mono mb-1">Prix</p>
@@ -636,21 +1006,18 @@
           <p class="font-mono text-lg font-bold">${listing.condition}</p>
         </div>
       </div>
-
       <div class="mt-5 flex gap-3">
         <button onclick="addToCart('${listing.id}')" class="flex-1 py-3.5 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition">
           Acheter en escrow
         </button>
-        <button class="px-5 py-3.5 bg-paper border border-ink/15 font-medium rounded-card hover:bg-ink/5 transition">
+        <button onclick="toast('Offre envoyée')" class="px-5 py-3.5 bg-paper border border-ink/15 font-medium rounded-card hover:bg-ink/5 transition">
           Offre
         </button>
       </div>
-
       <a href="#/trust" class="mt-3 p-3 bg-mint/10 border border-mint/25 rounded-card flex items-center gap-3 hover:bg-mint/15 transition">
         <i data-lucide="shield-check" class="w-4 h-4 text-mint-deep flex-shrink-0"></i>
         <p class="text-xs flex-1">Comment on garantit que cette carte est authentique <span class="text-mint-deep">→</span></p>
       </a>
-
       <div class="mt-6 p-4 bg-paper border border-ink/8 rounded-card">
         <p class="label-mono mb-3">Vendeur</p>
         <div class="flex items-center gap-3">
@@ -658,22 +1025,20 @@
           <div class="flex-1">
             <div class="flex items-center gap-1.5 flex-wrap">
               <p class="text-sm font-medium">${seller.username}</p>
-              ${seller.isPower     ? '<span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-ink text-cream rounded-pill">Power</span>'    : ''}
-              ${seller.isMintyPlus ? '<span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-mint text-ink rounded-pill">Minty+</span>'    : ''}
+              ${seller.isPower     ? '<span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-ink text-cream rounded-pill">Power</span>' : ''}
+              ${seller.isMintyPlus ? '<span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-mint text-ink rounded-pill">Minty+</span>' : ''}
             </div>
             <p class="text-xs text-ink/60 mt-0.5">★ ${seller.rating} · ${seller.sales} ventes</p>
           </div>
-          <button class="text-xs font-medium px-3 py-1.5 border border-ink/15 rounded-pill">Suivre</button>
+          <button onclick="toast('${seller.username} suivi')" class="text-xs font-medium px-3 py-1.5 border border-ink/15 rounded-pill">Suivre</button>
         </div>
       </div>
-
       <div class="mt-6">
         <p class="label-mono mb-3">Historique des prix · 30 jours</p>
         <div class="bg-paper border border-ink/8 rounded-card p-4">
           <canvas id="price-chart" height="120"></canvas>
         </div>
       </div>
-
       <div class="mt-6 p-4 bg-paper border border-ink/8 rounded-card">
         <p class="label-mono mb-2">Frais & livraison</p>
         <div class="text-xs space-y-1.5 mt-2">
@@ -695,8 +1060,7 @@
     const today = new Date();
     const base = card.marketPrice;
     for (let i = 29; i >= 0; i--) {
-      const d = new Date(today);
-      d.setDate(d.getDate() - i);
+      const d = new Date(today); d.setDate(d.getDate() - i);
       labels.push(d.getDate() + '/' + (d.getMonth() + 1));
       const noise = (Math.sin(i / 4) * 0.06 + (Math.random() - 0.5) * 0.04);
       data.push(Math.round(base * (1 + noise)));
@@ -719,46 +1083,49 @@
     });
   }
 
-  // ============== CART ==============
+  // =================================================================
+  //                            CART
+  // =================================================================
   function addToCart(listingId) {
-    if (!CART.includes(listingId)) CART.push(listingId);
+    if (!STATE.cart.includes(listingId)) {
+      STATE.cart.push(listingId);
+      toast('Ajouté au panier');
+    }
     updateCartCount();
     window.location.hash = '#/cart';
   }
 
   function removeFromCart(id) {
-    const i = CART.indexOf(id);
-    if (i >= 0) CART.splice(i, 1);
+    const i = STATE.cart.indexOf(id);
+    if (i >= 0) STATE.cart.splice(i, 1);
     updateCartCount();
     renderCart();
   }
 
   function updateCartCount() {
     const el = document.getElementById('cart-count');
-    if (CART.length > 0) {
-      el.textContent = CART.length;
-      el.classList.remove('hidden');
-      el.classList.add('flex');
+    if (STATE.cart.length > 0) {
+      el.textContent = STATE.cart.length;
+      el.classList.remove('hidden'); el.classList.add('flex');
     } else {
-      el.classList.add('hidden');
-      el.classList.remove('flex');
+      el.classList.add('hidden'); el.classList.remove('flex');
     }
   }
 
   function renderCart() {
     const itemsEl = document.getElementById('cart-items');
     const summaryEl = document.getElementById('cart-summary');
-    if (CART.length === 0) {
+    if (STATE.cart.length === 0) {
       itemsEl.innerHTML = `<div class="text-center py-12 text-ink/50">
         <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-3 opacity-40"></i>
         <p>Panier vide.</p>
         <a href="#/home" class="inline-block mt-4 text-sm font-medium underline">Découvrir des cartes</a>
       </div>`;
       summaryEl.innerHTML = '';
-      lucide.createIcons();
+      if (window.lucide) lucide.createIcons();
       return;
     }
-    itemsEl.innerHTML = CART.map(id => {
+    itemsEl.innerHTML = STATE.cart.map(id => {
       const l = findListing(id);
       const c = findCard(l.cardId);
       return `
@@ -777,9 +1144,9 @@
         </div>`;
     }).join('');
 
-    const subtotal = CART.reduce((s, id) => s + findListing(id).price, 0);
+    const subtotal = STATE.cart.reduce((s, id) => s + findListing(id).price, 0);
     const fees     = subtotal * 0.05;
-    const shipping = CART.reduce((s, id) => s + findListing(id).shipping, 0);
+    const shipping = STATE.cart.reduce((s, id) => s + findListing(id).shipping, 0);
     const total    = subtotal + fees + shipping;
 
     summaryEl.innerHTML = `
@@ -795,11 +1162,11 @@
       </div>
       <a href="#/checkout" class="block w-full mt-4 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">Procéder au paiement</a>
     `;
-    lucide.createIcons();
+    if (window.lucide) lucide.createIcons();
   }
 
   function completeOrder() {
-    CART.length = 0;
+    STATE.cart.length = 0;
     updateCartCount();
     window.location.hash = '#/order-confirmed';
   }
@@ -809,12 +1176,598 @@
     else window.location.hash = '#/home';
   }
 
-  // ============== ROUTER ==============
+  // =================================================================
+  //                          SELL FLOW
+  // =================================================================
+  function initSellDraft() {
+    STATE.sellDraft = { cardId:null, photos:{face:false, back:false, edge:false}, condition:'NM', price:0, auth:null };
+  }
+
+  function renderSellPickGrid() {
+    const q = (document.getElementById('sell-pick-input')?.value || '').toLowerCase().trim();
+    let cards = CARDS;
+    if (q) cards = CARDS.filter(c => c.name.toLowerCase().includes(q) || c.set.toLowerCase().includes(q));
+    const grid = document.getElementById('sell-pick-grid');
+    grid.innerHTML = cards.map(c => `
+      <button onclick="pickCardForSale('${c.id}')" class="bg-paper border border-ink/8 rounded-card overflow-hidden hover:shadow-hover hover:border-mint transition text-left">
+        <div class="aspect-[3/4] bg-ink/5 ${c.rarity.includes('Holo') ? 'holo' : ''}">
+          <img src="${c.image}" alt="${c.name}" class="w-full h-full object-contain p-1.5" loading="lazy" />
+        </div>
+        <div class="p-2">
+          <p class="text-xs font-medium truncate">${c.name}</p>
+          <p class="text-[10px] text-ink/50 truncate">${c.set}</p>
+        </div>
+      </button>
+    `).join('');
+  }
+
+  function pickCardForSale(cardId) {
+    if (!STATE.sellDraft) initSellDraft();
+    STATE.sellDraft.cardId = cardId;
+    STATE.sellDraft.photos = { face:false, back:false, edge:false };
+    window.location.hash = '#/sell/photos';
+  }
+
+  function renderSellPhotos() {
+    if (!STATE.sellDraft?.cardId) { window.location.hash = '#/sell/pick'; return; }
+    const card = findCard(STATE.sellDraft.cardId);
+    document.getElementById('sell-photos-preview').innerHTML = `
+      <div class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+        <div class="w-12 h-16 bg-ink/5 rounded overflow-hidden flex-shrink-0">
+          <img src="${card.image}" class="w-full h-full object-contain p-1" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium truncate">${card.name}</p>
+          <p class="text-xs text-ink/55 truncate">${card.set} · ${card.number}</p>
+        </div>
+      </div>
+    `;
+    ['face','back','edge'].forEach(face => updatePhotoSlot(face));
+    updateSellPhotosCta();
+  }
+
+  function togglePhoto(face) {
+    if (!STATE.sellDraft) return;
+    STATE.sellDraft.photos[face] = !STATE.sellDraft.photos[face];
+    updatePhotoSlot(face);
+    updateSellPhotosCta();
+  }
+
+  function updatePhotoSlot(face) {
+    const el = document.getElementById('photo-' + face);
+    if (!el) return;
+    const filled = STATE.sellDraft?.photos?.[face];
+    el.classList.toggle('filled', !!filled);
+    el.innerHTML = filled
+      ? `<i data-lucide="check-circle-2" class="w-7 h-7 text-mint-deep"></i><span class="text-[10px] font-medium text-mint-deep">Photo OK</span>`
+      : `<i data-lucide="plus" class="w-6 h-6 text-ink/40"></i><span class="text-[10px] text-ink/50">Ajouter</span>`;
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function updateSellPhotosCta() {
+    const p = STATE.sellDraft?.photos;
+    const allFilled = p && p.face && p.back && p.edge;
+    const btn = document.getElementById('sell-photos-cta');
+    if (btn) btn.disabled = !allFilled;
+  }
+
+  function renderSellState() {
+    if (!STATE.sellDraft?.cardId) { window.location.hash = '#/sell/pick'; return; }
+    const card = findCard(STATE.sellDraft.cardId);
+    document.getElementById('sell-state-card-preview').innerHTML = `
+      <div class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+        <div class="w-12 h-16 bg-ink/5 rounded overflow-hidden flex-shrink-0">
+          <img src="${card.image}" class="w-full h-full object-contain p-1" />
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium truncate">${card.name}</p>
+          <p class="text-xs text-ink/55 truncate">${card.set} · ${card.number}</p>
+        </div>
+      </div>
+    `;
+    document.getElementById('suggested-hint').textContent = `Prix marché 30j : ${formatPrice(card.marketPrice)}`;
+    const priceInput = document.getElementById('price-input');
+    priceInput.value = STATE.sellDraft.price || card.marketPrice;
+    STATE.sellDraft.price = +priceInput.value;
+    updatePriceFeedback();
+  }
+
+  function setCondition(c) {
+    if (!STATE.sellDraft) return;
+    STATE.sellDraft.condition = c;
+    document.querySelectorAll('#condition-pills .cond-pill').forEach(p => {
+      p.classList.toggle('active', p.dataset.cond === c);
+    });
+  }
+
+  function updatePriceFeedback() {
+    const input = document.getElementById('price-input');
+    if (!input || !STATE.sellDraft?.cardId) return;
+    const price = +input.value || 0;
+    STATE.sellDraft.price = price;
+    const card = findCard(STATE.sellDraft.cardId);
+    const market = card.marketPrice;
+    let msg = '';
+    if (price === 0) msg = '';
+    else if (price < market * 0.7) msg = `📉 ${Math.round((1 - price/market)*100)} % sous le marché — vente rapide`;
+    else if (price > market * 1.2) msg = `📈 ${Math.round((price/market - 1)*100)} % au-dessus — vente plus lente`;
+    else msg = '✓ Aligné avec le marché';
+    document.getElementById('price-feedback').textContent = msg;
+    document.getElementById('brk-price').textContent = formatPrice(price);
+    document.getElementById('brk-fee').textContent = '−' + formatPrice(price * 0.05);
+    document.getElementById('brk-net').textContent = formatPrice(price * 0.95);
+    document.getElementById('sell-state-cta').disabled = price < 1;
+  }
+
+  function runAIVerify() {
+    if (!STATE.sellDraft?.cardId) { window.location.hash = '#/sell/pick'; return; }
+    const card = findCard(STATE.sellDraft.cardId);
+    const preview = document.getElementById('verify-card-preview');
+    preview.innerHTML = `<img src="${card.image}" class="w-full h-full object-contain p-2" />` + preview.innerHTML;
+    // Update last step after 1.2s
+    setTimeout(() => {
+      const steps = document.querySelectorAll('#verify-steps > div');
+      if (steps[2]) steps[2].innerHTML = '<i data-lucide="check-circle-2" class="w-4 h-4 text-mint-deep"></i><span>Analyse holographique</span>';
+      if (steps[3]) steps[3].innerHTML = '<i data-lucide="loader" class="w-4 h-4 text-ink/40 ai-pulse"></i><span class="text-ink/60">Cross-check base de fakes connus</span>';
+      if (window.lucide) lucide.createIcons();
+    }, 1200);
+    // Decide outcome and route
+    setTimeout(() => {
+      const r = Math.random();
+      const auth = r < 0.8 ? 'verified' : r < 0.95 ? 'pending' : 'unguaranteed';
+      STATE.sellDraft.auth = auth;
+      // Publish the listing
+      const newListing = {
+        id: 'mine-' + Date.now(),
+        cardId: STATE.sellDraft.cardId,
+        sellerId: 'kilian',
+        price: STATE.sellDraft.price,
+        condition: STATE.sellDraft.condition,
+        auth,
+        shipping: 3.5,
+      };
+      LISTINGS.unshift(newListing);
+      STATE.myListings.unshift(newListing.id);
+      window.location.hash = '#/sell/published';
+    }, 2600);
+  }
+
+  function renderSellPublished() {
+    if (!STATE.sellDraft?.cardId) { window.location.hash = '#/sell'; return; }
+    const listingId = STATE.myListings[0];
+    const listing = findListing(listingId);
+    const card = findCard(listing.cardId);
+    const auth = listing.auth;
+
+    const authMsg = {
+      verified: { icon:'check-circle-2', color:'text-mint-deep', bg:'bg-mint', title:'Authentifiée par l\'IA', sub:'Aucun problème détecté. Annonce publiée immédiatement.' },
+      pending:  { icon:'shield', color:'text-trust-blue', bg:'bg-trust-blue', title:'En vérification expert', sub:'Notre IA a un doute. Un expert humain examine sous 24 h.' },
+      unguaranteed: { icon:'shield-alert', color:'text-holo-red', bg:'bg-holo-red', title:'Authenticité non garantie', sub:'L\'IA et nos experts n\'ont pas pu confirmer. Annonce publiée avec mention transparente.' },
+    }[auth];
+
+    const html = `
+      <div class="pt-8 text-center">
+        <div class="w-16 h-16 rounded-full ${authMsg.bg} flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="${authMsg.icon}" class="w-8 h-8 ${auth === 'verified' ? 'text-ink' : 'text-cream'}"></i>
+        </div>
+        <h1 class="text-2xl font-bold display">${authMsg.title}</h1>
+        <p class="text-sm text-ink/60 mt-3 max-w-xs mx-auto leading-relaxed">${authMsg.sub}</p>
+      </div>
+
+      <div class="mt-6 p-4 bg-paper border border-ink/8 rounded-card">
+        <div class="flex gap-3">
+          <div class="w-20 h-28 bg-ink/5 rounded overflow-hidden flex-shrink-0">
+            <img src="${card.image}" class="w-full h-full object-contain p-1" />
+          </div>
+          <div class="flex-1">
+            <p class="font-medium">${card.name}</p>
+            <p class="text-xs text-ink/55 mt-0.5">${card.set} · ${card.number}</p>
+            <div class="flex items-baseline gap-2 mt-2">
+              <p class="font-mono text-xl font-bold">${formatPrice(listing.price)}</p>
+              <span class="font-mono text-[10px] uppercase tracking-wider text-ink/55">${listing.condition}</span>
+            </div>
+            <div class="mt-2">${authBadge(auth)}</div>
+          </div>
+        </div>
+      </div>
+
+      ${auth === 'verified' ? `
+      <div class="mt-6 p-4 bg-coral/10 border border-coral/25 rounded-card">
+        <p class="featured-label mb-1">Suggestion</p>
+        <p class="font-medium">Booste cette carte pour vendre 3× plus vite</p>
+        <p class="text-xs text-ink/60 mt-1">Cette carte se vend mieux en Home Featured 48 h.</p>
+        <a href="#/pricing" class="inline-flex items-center gap-1.5 mt-3 px-3 py-2 bg-coral text-cream text-xs font-medium rounded-pill">
+          Voir les Boosts <i data-lucide="arrow-right" class="w-3 h-3"></i>
+        </a>
+      </div>
+      ` : ''}
+
+      <a href="#/dashboard" class="block w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">
+        Voir mes annonces
+      </a>
+      <a href="#/home" class="block w-full mt-3 py-3 bg-paper border border-ink/15 font-medium rounded-card text-center text-sm hover:bg-ink/5 transition">
+        Retour à l'accueil
+      </a>
+    `;
+    document.getElementById('sell-published-content').innerHTML = html;
+    if (window.lucide) lucide.createIcons();
+  }
+
+  // =================================================================
+  //                         DASHBOARD
+  // =================================================================
+  function renderDashboard() {
+    const myL = STATE.myListings.map(id => findListing(id)).filter(Boolean);
+    const verified = myL.filter(l => l.auth === 'verified').length;
+    const totalValue = myL.reduce((s,l) => s + l.price, 0);
+    document.getElementById('dashboard-stats').innerHTML = `
+      <div class="p-3 bg-paper border border-ink/8 rounded-card text-center">
+        <p class="font-mono font-bold">${myL.length}</p>
+        <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Annonces</p>
+      </div>
+      <div class="p-3 bg-paper border border-ink/8 rounded-card text-center">
+        <p class="font-mono font-bold">${verified}</p>
+        <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Vérifiées</p>
+      </div>
+      <div class="p-3 bg-paper border border-ink/8 rounded-card text-center">
+        <p class="font-mono font-bold">${formatPrice(totalValue)}</p>
+        <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Valeur</p>
+      </div>
+    `;
+    const list = document.getElementById('dashboard-listings');
+    if (myL.length === 0) {
+      list.innerHTML = `<div class="text-center py-12 text-ink/50">
+        <i data-lucide="package" class="w-12 h-12 mx-auto mb-3 opacity-40"></i>
+        <p>Pas encore d'annonce.</p>
+        <a href="#/sell" class="inline-block mt-4 text-sm font-medium underline">Vendre ma première carte</a>
+      </div>`;
+    } else {
+      list.innerHTML = myL.map(l => {
+        const c = findCard(l.cardId);
+        return `
+          <a href="#/card/${l.id}" class="flex gap-3 p-3 bg-paper border border-ink/8 rounded-card hover:shadow-card transition">
+            <div class="w-16 h-20 bg-ink/5 rounded overflow-hidden flex-shrink-0">
+              <img src="${c.image}" class="w-full h-full object-contain p-1" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium truncate">${c.name}</p>
+              <p class="text-xs text-ink/55 truncate">${c.set} · ${l.condition}</p>
+              <p class="font-mono text-sm font-bold mt-1">${formatPrice(l.price)}</p>
+              <div class="mt-1">${authBadge(l.auth)}</div>
+            </div>
+          </a>`;
+      }).join('');
+    }
+    if (window.lucide) lucide.createIcons();
+  }
+
+  // =================================================================
+  //                          TRADE FLOW
+  // =================================================================
+  function renderTrade() {
+    document.getElementById('trade-quota-display').textContent = `${STATE.tradeQuota.max - STATE.tradeQuota.used} / ${STATE.tradeQuota.max}`;
+    const list = document.getElementById('active-trades-list');
+    if (STATE.activeTrades.length === 0) {
+      list.innerHTML = `<div class="p-4 bg-paper border border-ink/8 rounded-card text-center text-sm text-ink/55">
+        Aucun troc en cours.
+      </div>`;
+    } else {
+      list.innerHTML = STATE.activeTrades.map(t => {
+        const target = findUser(t.targetUserId);
+        const myCardsImg = t.myCards.slice(0,2).map(id => `<img src="${findCard(findListing(id)?.cardId || id).image}" class="w-8 h-10 object-contain bg-ink/5 rounded" />`).join('');
+        const theirCardsImg = t.theirCards.slice(0,2).map(id => `<img src="${findCard(findListing(id).cardId).image}" class="w-8 h-10 object-contain bg-ink/5 rounded" />`).join('');
+        return `
+          <div class="p-3 bg-paper border border-ink/8 rounded-card">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <img src="${target.avatar}" class="w-8 h-8 rounded-full" />
+                <div>
+                  <p class="text-xs font-medium">${target.username}</p>
+                  <p class="text-[10px] text-ink/55">En attente · 48 h</p>
+                </div>
+              </div>
+              <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-1 bg-trust-blue/10 text-trust-blue rounded-pill">Pending</span>
+            </div>
+            <div class="mt-3 flex items-center gap-2">
+              <div class="flex gap-1">${myCardsImg}</div>
+              <i data-lucide="arrow-right-left" class="w-4 h-4 text-ink/40 mx-1"></i>
+              <div class="flex gap-1">${theirCardsImg}</div>
+            </div>
+          </div>`;
+      }).join('');
+    }
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function renderTradeUsersList() {
+    const list = document.getElementById('trade-users-list');
+    const others = USERS.filter(u => u.id !== 'kilian');
+    list.innerHTML = others.map(u => {
+      const userListings = LISTINGS.filter(l => l.sellerId === u.id);
+      return `
+        <a href="#/trade/build/${u.id}" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card hover:shadow-card transition">
+          <img src="${u.avatar}" class="w-12 h-12 rounded-full object-cover flex-shrink-0" />
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <p class="text-sm font-medium">${u.username}</p>
+              ${u.isPower     ? '<span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-ink text-cream rounded-pill">Power</span>' : ''}
+              ${u.isMintyPlus ? '<span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-mint text-ink rounded-pill">Minty+</span>' : ''}
+            </div>
+            <p class="text-xs text-ink/55 mt-0.5">★ ${u.rating} · ${userListings.length} cartes en vente</p>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40 flex-shrink-0"></i>
+        </a>`;
+    }).join('');
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function startTradeWith(targetUserId) {
+    STATE.tradeProposal = { targetUserId, myCards: [], theirCards: [] };
+  }
+
+  function renderTradeBuild(targetUserId) {
+    if (!STATE.tradeProposal || STATE.tradeProposal.targetUserId !== targetUserId) {
+      startTradeWith(targetUserId);
+    }
+    const target = findUser(targetUserId);
+    const myCardsPool = [
+      ...STATE.myCollection.map(cid => ({ id:'col-'+cid, cardId:cid, price:findCard(cid).marketPrice, condition:'NM' })),
+      ...STATE.myListings.map(id => findListing(id)).filter(Boolean),
+    ];
+    const theirCardsPool = LISTINGS.filter(l => l.sellerId === targetUserId);
+
+    const myValue = STATE.tradeProposal.myCards.reduce((s, id) => {
+      const item = myCardsPool.find(x => x.id === id);
+      return s + (item?.price || 0);
+    }, 0);
+    const theirValue = STATE.tradeProposal.theirCards.reduce((s, id) => s + (findListing(id)?.price || 0), 0);
+    const delta = myValue - theirValue;
+    const deltaPct = theirValue > 0 ? (delta / theirValue) * 100 : 0;
+
+    const html = `
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-3">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <div class="flex items-center gap-3 mb-3">
+          <img src="${target.avatar}" class="w-10 h-10 rounded-full object-cover" />
+          <div>
+            <p class="text-xs text-ink/55">Trocer avec</p>
+            <p class="font-bold">${target.username}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 p-3 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-2">Tes cartes à offrir (${STATE.tradeProposal.myCards.length})</p>
+        <div class="grid grid-cols-4 gap-2">
+          ${myCardsPool.length === 0
+            ? '<p class="col-span-4 text-xs text-ink/50 text-center py-4">Vends d\'abord des cartes pour avoir une collection à proposer.</p>'
+            : myCardsPool.map(item => {
+              const card = findCard(item.cardId);
+              const selected = STATE.tradeProposal.myCards.includes(item.id);
+              return `<button onclick="toggleMyTradeCard('${item.id}')" class="relative aspect-[3/4] bg-ink/5 rounded overflow-hidden ${selected ? 'ring-2 ring-mint' : ''}">
+                <img src="${card.image}" class="w-full h-full object-contain p-1" />
+                ${selected ? '<div class="absolute inset-0 bg-mint/20 flex items-center justify-center"><i data-lucide="check" class="w-5 h-5 text-mint-deep"></i></div>' : ''}
+              </button>`;
+            }).join('')
+          }
+        </div>
+      </div>
+
+      <div class="mt-3 p-3 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-2">Cartes que tu veux de ${target.username} (${STATE.tradeProposal.theirCards.length})</p>
+        <div class="grid grid-cols-4 gap-2">
+          ${theirCardsPool.length === 0
+            ? '<p class="col-span-4 text-xs text-ink/50 text-center py-4">Aucune carte en vente.</p>'
+            : theirCardsPool.map(l => {
+              const card = findCard(l.cardId);
+              const selected = STATE.tradeProposal.theirCards.includes(l.id);
+              return `<button onclick="toggleTheirTradeCard('${l.id}')" class="relative aspect-[3/4] bg-ink/5 rounded overflow-hidden ${selected ? 'ring-2 ring-mint' : ''}">
+                <img src="${card.image}" class="w-full h-full object-contain p-1" />
+                ${selected ? '<div class="absolute inset-0 bg-mint/20 flex items-center justify-center"><i data-lucide="check" class="w-5 h-5 text-mint-deep"></i></div>' : ''}
+              </button>`;
+            }).join('')
+          }
+        </div>
+      </div>
+
+      <div class="mt-4 p-4 bg-ink text-cream rounded-card text-sm">
+        <p class="label-mono mb-3" style="color:#5EE2A0;">Valorisation</p>
+        <div class="flex justify-between mb-1">
+          <span class="text-cream/65">Tu offres</span>
+          <span class="font-mono font-bold">${formatPrice(myValue)}</span>
+        </div>
+        <div class="flex justify-between mb-3">
+          <span class="text-cream/65">Tu reçois</span>
+          <span class="font-mono font-bold">${formatPrice(theirValue)}</span>
+        </div>
+        <div class="pt-3 border-t border-cream/15 flex justify-between items-baseline">
+          <span class="font-medium">Delta</span>
+          <span class="font-mono font-bold ${delta < 0 ? 'text-holo-red' : 'text-mint'}">
+            ${delta >= 0 ? '+' : ''}${formatPrice(delta)} (${deltaPct >= 0 ? '+' : ''}${deltaPct.toFixed(0)} %)
+          </span>
+        </div>
+        ${Math.abs(deltaPct) > 15 ? `<p class="text-xs text-cream/60 mt-2">${delta < 0 ? '⚠️ Tu offres significativement moins. Ajoute un appoint ou retire des cartes côté droit.' : '💡 Tu offres beaucoup plus. Tu peux ajouter une carte côté droit.'}</p>` : ''}
+      </div>
+
+      <button onclick="proceedToSeal()" ${STATE.tradeProposal.myCards.length === 0 || STATE.tradeProposal.theirCards.length === 0 ? 'disabled' : ''} class="w-full mt-5 py-4 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition disabled:opacity-30 disabled:cursor-not-allowed">
+        Continuer
+      </button>
+    `;
+    document.getElementById('trade-build-content').innerHTML = html;
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function toggleMyTradeCard(id) {
+    const arr = STATE.tradeProposal.myCards;
+    const i = arr.indexOf(id);
+    if (i >= 0) arr.splice(i, 1); else arr.push(id);
+    renderTradeBuild(STATE.tradeProposal.targetUserId);
+  }
+  function toggleTheirTradeCard(id) {
+    const arr = STATE.tradeProposal.theirCards;
+    const i = arr.indexOf(id);
+    if (i >= 0) arr.splice(i, 1); else arr.push(id);
+    renderTradeBuild(STATE.tradeProposal.targetUserId);
+  }
+
+  function proceedToSeal() {
+    // Check quota
+    if (STATE.tradeQuota.used >= STATE.tradeQuota.max && !STATE.isMintyPlus) {
+      window.location.hash = '#/trade/credits';
+      return;
+    }
+    window.location.hash = '#/trade/seal';
+  }
+
+  function renderTradeSeal() {
+    if (!STATE.tradeProposal) { window.location.hash = '#/trade'; return; }
+    const target = findUser(STATE.tradeProposal.targetUserId);
+    const myCardsPool = [
+      ...STATE.myCollection.map(cid => ({ id:'col-'+cid, cardId:cid, price:findCard(cid).marketPrice, condition:'NM' })),
+      ...STATE.myListings.map(id => findListing(id)).filter(Boolean),
+    ];
+    const myItems   = STATE.tradeProposal.myCards.map(id => myCardsPool.find(x => x.id === id)).filter(Boolean);
+    const theirItems = STATE.tradeProposal.theirCards.map(id => findListing(id)).filter(Boolean);
+
+    const myValue = myItems.reduce((s, x) => s + x.price, 0);
+    const theirValue = theirItems.reduce((s, x) => s + x.price, 0);
+    const delta = myValue - theirValue;
+
+    const html = `
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-3">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <h1 class="text-2xl font-bold display">Sceller le troc</h1>
+        <p class="text-sm text-ink/60 mt-2">Vérifie les deux côtés avant d'envoyer ta proposition à ${target.username}.</p>
+      </div>
+
+      <div class="mt-5 p-4 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-3">Tu offres (${myItems.length})</p>
+        <div class="space-y-2">
+          ${myItems.map(x => {
+            const c = findCard(x.cardId);
+            return `<div class="flex items-center gap-3">
+              <div class="w-12 h-16 bg-ink/5 rounded overflow-hidden flex-shrink-0"><img src="${c.image}" class="w-full h-full object-contain p-1" /></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium truncate">${c.name}</p>
+                <p class="text-xs text-ink/55">${c.set} · ${x.condition}</p>
+              </div>
+              <span class="font-mono text-sm font-bold">${formatPrice(x.price)}</span>
+            </div>`;
+          }).join('')}
+          <div class="flex justify-between pt-3 border-t border-ink/10 text-sm">
+            <span class="font-medium">Total offert</span>
+            <span class="font-mono font-bold">${formatPrice(myValue)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3 p-4 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-3">Tu reçois (${theirItems.length})</p>
+        <div class="space-y-2">
+          ${theirItems.map(l => {
+            const c = findCard(l.cardId);
+            return `<div class="flex items-center gap-3">
+              <div class="w-12 h-16 bg-ink/5 rounded overflow-hidden flex-shrink-0"><img src="${c.image}" class="w-full h-full object-contain p-1" /></div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium truncate">${c.name}</p>
+                <p class="text-xs text-ink/55">${c.set} · ${l.condition}</p>
+              </div>
+              <span class="font-mono text-sm font-bold">${formatPrice(l.price)}</span>
+            </div>`;
+          }).join('')}
+          <div class="flex justify-between pt-3 border-t border-ink/10 text-sm">
+            <span class="font-medium">Total reçu</span>
+            <span class="font-mono font-bold">${formatPrice(theirValue)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 p-3 bg-mint/10 border border-mint/25 rounded-card flex items-start gap-2.5">
+        <i data-lucide="shield-check" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i>
+        <p class="text-xs">
+          <span class="font-medium">Escrow double envoi</span> — les deux cartes sont expédiées au même moment et validées à réception. Si une carte n'arrive pas, on rembourse l'autre côté.
+        </p>
+      </div>
+
+      <div class="mt-4 p-3 bg-paper border border-ink/8 rounded-card flex items-center justify-between">
+        <p class="text-xs">Trocs ce mois</p>
+        <p class="font-mono text-sm font-bold">${STATE.tradeQuota.used} → ${STATE.tradeQuota.used + 1} / ${STATE.tradeQuota.max}</p>
+      </div>
+
+      <button onclick="sealTrade()" class="w-full mt-5 py-4 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition">
+        Envoyer la proposition à ${target.username}
+      </button>
+    `;
+    document.getElementById('trade-seal-content').innerHTML = html;
+    if (window.lucide) lucide.createIcons();
+  }
+
+  function sealTrade() {
+    if (!STATE.tradeProposal) return;
+    STATE.activeTrades.push({
+      id: 't-' + Date.now(),
+      targetUserId: STATE.tradeProposal.targetUserId,
+      myCards: [...STATE.tradeProposal.myCards],
+      theirCards: [...STATE.tradeProposal.theirCards],
+      status: 'pending',
+    });
+    STATE.tradeQuota.used += 1;
+    STATE.tradeProposal = null;
+    window.location.hash = '#/trade/sealed';
+  }
+
+  function buyCredits(plan) {
+    if (plan === 'minty+') {
+      STATE.isMintyPlus = true;
+      toast('Bienvenue dans Minty+ 🎉');
+    } else if (plan === 'single') {
+      STATE.tradeQuota.max += 1;
+      toast('+1 troc débloqué');
+    } else if (plan === 'pack5') {
+      STATE.tradeQuota.max += 5;
+      toast('Pack 5 trocs débloqué');
+    }
+    window.location.hash = '#/trade';
+  }
+
+  // =================================================================
+  //                         PROFILE
+  // =================================================================
+  function renderProfile() {
+    const statsEl = document.getElementById('profile-stats');
+    statsEl.innerHTML = `
+      <div class="p-3 bg-paper border border-ink/8 rounded-card">
+        <p class="font-mono font-bold">${STATE.myListings.length}</p>
+        <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Ventes</p>
+      </div>
+      <div class="p-3 bg-paper border border-ink/8 rounded-card">
+        <p class="font-mono font-bold">${STATE.activeTrades.length}</p>
+        <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Trocs</p>
+      </div>
+      <div class="p-3 bg-paper border border-ink/8 rounded-card">
+        <p class="font-mono font-bold">${STATE.isMintyPlus ? 'Plus' : '—'}</p>
+        <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Statut</p>
+      </div>
+    `;
+    const badgesEl = document.getElementById('profile-badges');
+    badgesEl.innerHTML = STATE.isMintyPlus
+      ? '<span class="font-mono text-[10px] uppercase tracking-wider px-2 py-1 bg-mint text-ink rounded-pill">Minty+</span>'
+      : '<span class="font-mono text-[10px] uppercase tracking-wider px-2 py-1 bg-ink text-cream rounded-pill">Débutant</span>';
+  }
+
+  // =================================================================
+  //                           ROUTER
+  // =================================================================
   function navigate() {
     const hash = window.location.hash || '#/home';
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
 
     let routeKey = 'home';
+
     if (hash.startsWith('#/card/')) {
       const id = hash.split('/')[2];
       renderCardDetail(id);
@@ -831,6 +1784,64 @@
       renderSearch();
       document.getElementById('screen-search').classList.add('active');
       routeKey = 'search';
+    } else if (hash === '#/sell') {
+      document.getElementById('screen-sell').classList.add('active');
+      routeKey = 'sell';
+    } else if (hash === '#/sell/pick') {
+      if (!STATE.sellDraft) initSellDraft();
+      renderSellPickGrid();
+      document.getElementById('screen-sell-pick').classList.add('active');
+      routeKey = 'sell';
+    } else if (hash === '#/sell/photos') {
+      renderSellPhotos();
+      document.getElementById('screen-sell-photos').classList.add('active');
+      routeKey = 'sell';
+    } else if (hash === '#/sell/state') {
+      document.getElementById('screen-sell-state').classList.add('active');
+      renderSellState();
+      routeKey = 'sell';
+    } else if (hash === '#/sell/verify') {
+      document.getElementById('screen-sell-verify').classList.add('active');
+      runAIVerify();
+      routeKey = 'sell';
+    } else if (hash === '#/sell/published') {
+      renderSellPublished();
+      document.getElementById('screen-sell-published').classList.add('active');
+      routeKey = 'sell';
+    } else if (hash === '#/trade') {
+      renderTrade();
+      document.getElementById('screen-trade').classList.add('active');
+      routeKey = 'trade';
+    } else if (hash === '#/trade/propose') {
+      renderTradeUsersList();
+      document.getElementById('screen-trade-propose').classList.add('active');
+      routeKey = 'trade';
+    } else if (hash.startsWith('#/trade/build/')) {
+      const uid = hash.split('/')[3];
+      renderTradeBuild(uid);
+      document.getElementById('screen-trade-build').classList.add('active');
+      routeKey = 'trade';
+    } else if (hash === '#/trade/seal') {
+      renderTradeSeal();
+      document.getElementById('screen-trade-seal').classList.add('active');
+      routeKey = 'trade';
+    } else if (hash === '#/trade/sealed') {
+      document.getElementById('screen-trade-sealed').classList.add('active');
+      routeKey = 'trade';
+    } else if (hash === '#/trade/credits') {
+      document.getElementById('screen-trade-credits').classList.add('active');
+      routeKey = 'trade';
+    } else if (hash === '#/dashboard') {
+      renderDashboard();
+      document.getElementById('screen-dashboard').classList.add('active');
+      routeKey = 'sell';
+    } else if (hash === '#/pricing') {
+      document.getElementById('screen-pricing').classList.add('active');
+      routeKey = '';
+    } else if (hash === '#/profile') {
+      renderProfile();
+      document.getElementById('screen-profile').classList.add('active');
+      routeKey = 'profile';
     } else {
       routeKey = hash.replace('#/', '');
       const el = document.getElementById('screen-' + routeKey);
@@ -844,10 +1855,12 @@
     });
 
     window.scrollTo(0, 0);
-    lucide.createIcons();
+    if (window.lucide) lucide.createIcons();
   }
 
-  // ============== INIT ==============
+  // =================================================================
+  //                            INIT
+  // =================================================================
   document.addEventListener('DOMContentLoaded', () => {
     renderHome();
     navigate();
