@@ -1,153 +1,858 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Test de la stack — Bootcamp Delta</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="theme-color" content="#F2EFE7" />
+  <title>Minty · La marketplace sécurisée des cartes Pokémon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0F1410',
+            'ink-soft': '#1a221d',
+            mint: '#5EE2A0',
+            'mint-deep': '#2ec77f',
+            cream: '#F2EFE7',
+            paper: '#FAF8F2',
+            gold: '#D4AF37',
+            silver: '#B8B8B8',
+            bronze: '#CD7F32',
+            'holo-red': '#FF3B5C',
+            'trust-blue': '#2D6CDF',
+            coral: '#D85A30',
+          },
+          fontFamily: {
+            sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          borderRadius: {
+            card: '14px',
+            pill: '999px',
+          },
+          boxShadow: {
+            card: '0 2px 8px -2px rgba(15,20,16,0.06), 0 1px 3px -1px rgba(15,20,16,0.04)',
+            hover: '0 8px 24px -8px rgba(15,20,16,0.12), 0 2px 6px -2px rgba(15,20,16,0.06)',
+          },
+        }
+      }
+    }
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    html { -webkit-tap-highlight-color: transparent; }
     body {
-      min-height: 100vh;
-      background: #000;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 2rem;
-      position: relative;
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      font-feature-settings: "ss01", "cv11";
+      -webkit-font-smoothing: antialiased;
     }
 
-    h1 {
-      color: #C8A2D9;
-      font-size: 4rem;
-      font-weight: 700;
-      margin-bottom: 1.5rem;
-    }
-
-    h2 {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 1.5rem;
-      font-weight: 400;
-      margin-bottom: 3rem;
-    }
-
-    .stack-status {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      padding: 1.25rem 1.5rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      font-size: 0.95rem;
-      color: rgba(255, 255, 255, 0.85);
-      min-width: 320px;
-    }
-
-    .status-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .status-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      flex-shrink: 0;
-      background: #888;
-      transition: background 0.3s ease;
-    }
-
-    .status-dot.ok { background: #4ade80; box-shadow: 0 0 8px #4ade80; }
-    .status-dot.error { background: #f87171; box-shadow: 0 0 8px #f87171; }
-    .status-dot.loading {
-      background: #C8A2D9;
-      animation: pulse 1s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .status-label {
+    .label-mono {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 0.68rem;
       font-weight: 500;
+      color: rgba(15, 20, 16, 0.55);
     }
 
-    .status-value {
-      color: rgba(255, 255, 255, 0.6);
-      font-size: 0.85rem;
-      margin-left: auto;
+    .display { letter-spacing: -0.03em; line-height: 1.05; }
+
+    .screen { display: none; }
+    .screen.active { display: block; animation: fadeIn 0.3s ease-out; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
-    .signature {
+    .holo { position: relative; overflow: hidden; }
+    .holo::after {
+      content: '';
       position: absolute;
-      bottom: 2rem;
-      color: rgba(255, 255, 255, 0.4);
-      font-size: 0.9rem;
+      inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(94,226,160,0.18) 50%, transparent 70%);
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      animation: shimmer 6s ease infinite;
+    }
+    @keyframes shimmer {
+      0%,100% { transform: translateX(-30%); opacity: 0.3; }
+      50%     { transform: translateX(30%);  opacity: 0.6; }
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2.5rem; }
-      h2 { font-size: 1.1rem; }
+    .auth-verified     { background: rgba(94,226,160,0.15);  color: #15673f; }
+    .auth-pending      { background: rgba(45,108,223,0.12);  color: #1f4ea3; }
+    .auth-unguaranteed { background: rgba(255,59,92,0.12);   color: #b8243f; }
+
+    .featured-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      color: rgba(216, 90, 48, 0.9);
+      text-transform: uppercase;
     }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .signature-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #5EE2A0;
+      box-shadow: 0 0 8px rgba(94,226,160,0.6);
+    }
+
+    .nav-item.active { color: #0F1410; }
+    .nav-item:not(.active) { color: rgba(15,20,16,0.45); }
   </style>
 </head>
-<body>
-  <h1>✅ Test de la stack</h1>
-  <h2>Bootcamp Ops &amp; Product · Delta Business School</h2>
+<body class="bg-cream text-ink min-h-screen">
 
-  <div class="stack-status">
-    <div class="status-row">
-      <span class="status-dot ok"></span>
-      <span class="status-label">Frontend</span>
-      <span class="status-value">GitHub Pages</span>
+  <!-- ============== TopBar ============== -->
+  <header class="sticky top-0 z-50 bg-cream/85 backdrop-blur-md border-b border-ink/5">
+    <div class="max-w-md mx-auto flex items-center justify-between px-4 py-3">
+      <a href="#/home" class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-full bg-mint flex items-center justify-center font-bold text-ink">M</div>
+        <div class="flex items-center gap-1.5">
+          <span class="font-bold text-lg display">Minty</span>
+          <div class="signature-dot"></div>
+        </div>
+      </a>
+      <div class="flex items-center gap-1">
+        <a href="#/cart" class="p-2 hover:bg-ink/5 rounded-full transition relative" aria-label="Panier">
+          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
+          <span id="cart-count" class="hidden absolute -top-0.5 -right-0.5 bg-coral text-cream text-[10px] font-mono font-bold w-4 h-4 rounded-full items-center justify-center"></span>
+        </a>
+        <button class="p-2 hover:bg-ink/5 rounded-full transition" aria-label="Notifications">
+          <i data-lucide="bell" class="w-5 h-5"></i>
+        </button>
+      </div>
     </div>
-    <div class="status-row">
-      <span class="status-dot loading" id="supabase-dot"></span>
-      <span class="status-label">Supabase</span>
-      <span class="status-value" id="supabase-status">connexion…</span>
+  </header>
+
+  <!-- ============== Main ============== -->
+  <main class="max-w-md mx-auto px-4 pb-28 pt-2">
+
+    <!-- ===== HOME ===== -->
+    <section id="screen-home" class="screen active">
+      <div class="pt-4 pb-2">
+        <p class="label-mono mb-3">Drop culture meets trust</p>
+        <h1 class="text-3xl font-bold display leading-[1.05]">
+          Achète et vends tes cartes Pokémon <span class="text-mint-deep">sans peur</span> de l'arnaque.
+        </h1>
+        <p class="text-sm text-ink/65 mt-4 leading-relaxed">
+          Chaque carte vérifiée par notre IA puis par un expert humain. Paiement séquestré jusqu'à réception. Take rate 5 %.
+        </p>
+      </div>
+
+      <a href="#/trust" class="flex items-center gap-3 mt-6 p-3 bg-paper border border-ink/8 rounded-card hover:shadow-card transition">
+        <div class="w-9 h-9 rounded-full bg-mint/15 flex items-center justify-center flex-shrink-0">
+          <i data-lucide="shield-check" class="w-5 h-5 text-mint-deep"></i>
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium">Système de confiance à 4 niveaux</p>
+          <p class="text-xs text-ink/55">IA · Expert humain · Escrow · Bannissement</p>
+        </div>
+        <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40 flex-shrink-0"></i>
+      </a>
+
+      <section class="mt-8">
+        <div class="flex items-end justify-between mb-3">
+          <h2 class="label-mono">Drops</h2>
+          <span class="text-xs font-medium text-ink/55">Tout voir</span>
+        </div>
+        <div id="drops-row" class="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4 pb-2 snap-x"></div>
+      </section>
+
+      <section class="mt-8">
+        <div class="flex items-end justify-between mb-3">
+          <h2 class="label-mono">Trending · 7 jours</h2>
+          <span class="text-xs font-medium text-ink/55">Tout voir</span>
+        </div>
+        <div id="trending-grid" class="grid grid-cols-2 gap-3"></div>
+      </section>
+
+      <section class="mt-12 mb-6 p-5 bg-ink text-cream rounded-card">
+        <p class="label-mono text-mint mb-2" style="color:#5EE2A0;">La promesse</p>
+        <p class="text-lg font-medium display leading-tight">
+          Sérieux comme une banque.<br>Désirable comme un sneaker drop.
+        </p>
+      </section>
+    </section>
+
+    <!-- ===== CARD DETAIL (dynamic) ===== -->
+    <section id="screen-card" class="screen">
+      <div id="card-detail-content"></div>
+    </section>
+
+    <!-- ===== TRUST PAGE ===== -->
+    <section id="screen-trust" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-4">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <p class="label-mono mb-3">Page Confiance</p>
+        <h1 class="text-3xl font-bold display">Comment on rend chaque achat aussi sûr qu'en boutique.</h1>
+      </div>
+
+      <div class="mt-8 space-y-3">
+        <div class="bg-paper border border-ink/8 rounded-card p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-full bg-mint flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">1</div>
+            <div>
+              <p class="font-medium">L'IA vérifie chaque carte mise en vente</p>
+              <p class="text-sm text-ink/60 mt-1">Photo face / dos / tranche obligatoire. Notre modèle vision détecte les anomalies (mauvaises proportions, polices fake, holo aberrant).</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-paper border border-ink/8 rounded-card p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-full bg-trust-blue text-cream flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">2</div>
+            <div>
+              <p class="font-medium">Doute IA ? Un expert humain tranche</p>
+              <p class="text-sm text-ink/60 mt-1">Notre équipe d'experts collectionneurs revoit chaque cas ambigu en moins de 24 h.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-paper border border-ink/8 rounded-card p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-full bg-cream border-2 border-ink/15 flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">3</div>
+            <div>
+              <p class="font-medium">Toujours un doute ? Badge transparent</p>
+              <p class="text-sm text-ink/60 mt-1">L'annonce reste publiée avec la mention « Authenticité non garantie ». Tu décides en connaissance de cause.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-paper border border-ink/8 rounded-card p-4">
+          <div class="flex items-start gap-3">
+            <div class="w-9 h-9 rounded-full bg-holo-red text-cream flex items-center justify-center flex-shrink-0 font-mono text-sm font-bold">4</div>
+            <div>
+              <p class="font-medium">Fake confirmé ? Suppression et bannissement</p>
+              <p class="text-sm text-ink/60 mt-1">Trois alertes = bannissement définitif du vendeur. Pas de seconde chance pour les arnaqueurs.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 p-5 bg-ink text-cream rounded-card">
+        <p class="label-mono mb-2" style="color:#5EE2A0;">Et le paiement ?</p>
+        <h3 class="text-xl font-bold display mb-3">Argent séquestré · Libéré à réception.</h3>
+        <p class="text-sm text-cream/70 leading-relaxed">
+          Quand tu paies, ton argent reste bloqué chez notre partenaire bancaire (Stripe Connect). Le vendeur le reçoit seulement quand tu confirmes que la carte est bien arrivée. Si problème, on rembourse — pas de discussion.
+        </p>
+      </div>
+
+      <div class="mt-6 mb-6">
+        <p class="label-mono mb-3">Commission comparée</p>
+        <div class="grid grid-cols-3 gap-2 text-center">
+          <div class="p-3 bg-paper border-2 border-mint rounded-card">
+            <p class="label-mono mb-1" style="font-size: 0.6rem;">Minty</p>
+            <p class="text-lg font-bold text-mint-deep font-mono">5 %</p>
+          </div>
+          <div class="p-3 bg-paper border border-ink/8 rounded-card">
+            <p class="label-mono mb-1" style="font-size: 0.6rem;">Vinted</p>
+            <p class="text-lg font-bold text-ink/60 font-mono">10 %</p>
+          </div>
+          <div class="p-3 bg-paper border border-ink/8 rounded-card">
+            <p class="label-mono mb-1" style="font-size: 0.6rem;">eBay</p>
+            <p class="text-lg font-bold text-ink/60 font-mono">12 %</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CART ===== -->
+    <section id="screen-cart" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-4">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <h1 class="text-3xl font-bold display">Panier</h1>
+      </div>
+      <div id="cart-items" class="mt-6 space-y-3"></div>
+      <div id="cart-summary" class="mt-6"></div>
+    </section>
+
+    <!-- ===== CHECKOUT ===== -->
+    <section id="screen-checkout" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-4">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <h1 class="text-3xl font-bold display">Paiement sécurisé</h1>
+      </div>
+      <div class="mt-6 p-4 bg-mint/10 border border-mint/30 rounded-card flex items-start gap-3">
+        <i data-lucide="lock" class="w-5 h-5 text-mint-deep mt-0.5 flex-shrink-0"></i>
+        <div>
+          <p class="text-sm font-medium">Argent séquestré jusqu'à réception confirmée</p>
+          <p class="text-xs text-ink/65 mt-1">Si la carte ne correspond pas, tu es remboursé.</p>
+        </div>
+      </div>
+      <div class="mt-6">
+        <p class="label-mono mb-2">Carte bancaire</p>
+        <div class="p-4 bg-paper border border-ink/10 rounded-card">
+          <input type="text" placeholder="1234 5678 9012 3456" class="w-full bg-transparent outline-none font-mono text-sm placeholder:text-ink/30" />
+          <div class="flex gap-3 mt-3">
+            <input type="text" placeholder="MM/AA" class="flex-1 bg-transparent outline-none font-mono text-sm placeholder:text-ink/30" />
+            <input type="text" placeholder="CVC" class="w-20 bg-transparent outline-none font-mono text-sm placeholder:text-ink/30" />
+          </div>
+        </div>
+        <p class="text-xs text-ink/45 mt-2 flex items-center gap-1">
+          <i data-lucide="info" class="w-3 h-3"></i> Stripe — démo non fonctionnelle (MVP)
+        </p>
+      </div>
+      <button onclick="completeOrder()" class="w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition">
+        Payer en escrow
+      </button>
+    </section>
+
+    <!-- ===== ORDER CONFIRMED ===== -->
+    <section id="screen-order-confirmed" class="screen">
+      <div class="pt-10 text-center">
+        <div class="w-16 h-16 rounded-full bg-mint flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="check" class="w-8 h-8 text-ink"></i>
+        </div>
+        <h1 class="text-3xl font-bold display">Commande confirmée.</h1>
+        <p class="text-sm text-ink/60 mt-3">Ton argent est en escrow. Le vendeur va expédier sous 48 h.</p>
+      </div>
+      <div class="mt-8 p-4 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-3">Étapes</p>
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-mint flex items-center justify-center">
+              <i data-lucide="check" class="w-3.5 h-3.5 text-ink"></i>
+            </div>
+            <p class="text-sm">Paiement reçu et séquestré</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-ink/10"></div>
+            <p class="text-sm text-ink/50">Vendeur prépare l'envoi</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-ink/10"></div>
+            <p class="text-sm text-ink/50">En transit</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-ink/10"></div>
+            <p class="text-sm text-ink/50">Livrée — tu confirmes</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-6 h-6 rounded-full bg-ink/10"></div>
+            <p class="text-sm text-ink/50">Argent libéré au vendeur</p>
+          </div>
+        </div>
+      </div>
+      <a href="#/home" class="block w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">
+        Retour à l'accueil
+      </a>
+    </section>
+
+    <!-- ===== SEARCH (stub) ===== -->
+    <section id="screen-search" class="screen">
+      <div class="pt-4">
+        <h1 class="text-3xl font-bold display">Recherche</h1>
+        <p class="text-sm text-ink/60 mt-3">Catalogue de 18 000 cartes Pokémon. Bientôt connecté à Supabase.</p>
+        <div class="mt-6 relative">
+          <i data-lucide="search" class="w-4 h-4 absolute left-4 top-1/2 -translate-y-1/2 text-ink/40"></i>
+          <input type="text" placeholder="Charizard, Dracaufeu, Set de Base…" class="w-full bg-paper border border-ink/10 rounded-card py-3 pl-11 pr-4 text-sm outline-none focus:border-ink/30" />
+        </div>
+        <div class="mt-8 grid grid-cols-2 gap-3" id="search-grid"></div>
+      </div>
+    </section>
+
+    <!-- ===== SELL (stub) ===== -->
+    <section id="screen-sell" class="screen">
+      <div class="pt-4">
+        <h1 class="text-3xl font-bold display">Vendre une carte.</h1>
+        <p class="text-sm text-ink/60 mt-3 leading-relaxed">
+          Sélectionne ta carte dans notre catalogue, ajoute 3 photos, fixe ton prix. L'IA s'occupe du reste.
+        </p>
+      </div>
+      <div class="mt-6 space-y-3">
+        <div class="p-4 bg-paper border border-ink/8 rounded-card flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-mint flex items-center justify-center font-mono text-sm font-bold">1</div>
+          <div class="flex-1"><p class="text-sm font-medium">Sélectionne ta carte</p><p class="text-xs text-ink/55">18 000 cartes pré-référencées</p></div>
+        </div>
+        <div class="p-4 bg-paper border border-ink/8 rounded-card flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center font-mono text-sm font-bold">2</div>
+          <div class="flex-1"><p class="text-sm font-medium">Photos guidées</p><p class="text-xs text-ink/55">Face · Dos · Tranche</p></div>
+        </div>
+        <div class="p-4 bg-paper border border-ink/8 rounded-card flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center font-mono text-sm font-bold">3</div>
+          <div class="flex-1"><p class="text-sm font-medium">État & prix</p><p class="text-xs text-ink/55">Mint · NM · EX · LP · DMG</p></div>
+        </div>
+        <div class="p-4 bg-paper border border-ink/8 rounded-card flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-ink/10 flex items-center justify-center font-mono text-sm font-bold">4</div>
+          <div class="flex-1"><p class="text-sm font-medium">Vérification IA</p><p class="text-xs text-ink/55">Verified · Pending · Unguaranteed</p></div>
+        </div>
+      </div>
+      <p class="text-xs text-ink/40 mt-8 text-center">— Flow complet à la prochaine itération —</p>
+    </section>
+
+    <!-- ===== TRADE (stub) ===== -->
+    <section id="screen-trade" class="screen">
+      <div class="pt-4">
+        <h1 class="text-3xl font-bold display">Troc <span class="text-mint-deep">·</span> carte contre carte.</h1>
+        <p class="text-sm text-ink/60 mt-3 leading-relaxed">
+          Ce que personne ne fait. Propose tes cartes contre celles d'un autre collectionneur. Escrow double envoi pour garantir les deux côtés.
+        </p>
+      </div>
+      <div class="mt-6 p-4 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-3">Quota mensuel</p>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-2xl font-bold font-mono">1 / 1</p>
+            <p class="text-xs text-ink/55 mt-1">Troc gratuit ce mois-ci</p>
+          </div>
+          <div class="text-right">
+            <p class="font-mono text-xs text-coral font-medium">Minty+ illimité</p>
+            <p class="text-xs text-ink/55 mt-1">4,99 €/mois</p>
+          </div>
+        </div>
+      </div>
+      <p class="text-xs text-ink/40 mt-8 text-center">— Flow complet à la prochaine itération —</p>
+    </section>
+
+    <!-- ===== PROFILE (stub) ===== -->
+    <section id="screen-profile" class="screen">
+      <div class="pt-6 text-center">
+        <img src="https://i.pravatar.cc/150?u=kilian" class="w-20 h-20 rounded-full mx-auto mb-3 object-cover" alt="Avatar" />
+        <p class="font-bold text-xl">Kilian_TCG</p>
+        <p class="text-xs text-ink/55 mt-1">Membre depuis mai 2026</p>
+        <div class="flex items-center justify-center gap-3 mt-3">
+          <span class="font-mono text-[10px] uppercase tracking-wider px-2 py-1 bg-ink text-cream rounded-pill">Débutant</span>
+        </div>
+      </div>
+      <div class="mt-6 grid grid-cols-3 gap-2 text-center">
+        <div class="p-3 bg-paper border border-ink/8 rounded-card">
+          <p class="font-mono font-bold">0</p>
+          <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Ventes</p>
+        </div>
+        <div class="p-3 bg-paper border border-ink/8 rounded-card">
+          <p class="font-mono font-bold">0</p>
+          <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Achats</p>
+        </div>
+        <div class="p-3 bg-paper border border-ink/8 rounded-card">
+          <p class="font-mono font-bold">—</p>
+          <p class="text-[10px] text-ink/55 mt-1 uppercase tracking-wider">Note</p>
+        </div>
+      </div>
+      <div class="mt-8 space-y-2">
+        <a href="#" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+          <i data-lucide="package" class="w-4 h-4 text-ink/60"></i>
+          <span class="text-sm flex-1">Mes commandes</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40"></i>
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+          <i data-lucide="layers" class="w-4 h-4 text-ink/60"></i>
+          <span class="text-sm flex-1">Ma collection</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40"></i>
+        </a>
+        <a href="#" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+          <i data-lucide="sparkles" class="w-4 h-4 text-coral"></i>
+          <span class="text-sm flex-1 font-medium">Passer à Minty+</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40"></i>
+        </a>
+        <a href="#/trust" class="flex items-center gap-3 p-3 bg-paper border border-ink/8 rounded-card">
+          <i data-lucide="shield-check" class="w-4 h-4 text-mint-deep"></i>
+          <span class="text-sm flex-1">Page Confiance</span>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40"></i>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============== BottomNav ============== -->
+  <nav class="fixed bottom-0 left-0 right-0 z-50 bg-cream/95 backdrop-blur-md border-t border-ink/5">
+    <div class="max-w-md mx-auto grid grid-cols-5 gap-1 px-2 pt-2 pb-3">
+      <a href="#/home" data-route="home" class="nav-item flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition">
+        <i data-lucide="home" class="w-5 h-5" stroke-width="1.5"></i>
+        <span>Accueil</span>
+      </a>
+      <a href="#/search" data-route="search" class="nav-item flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition">
+        <i data-lucide="search" class="w-5 h-5" stroke-width="1.5"></i>
+        <span>Recherche</span>
+      </a>
+      <a href="#/sell" data-route="sell" class="nav-item flex flex-col items-center gap-1 transition">
+        <div class="w-11 h-11 rounded-full bg-ink text-cream flex items-center justify-center -mt-4 mb-0 shadow-card">
+          <i data-lucide="plus" class="w-5 h-5" stroke-width="2"></i>
+        </div>
+        <span class="text-[10px] font-medium">Vendre</span>
+      </a>
+      <a href="#/trade" data-route="trade" class="nav-item flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition">
+        <i data-lucide="arrow-right-left" class="w-5 h-5" stroke-width="1.5"></i>
+        <span>Troc</span>
+      </a>
+      <a href="#/profile" data-route="profile" class="nav-item flex flex-col items-center gap-1 py-1 text-[10px] font-medium transition">
+        <i data-lucide="circle-user-round" class="w-5 h-5" stroke-width="1.5"></i>
+        <span>Profil</span>
+      </a>
     </div>
-  </div>
+  </nav>
 
-  <p class="signature">Setup réalisé via Claude Code</p>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- ============================================================ -->
+  <!--                       JAVASCRIPT                              -->
+  <!-- ============================================================ -->
   <script>
-    const SUPABASE_URL = 'https://psmdivtvaewlouobxyxn.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_eJB9sQpnfDr_N-n6Pl424g_75MLG_0U';
+  // ============== SEED DATA ==============
+  const CARDS = [
+    { id:'c1',  name:'Dracaufeu',  set:'Set de Base',  number:'4/102',  image:'https://images.pokemontcg.io/base1/4_hires.png',  rarity:'Holo Rare', marketPrice:850 },
+    { id:'c2',  name:'Tortank',    set:'Set de Base',  number:'2/102',  image:'https://images.pokemontcg.io/base1/2_hires.png',  rarity:'Holo Rare', marketPrice:320 },
+    { id:'c3',  name:'Florizarre', set:'Set de Base',  number:'15/102', image:'https://images.pokemontcg.io/base1/15_hires.png', rarity:'Holo Rare', marketPrice:280 },
+    { id:'c4',  name:'Mewtwo',     set:'Set de Base',  number:'10/102', image:'https://images.pokemontcg.io/base1/10_hires.png', rarity:'Holo Rare', marketPrice:195 },
+    { id:'c5',  name:'Alakazam',   set:'Set de Base',  number:'1/102',  image:'https://images.pokemontcg.io/base1/1_hires.png',  rarity:'Holo Rare', marketPrice:90  },
+    { id:'c6',  name:'Pikachu',    set:'Set de Base',  number:'58/102', image:'https://images.pokemontcg.io/base1/58_hires.png', rarity:'Commune',   marketPrice:18  },
+    { id:'c7',  name:'Léviator',   set:'Set de Base',  number:'6/102',  image:'https://images.pokemontcg.io/base1/6_hires.png',  rarity:'Holo Rare', marketPrice:220 },
+    { id:'c8',  name:'Lugia',      set:'Neo Genesis',  number:'9/111',  image:'https://images.pokemontcg.io/neo1/9_hires.png',   rarity:'Holo Rare', marketPrice:450 },
+    { id:'c9',  name:'Mew',        set:'Promo',        number:'8/8',    image:'https://images.pokemontcg.io/basep/8_hires.png',  rarity:'Promo',     marketPrice:140 },
+    { id:'c10', name:'Insécateur', set:'Jungle',       number:'10/64',  image:'https://images.pokemontcg.io/base2/10_hires.png', rarity:'Holo Rare', marketPrice:65  },
+    { id:'c11', name:'Ronflex',    set:'Jungle',       number:'11/64',  image:'https://images.pokemontcg.io/base2/11_hires.png', rarity:'Holo Rare', marketPrice:55  },
+    { id:'c12', name:'Dracolosse', set:'Fossile',      number:'4/62',   image:'https://images.pokemontcg.io/base3/4_hires.png',  rarity:'Holo Rare', marketPrice:140 },
+  ];
 
-    const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const USERS = [
+    { id:'u1', username:'MaxCollect',  avatar:'https://i.pravatar.cc/150?u=max',    rating:4.9, sales:247, isPower:true },
+    { id:'u2', username:'LeoCards',    avatar:'https://i.pravatar.cc/150?u=leo',    rating:4.7, sales:38,  isMintyPlus:true },
+    { id:'u3', username:'Cécile_TCG',  avatar:'https://i.pravatar.cc/150?u=cecile', rating:4.8, sales:89  },
+    { id:'u4', username:'PokéParis',   avatar:'https://i.pravatar.cc/150?u=paris',  rating:4.6, sales:22  },
+    { id:'u5', username:'Yann_Vintage',avatar:'https://i.pravatar.cc/150?u=yann',   rating:5.0, sales:156, isPower:true },
+  ];
 
-    const dot = document.getElementById('supabase-dot');
-    const label = document.getElementById('supabase-status');
+  const LISTINGS = [
+    { id:'l1',  cardId:'c1',  sellerId:'u1', price:820, condition:'NM',  auth:'verified',     boost:'featured',  shipping:4.5 },
+    { id:'l2',  cardId:'c2',  sellerId:'u3', price:310, condition:'EX',  auth:'verified',                          shipping:4.5 },
+    { id:'l3',  cardId:'c4',  sellerId:'u5', price:190, condition:'NM',  auth:'verified',     boost:'spotlight', shipping:3.5 },
+    { id:'l4',  cardId:'c8',  sellerId:'u1', price:440, condition:'Mint',auth:'verified',                          shipping:6.5 },
+    { id:'l5',  cardId:'c5',  sellerId:'u2', price:85,  condition:'NM',  auth:'verified',                          shipping:3.5 },
+    { id:'l6',  cardId:'c6',  sellerId:'u4', price:22,  condition:'EX',  auth:'pending',                           shipping:3.5 },
+    { id:'l7',  cardId:'c7',  sellerId:'u3', price:210, condition:'NM',  auth:'verified',                          shipping:4.5 },
+    { id:'l8',  cardId:'c12', sellerId:'u5', price:135, condition:'EX',  auth:'verified',                          shipping:4.5 },
+    { id:'l9',  cardId:'c3',  sellerId:'u1', price:270, condition:'NM',  auth:'verified',                          shipping:4.5 },
+    { id:'l10', cardId:'c9',  sellerId:'u2', price:145, condition:'NM',  auth:'unguaranteed',                      shipping:3.5 },
+    { id:'l11', cardId:'c10', sellerId:'u4', price:60,  condition:'LP',  auth:'verified',                          shipping:3.5 },
+    { id:'l12', cardId:'c11', sellerId:'u3', price:52,  condition:'EX',  auth:'verified',                          shipping:3.5 },
+  ];
 
-    (async () => {
-      try {
-        const response = await fetch(`${SUPABASE_URL}/auth/v1/settings`, {
-          headers: { apikey: SUPABASE_ANON_KEY }
-        });
-        if (response.ok) {
-          const settings = await response.json();
-          dot.className = 'status-dot ok';
-          label.textContent = 'connecté';
-        } else {
-          dot.className = 'status-dot error';
-          label.textContent = `erreur HTTP ${response.status}`;
-        }
-      } catch (e) {
-        dot.className = 'status-dot error';
-        label.textContent = 'échec réseau';
+  const CART = [];
+
+  // ============== HELPERS ==============
+  const findCard    = id => CARDS.find(c => c.id === id);
+  const findUser    = id => USERS.find(u => u.id === id);
+  const findListing = id => LISTINGS.find(l => l.id === id);
+  const formatPrice = n => n.toFixed(2).replace('.', ',') + ' €';
+
+  function authBadge(auth) {
+    const map = {
+      verified:     { label:'Authentifiée',                cls:'auth-verified',     icon:'shield-check' },
+      pending:      { label:'En vérification',             cls:'auth-pending',      icon:'shield' },
+      unguaranteed: { label:'Authenticité non garantie',   cls:'auth-unguaranteed', icon:'shield-alert' },
+    };
+    const a = map[auth];
+    return `<span class="inline-flex items-center gap-1 px-2 py-1 ${a.cls} rounded-pill text-[10px] font-medium font-mono">
+      <i data-lucide="${a.icon}" class="w-3 h-3"></i> ${a.label}
+    </span>`;
+  }
+
+  // ============== RENDER: LISTING CARD ==============
+  function renderListingCard(listing, opts = {}) {
+    const card = findCard(listing.cardId);
+    return `
+      <a href="#/card/${listing.id}" class="block bg-paper border border-ink/8 rounded-card overflow-hidden hover:shadow-hover transition snap-start ${opts.wide ? 'w-44 flex-shrink-0' : ''}">
+        <div class="relative aspect-[3/4] bg-ink/5 ${card.rarity.includes('Holo') ? 'holo' : ''}">
+          <img src="${card.image}" alt="${card.name}" class="w-full h-full object-contain p-2" loading="lazy" />
+          ${listing.boost ? `<div class="absolute top-2 left-2 featured-label bg-coral/10 px-1.5 py-0.5 rounded">Featured</div>` : ''}
+          <div class="absolute top-2 right-2">${authBadge(listing.auth)}</div>
+        </div>
+        <div class="p-3">
+          <p class="text-sm font-medium truncate">${card.name}</p>
+          <p class="text-[11px] text-ink/55 truncate">${card.set} · ${card.number}</p>
+          <div class="flex items-baseline justify-between mt-2">
+            <p class="font-mono text-sm font-bold">${formatPrice(listing.price)}</p>
+            <span class="font-mono text-[10px] tracking-wider uppercase text-ink/70">${listing.condition}</span>
+          </div>
+        </div>
+      </a>
+    `;
+  }
+
+  // ============== HOME ==============
+  function renderHome() {
+    const drops = LISTINGS.filter(l => l.boost === 'featured' || l.price > 200).slice(0, 6);
+    const trending = LISTINGS.filter(l => !drops.includes(l)).slice(0, 8);
+    document.getElementById('drops-row').innerHTML = drops.map(l => renderListingCard(l, { wide:true })).join('');
+    document.getElementById('trending-grid').innerHTML = trending.map(l => renderListingCard(l)).join('');
+  }
+
+  function renderSearch() {
+    document.getElementById('search-grid').innerHTML = LISTINGS.map(l => renderListingCard(l)).join('');
+  }
+
+  // ============== CARD DETAIL ==============
+  function renderCardDetail(listingId) {
+    const listing = findListing(listingId);
+    if (!listing) { window.location.hash = '#/home'; return; }
+    const card   = findCard(listing.cardId);
+    const seller = findUser(listing.sellerId);
+
+    const html = `
+      <div class="pt-2">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-4">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+      </div>
+
+      <div class="relative aspect-[3/4] bg-paper rounded-card overflow-hidden border border-ink/8 ${card.rarity.includes('Holo') ? 'holo' : ''}">
+        <img src="${card.image}" alt="${card.name}" class="w-full h-full object-contain p-4" />
+        ${listing.boost ? `<div class="absolute top-3 left-3 featured-label bg-coral/15 px-2 py-1 rounded">Featured · Minty</div>` : ''}
+      </div>
+
+      <div class="mt-5">
+        ${authBadge(listing.auth)}
+        <h1 class="text-2xl font-bold display mt-2">${card.name}</h1>
+        <p class="text-sm text-ink/60 mt-1">${card.set} · ${card.number} · ${card.rarity}</p>
+      </div>
+
+      <div class="mt-5 flex items-end justify-between">
+        <div>
+          <p class="label-mono mb-1">Prix</p>
+          <p class="font-mono text-3xl font-bold">${formatPrice(listing.price)}</p>
+          <p class="text-[11px] text-ink/55 mt-1">Prix marché 30j : ${formatPrice(card.marketPrice)}</p>
+        </div>
+        <div class="text-right">
+          <p class="label-mono mb-1">État</p>
+          <p class="font-mono text-lg font-bold">${listing.condition}</p>
+        </div>
+      </div>
+
+      <div class="mt-5 flex gap-3">
+        <button onclick="addToCart('${listing.id}')" class="flex-1 py-3.5 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition">
+          Acheter en escrow
+        </button>
+        <button class="px-5 py-3.5 bg-paper border border-ink/15 font-medium rounded-card hover:bg-ink/5 transition">
+          Offre
+        </button>
+      </div>
+
+      <a href="#/trust" class="mt-3 p-3 bg-mint/10 border border-mint/25 rounded-card flex items-center gap-3 hover:bg-mint/15 transition">
+        <i data-lucide="shield-check" class="w-4 h-4 text-mint-deep flex-shrink-0"></i>
+        <p class="text-xs flex-1">Comment on garantit que cette carte est authentique <span class="text-mint-deep">→</span></p>
+      </a>
+
+      <div class="mt-6 p-4 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-3">Vendeur</p>
+        <div class="flex items-center gap-3">
+          <img src="${seller.avatar}" alt="${seller.username}" class="w-10 h-10 rounded-full object-cover" />
+          <div class="flex-1">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <p class="text-sm font-medium">${seller.username}</p>
+              ${seller.isPower     ? '<span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-ink text-cream rounded-pill">Power</span>'    : ''}
+              ${seller.isMintyPlus ? '<span class="font-mono text-[9px] uppercase tracking-wider px-1.5 py-0.5 bg-mint text-ink rounded-pill">Minty+</span>'    : ''}
+            </div>
+            <p class="text-xs text-ink/60 mt-0.5">★ ${seller.rating} · ${seller.sales} ventes</p>
+          </div>
+          <button class="text-xs font-medium px-3 py-1.5 border border-ink/15 rounded-pill">Suivre</button>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <p class="label-mono mb-3">Historique des prix · 30 jours</p>
+        <div class="bg-paper border border-ink/8 rounded-card p-4">
+          <canvas id="price-chart" height="120"></canvas>
+        </div>
+      </div>
+
+      <div class="mt-6 p-4 bg-paper border border-ink/8 rounded-card">
+        <p class="label-mono mb-2">Frais & livraison</p>
+        <div class="text-xs space-y-1.5 mt-2">
+          <div class="flex justify-between"><span class="text-ink/60">Carte</span><span class="font-mono">${formatPrice(listing.price)}</span></div>
+          <div class="flex justify-between"><span class="text-ink/60">Frais Minty (5 %)</span><span class="font-mono">${formatPrice(listing.price * 0.05)}</span></div>
+          <div class="flex justify-between"><span class="text-ink/60">Livraison suivie</span><span class="font-mono">${formatPrice(listing.shipping)}</span></div>
+          <div class="flex justify-between pt-2 border-t border-ink/10 mt-2"><span class="font-medium">Total</span><span class="font-mono font-bold">${formatPrice(listing.price * 1.05 + listing.shipping)}</span></div>
+        </div>
+      </div>
+    `;
+    document.getElementById('card-detail-content').innerHTML = html;
+    setTimeout(() => drawPriceChart(card), 50);
+  }
+
+  function drawPriceChart(card) {
+    const ctx = document.getElementById('price-chart');
+    if (!ctx) return;
+    const data = [], labels = [];
+    const today = new Date();
+    const base = card.marketPrice;
+    for (let i = 29; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(d.getDate() - i);
+      labels.push(d.getDate() + '/' + (d.getMonth() + 1));
+      const noise = (Math.sin(i / 4) * 0.06 + (Math.random() - 0.5) * 0.04);
+      data.push(Math.round(base * (1 + noise)));
+    }
+    new Chart(ctx, {
+      type: 'line',
+      data: { labels, datasets: [{
+        data, borderColor:'#0F1410', backgroundColor:'rgba(94,226,160,0.12)',
+        fill:true, tension:0.35, borderWidth:2, pointRadius:0, pointHoverRadius:4,
+        pointHoverBackgroundColor:'#5EE2A0',
+      }] },
+      options: {
+        plugins: { legend: { display:false } },
+        scales: {
+          x: { ticks:{ color:'rgba(15,20,16,0.45)', maxTicksLimit:6, font:{ family:'JetBrains Mono', size:10 } }, grid:{ display:false } },
+          y: { ticks:{ color:'rgba(15,20,16,0.45)', font:{ family:'JetBrains Mono', size:10 }, callback:v => v + ' €' }, grid:{ color:'rgba(15,20,16,0.05)' } }
+        },
+        responsive:true, maintainAspectRatio:false,
       }
-    })();
+    });
+  }
+
+  // ============== CART ==============
+  function addToCart(listingId) {
+    if (!CART.includes(listingId)) CART.push(listingId);
+    updateCartCount();
+    window.location.hash = '#/cart';
+  }
+
+  function removeFromCart(id) {
+    const i = CART.indexOf(id);
+    if (i >= 0) CART.splice(i, 1);
+    updateCartCount();
+    renderCart();
+  }
+
+  function updateCartCount() {
+    const el = document.getElementById('cart-count');
+    if (CART.length > 0) {
+      el.textContent = CART.length;
+      el.classList.remove('hidden');
+      el.classList.add('flex');
+    } else {
+      el.classList.add('hidden');
+      el.classList.remove('flex');
+    }
+  }
+
+  function renderCart() {
+    const itemsEl = document.getElementById('cart-items');
+    const summaryEl = document.getElementById('cart-summary');
+    if (CART.length === 0) {
+      itemsEl.innerHTML = `<div class="text-center py-12 text-ink/50">
+        <i data-lucide="shopping-bag" class="w-12 h-12 mx-auto mb-3 opacity-40"></i>
+        <p>Panier vide.</p>
+        <a href="#/home" class="inline-block mt-4 text-sm font-medium underline">Découvrir des cartes</a>
+      </div>`;
+      summaryEl.innerHTML = '';
+      lucide.createIcons();
+      return;
+    }
+    itemsEl.innerHTML = CART.map(id => {
+      const l = findListing(id);
+      const c = findCard(l.cardId);
+      return `
+        <div class="flex gap-3 bg-paper border border-ink/8 rounded-card p-3">
+          <div class="w-16 h-20 bg-ink/5 rounded overflow-hidden flex-shrink-0">
+            <img src="${c.image}" alt="${c.name}" class="w-full h-full object-contain p-1" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-medium truncate">${c.name}</p>
+            <p class="text-xs text-ink/55 truncate">${c.set} · ${l.condition}</p>
+            <p class="font-mono text-sm font-bold mt-1">${formatPrice(l.price)}</p>
+          </div>
+          <button onclick="removeFromCart('${l.id}')" class="text-ink/40 hover:text-holo-red transition self-start p-1">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>`;
+    }).join('');
+
+    const subtotal = CART.reduce((s, id) => s + findListing(id).price, 0);
+    const fees     = subtotal * 0.05;
+    const shipping = CART.reduce((s, id) => s + findListing(id).shipping, 0);
+    const total    = subtotal + fees + shipping;
+
+    summaryEl.innerHTML = `
+      <div class="p-4 bg-paper border border-ink/8 rounded-card text-sm space-y-2">
+        <div class="flex justify-between"><span class="text-ink/60">Sous-total</span><span class="font-mono">${formatPrice(subtotal)}</span></div>
+        <div class="flex justify-between"><span class="text-ink/60">Frais Minty (5 %)</span><span class="font-mono">${formatPrice(fees)}</span></div>
+        <div class="flex justify-between"><span class="text-ink/60">Livraison</span><span class="font-mono">${formatPrice(shipping)}</span></div>
+        <div class="flex justify-between pt-2 border-t border-ink/10 mt-2"><span class="font-medium">Total</span><span class="font-mono font-bold text-base">${formatPrice(total)}</span></div>
+      </div>
+      <div class="mt-4 p-3 bg-mint/10 border border-mint/25 rounded-card flex items-start gap-2.5">
+        <i data-lucide="lock" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i>
+        <p class="text-xs">Argent séquestré jusqu'à confirmation de réception. Remboursement automatique si litige.</p>
+      </div>
+      <a href="#/checkout" class="block w-full mt-4 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">Procéder au paiement</a>
+    `;
+    lucide.createIcons();
+  }
+
+  function completeOrder() {
+    CART.length = 0;
+    updateCartCount();
+    window.location.hash = '#/order-confirmed';
+  }
+
+  function goBack() {
+    if (window.history.length > 1) window.history.back();
+    else window.location.hash = '#/home';
+  }
+
+  // ============== ROUTER ==============
+  function navigate() {
+    const hash = window.location.hash || '#/home';
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+
+    let routeKey = 'home';
+    if (hash.startsWith('#/card/')) {
+      const id = hash.split('/')[2];
+      renderCardDetail(id);
+      document.getElementById('screen-card').classList.add('active');
+      routeKey = '';
+    } else if (hash === '#/cart') {
+      renderCart();
+      document.getElementById('screen-cart').classList.add('active');
+      routeKey = '';
+    } else if (hash === '#/order-confirmed') {
+      document.getElementById('screen-order-confirmed').classList.add('active');
+      routeKey = '';
+    } else if (hash === '#/search') {
+      renderSearch();
+      document.getElementById('screen-search').classList.add('active');
+      routeKey = 'search';
+    } else {
+      routeKey = hash.replace('#/', '');
+      const el = document.getElementById('screen-' + routeKey);
+      if (el) el.classList.add('active');
+      else { document.getElementById('screen-home').classList.add('active'); routeKey = 'home'; }
+    }
+
+    document.querySelectorAll('.nav-item').forEach(n => {
+      if (n.dataset.route === routeKey) n.classList.add('active');
+      else n.classList.remove('active');
+    });
+
+    window.scrollTo(0, 0);
+    lucide.createIcons();
+  }
+
+  // ============== INIT ==============
+  document.addEventListener('DOMContentLoaded', () => {
+    renderHome();
+    navigate();
+    window.addEventListener('hashchange', navigate);
+  });
   </script>
 </body>
 </html>

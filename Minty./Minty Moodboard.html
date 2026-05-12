@@ -1,0 +1,1327 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<title>Minty — Visual Identity 2026</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:        #0F1410;
+    --ink-soft:   #1a221d;
+    --ink-50:     rgba(15,20,16,.50);
+    --ink-30:     rgba(15,20,16,.30);
+    --ink-15:     rgba(15,20,16,.15);
+    --ink-08:     rgba(15,20,16,.08);
+    --mint:       #5EE2A0;
+    --mint-deep:  #2ec77f;
+    --cream:      #F2EFE7;
+    --paper:      #FAF8F2;
+    --gold:       #D4AF37;
+    --silver:     #B8B8B8;
+    --bronze:     #CD7F32;
+    --holo-red:   #FF3B5C;
+    --trust-blue: #2D6CDF;
+
+    --sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+  html,body{margin:0;background:#1c1c1a;color:var(--ink);}
+  body{font-family:var(--sans);}
+  *{box-sizing:border-box;}
+
+  /* ------- Stage scaling (1600 design width, letterboxed) ------- */
+  .stage{
+    position:fixed; inset:0;
+    display:flex; align-items:flex-start; justify-content:center;
+    overflow:auto;
+    background:#1c1c1a;
+    padding:24px 0;
+  }
+  .board{
+    width:1600px;
+    background:var(--cream);
+    position:relative;
+    box-shadow:0 30px 80px -20px rgba(0,0,0,.55);
+    transform-origin: top center;
+  }
+  /* the board's internal padding & rhythm */
+  .board{
+    padding:80px 88px 96px;
+  }
+
+  /* ------- Typography ------- */
+  .mono{font-family:var(--mono); letter-spacing:.16em; text-transform:uppercase;}
+  .label{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-50);
+    font-weight:500;
+  }
+  .label--ink{color:var(--ink);}
+  .caption{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--ink-50);
+    font-weight:500;
+    margin-top:14px;
+  }
+  .num{font-variant-numeric:tabular-nums;}
+
+  /* ------- Header ------- */
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-bottom:22px;
+    border-bottom:1px solid var(--ink-15);
+    margin-bottom:48px;
+  }
+  .topbar .title{font-size:14px; font-weight:500; letter-spacing:.16em; font-family:var(--mono); text-transform:uppercase;}
+  .topbar .title b{color:var(--ink);}
+  .topbar .meta{display:flex; gap:36px; align-items:center;}
+  .topbar .meta span{font-family:var(--mono); font-size:11px; letter-spacing:.18em; color:var(--ink-50); text-transform:uppercase;}
+  .dot-mint{width:8px; height:8px; border-radius:50%; background:var(--mint-deep); display:inline-block;}
+
+  /* ------- Section heading ------- */
+  .section{margin-top:80px;}
+  .section--tight{margin-top:56px;}
+  .section-h{
+    display:flex; align-items:baseline; justify-content:space-between;
+    margin-bottom:22px;
+  }
+  .section-h h2{
+    margin:0;
+    font-family:var(--mono);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.32em;
+    text-transform:uppercase;
+    color:var(--ink);
+  }
+  .section-h .idx{font-family:var(--mono); font-size:10px; color:var(--ink-50); letter-spacing:.22em;}
+
+  /* ------- 4-col grid utility ------- */
+  .grid{display:grid; gap:28px;}
+  .g4{grid-template-columns:repeat(4,1fr);}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .g2{grid-template-columns:repeat(2,1fr);}
+  .g8{grid-template-columns:repeat(8,1fr);}
+  .span2{grid-column:span 2;}
+  .span3{grid-column:span 3;}
+  .span4{grid-column:span 4;}
+
+  /* ------- Module ------- */
+  .mod{
+    background:var(--paper);
+    border-radius:14px;
+    overflow:hidden;
+    position:relative;
+  }
+  .mod-visual{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+  }
+  .mod-cap{
+    padding:14px 16px 16px;
+    border-top:1px solid var(--ink-08);
+    display:flex; align-items:center; justify-content:space-between;
+    background:var(--paper);
+  }
+  .mod-cap .l{font-family:var(--mono); font-size:9.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink);}
+  .mod-cap .r{font-family:var(--mono); font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-50);}
+
+  /* ============ HERO LOGO ROW ============ */
+  .hero{
+    display:grid;
+    grid-template-columns: 1.05fr .95fr;
+    gap:28px;
+    margin-bottom:8px;
+  }
+  .hero-logo{
+    background:var(--paper);
+    border-radius:18px;
+    padding:64px 56px;
+    position:relative;
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:520px;
+  }
+  .hero-logo .frame-lockup{
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    flex:1;
+  }
+  .lockup-frame{
+    border:2.5px solid var(--ink);
+    border-radius:24px;
+    padding:26px 56px 30px;
+    position:relative;
+  }
+  .lockup-frame .word{
+    font-family:var(--sans);
+    font-weight:600;
+    letter-spacing:-0.03em;
+    font-size:130px;
+    line-height:1;
+    color:var(--ink);
+  }
+  .lockup-frame .dot{
+    position:absolute;
+    right:-30px; bottom:-4px;
+    width:26px; height:26px; border-radius:50%;
+    background:var(--mint-deep);
+    box-shadow:0 0 0 3.5px var(--ink);
+  }
+  .lockup-tag{
+    margin-top:22px;
+    display:flex; gap:18px; justify-content:center; align-items:center;
+    font-family:var(--mono);
+    font-size:12px; letter-spacing:.32em; font-weight:500;
+    color:var(--ink);
+  }
+  .lockup-tag i{display:inline-block; width:4px; height:4px; border-radius:50%; background:var(--ink); margin:0 4px;}
+  .hero-logo .corner-tl, .hero-logo .corner-br{
+    position:absolute; font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--ink-50); text-transform:uppercase;
+  }
+  .hero-logo .corner-tl{top:24px; left:32px;}
+  .hero-logo .corner-br{bottom:24px; right:32px; display:flex; gap:10px; align-items:center;}
+
+  .hero-statement{
+    background:var(--ink);
+    border-radius:18px;
+    padding:48px 44px;
+    color:var(--paper);
+    display:flex; flex-direction:column; justify-content:space-between;
+    min-height:520px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-statement::before{
+    /* subtle holo glow corner */
+    content:"";
+    position:absolute; right:-120px; top:-120px;
+    width:280px; height:280px; border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(94,226,160,.35), transparent 60%);
+    filter:blur(20px);
+  }
+  .hero-statement .eyebrow{font-family:var(--mono); font-size:10.5px; letter-spacing:.32em; color:var(--mint); text-transform:uppercase;}
+  .hero-statement h1{
+    margin:18px 0 0;
+    font-family:var(--sans);
+    font-weight:500;
+    font-size:34px;
+    line-height:1.15;
+    letter-spacing:-0.015em;
+    color:var(--paper);
+    text-wrap:balance;
+  }
+  .hero-statement h1 em{font-style:normal; color:var(--mint);}
+  .hero-statement .quotes{
+    display:flex; flex-direction:column; gap:14px;
+    margin-top:32px;
+  }
+  .hero-statement .q{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:rgba(242,239,231,.7);
+    display:flex; align-items:center; gap:12px;
+  }
+  .hero-statement .q b{color:var(--mint); font-weight:500;}
+  .hero-statement .foot{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:rgba(242,239,231,.5); text-transform:uppercase;
+  }
+
+  /* ============ CORE PALETTE ============ */
+  .pal-core{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:28px;
+  }
+  .swatch{
+    height:340px;
+    border-radius:14px;
+    padding:24px 26px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    position:relative;
+    overflow:hidden;
+  }
+  .swatch .top{display:flex; justify-content:space-between; align-items:flex-start; font-family:var(--mono); font-size:10px; letter-spacing:.22em; text-transform:uppercase;}
+  .swatch .bot{display:flex; justify-content:space-between; align-items:flex-end;}
+  .swatch .name{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:32px;
+    letter-spacing:-0.02em;
+    line-height:1;
+  }
+  .swatch .hex{font-family:var(--mono); font-size:12px; letter-spacing:.18em;}
+  .swatch .role{opacity:.7;}
+  .sw-ink{background:var(--ink); color:var(--paper);}
+  .sw-mint{background:var(--mint); color:var(--ink);}
+  .sw-cream{background:var(--cream); color:var(--ink); border:1px solid var(--ink-15);}
+  .sw-ink .role, .sw-mint .role, .sw-cream .role{}
+
+  /* ============ TYPOGRAPHY ============ */
+  .type-block{
+    background:var(--paper);
+    border-radius:14px;
+    padding:64px 64px 48px;
+    position:relative;
+  }
+  .type-block .meta-tl{position:absolute; top:24px; left:30px;}
+  .type-block .meta-tr{position:absolute; top:24px; right:30px;}
+  .specimen{
+    font-family:var(--sans);
+    font-weight:700;
+    font-size:280px;
+    line-height:.95;
+    letter-spacing:-0.045em;
+    color:var(--ink);
+    display:flex; align-items:flex-end;
+    margin-bottom:8px;
+  }
+  .specimen .dot{
+    width:36px; height:36px; border-radius:50%; background:var(--mint-deep);
+    margin-bottom:24px; margin-left:8px;
+  }
+  .type-rules{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:32px;
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid var(--ink-15);
+  }
+  .weight-card .w{font-family:var(--sans); font-size:64px; line-height:1; letter-spacing:-0.03em; color:var(--ink);}
+  .weight-card .w.reg{font-weight:400;}
+  .weight-card .w.med{font-weight:500;}
+  .weight-card .w.bld{font-weight:700;}
+  .weight-card .meta{margin-top:14px; font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--ink-50); text-transform:uppercase;}
+  .weight-card .body{font-family:var(--sans); font-size:13.5px; line-height:1.55; color:var(--ink-soft); margin-top:14px; text-wrap:pretty;}
+
+  .tabular-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap:32px;
+    margin-top:36px;
+    padding-top:28px;
+    border-top:1px solid var(--ink-15);
+  }
+  .price{
+    font-family:var(--sans);
+    font-weight:500;
+    font-size:54px;
+    letter-spacing:-0.02em;
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+  .price small{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--ink-50); display:block; margin-top:8px; text-transform:uppercase;}
+  .price .up{color:var(--mint-deep);}
+  .price .down{color:var(--holo-red);}
+  .tag-line{
+    margin-top:14px;
+    font-family:var(--mono);
+    font-size:14px;
+    letter-spacing:.42em;
+    color:var(--ink);
+    font-weight:500;
+    display:flex; gap:14px; align-items:center;
+  }
+  .tag-line i{display:inline-block; width:4px; height:4px; border-radius:50%; background:var(--mint-deep);}
+
+  /* ============ HOLO STRIP ============ */
+  .holo-strip{
+    height:160px;
+    border-radius:14px;
+    position:relative;
+    overflow:hidden;
+    background:
+      linear-gradient(100deg,
+        #5EE2A0 0%,
+        #6BE0E8 22%,
+        #B8A0FF 46%,
+        #FFB3C8 70%,
+        #FFD58A 88%,
+        #5EE2A0 100%);
+    box-shadow:0 16px 36px -16px rgba(15,20,16,.35);
+  }
+  .holo-strip::before{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(118deg, rgba(255,255,255,.22) 0 2px, transparent 2px 9px);
+    mix-blend-mode:overlay;
+  }
+  .holo-strip::after{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(92deg, rgba(15,20,16,.05) 0 1px, transparent 1px 18px);
+  }
+  .holo-strip .h-label{
+    position:absolute; top:18px; left:24px;
+    font-family:var(--mono); font-size:10px; letter-spacing:.32em; color:rgba(15,20,16,.7); text-transform:uppercase;
+  }
+  .holo-strip .h-grade{
+    position:absolute; bottom:18px; right:24px;
+    font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:rgba(15,20,16,.65); text-transform:uppercase;
+  }
+  .holo-strip .h-grade b{color:rgba(15,20,16,.95); font-weight:600;}
+
+  /* ============ FUNCTIONAL PALETTE / RARITY ============ */
+  .func-row{
+    display:grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap:18px;
+  }
+  .chip{
+    border-radius:12px;
+    padding:18px 16px 16px;
+    background:var(--paper);
+    border:1px solid var(--ink-08);
+    display:flex; flex-direction:column; gap:12px;
+    position:relative;
+    min-height:140px;
+  }
+  .chip .puck{
+    width:46px; height:46px; border-radius:50%;
+    position:relative;
+  }
+  .chip .puck.gold{background:radial-gradient(circle at 30% 28%, #F2D26A, #D4AF37 60%, #8C7321 100%);}
+  .chip .puck.silver{background:radial-gradient(circle at 30% 28%, #ECECEC, #B8B8B8 60%, #7c7c7c 100%);}
+  .chip .puck.bronze{background:radial-gradient(circle at 30% 28%, #ECB07A, #CD7F32 60%, #6f4015 100%);}
+  .chip .puck.red{background:var(--holo-red); box-shadow:inset 0 -10px 14px rgba(0,0,0,.18);}
+  .chip .puck.blue{background:var(--trust-blue); box-shadow:inset 0 -10px 14px rgba(0,0,0,.18);}
+  .chip .n{font-family:var(--sans); font-weight:600; font-size:14px; letter-spacing:-0.01em;}
+  .chip .meta{font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-50);}
+  .chip .hex{font-family:var(--mono); font-size:10px; letter-spacing:.16em; color:var(--ink); margin-top:auto;}
+
+  /* ============ REFERENCE VIGNETTES (8) ============ */
+  .ref-vis{
+    aspect-ratio: 4 / 5;
+    background:var(--cream);
+    position:relative;
+    overflow:hidden;
+  }
+  /* — V1 Fintech card mock (original) */
+  .v-fintech{
+    background:#0F1410;
+    padding:22px;
+    color:var(--paper);
+    display:flex; flex-direction:column; gap:14px;
+    height:100%;
+  }
+  .v-fintech .hdr{display:flex; justify-content:space-between; align-items:center; font-family:var(--mono); font-size:9px; letter-spacing:.22em; color:rgba(242,239,231,.55); text-transform:uppercase;}
+  .v-fintech .bal{font-family:var(--sans); font-weight:500; font-size:34px; letter-spacing:-0.02em; font-variant-numeric:tabular-nums;}
+  .v-fintech .bal small{font-family:var(--mono); display:block; font-size:9px; letter-spacing:.22em; color:rgba(242,239,231,.55); margin-bottom:6px; text-transform:uppercase;}
+  .v-fintech .row{display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-top:1px solid rgba(242,239,231,.1); font-family:var(--mono); font-size:10px; letter-spacing:.08em;}
+  .v-fintech .row span:last-child{font-variant-numeric:tabular-nums; color:var(--mint);}
+  .v-fintech .down span:last-child{color:var(--holo-red);}
+  .v-fintech .btn{margin-top:auto; padding:10px; text-align:center; background:var(--mint); color:var(--ink); border-radius:8px; font-family:var(--mono); font-size:10px; letter-spacing:.22em; font-weight:600;}
+
+  /* — V2 Price chart (original) */
+  .v-chart{background:var(--paper); padding:20px; height:100%; display:flex; flex-direction:column;}
+  .v-chart .top{display:flex; justify-content:space-between; align-items:flex-start;}
+  .v-chart .top .price{font-family:var(--sans); font-weight:500; font-size:26px; letter-spacing:-0.02em; line-height:1; font-variant-numeric:tabular-nums;}
+  .v-chart .top .price small{font-family:var(--mono); font-size:9px; letter-spacing:.22em; color:var(--mint-deep); display:block; margin-top:5px; text-transform:uppercase;}
+  .v-chart .top .name{text-align:right; font-family:var(--mono); font-size:9px; letter-spacing:.18em; color:var(--ink-50); text-transform:uppercase; line-height:1.5;}
+  .v-chart .top .name b{display:block; color:var(--ink); font-size:10px;}
+  .v-chart svg{flex:1; width:100%; margin-top:14px;}
+  .v-chart .legend{display:flex; justify-content:space-between; font-family:var(--mono); font-size:8.5px; letter-spacing:.18em; color:var(--ink-30); text-transform:uppercase; padding-top:8px; border-top:1px solid var(--ink-08);}
+
+  /* — V3 Holo foil texture */
+  .v-foil{
+    height:100%;
+    background:
+      radial-gradient(circle at 30% 30%, rgba(255,255,255,.45), transparent 50%),
+      conic-gradient(from 220deg at 60% 50%,
+        #FFB3C8 0deg,
+        #B8A0FF 60deg,
+        #6BE0E8 120deg,
+        #5EE2A0 180deg,
+        #FFD58A 240deg,
+        #FFB3C8 300deg,
+        #FFB3C8 360deg);
+    position:relative;
+  }
+  .v-foil::before{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(58deg, rgba(255,255,255,.18) 0 2px, transparent 2px 7px);
+    mix-blend-mode:overlay;
+  }
+  .v-foil::after{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(0deg, rgba(15,20,16,.06) 0 1px, transparent 1px 12px);
+  }
+  .v-foil .lbl{
+    position:absolute; bottom:14px; left:16px;
+    font-family:var(--mono); font-size:9px; letter-spacing:.32em; color:rgba(15,20,16,.7); text-transform:uppercase;
+  }
+
+  /* — V4 Slab (original graded card) */
+  .v-slab{height:100%; background:#e8e5dc; padding:22px; display:flex; align-items:center; justify-content:center;}
+  .slab{
+    width:75%; height:88%;
+    background:#fbfaf5;
+    border:2px solid #0F1410;
+    border-radius:10px;
+    display:flex; flex-direction:column;
+    position:relative;
+    box-shadow:0 18px 38px -14px rgba(0,0,0,.3);
+  }
+  .slab .label-strip{
+    background:var(--holo-red); color:#fff;
+    padding:8px 12px;
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:var(--mono); font-size:8.5px; letter-spacing:.18em; text-transform:uppercase;
+  }
+  .slab .label-strip b{font-size:14px; letter-spacing:.06em;}
+  .slab .label-strip .g{
+    background:#fff; color:var(--holo-red);
+    padding:3px 7px; border-radius:4px;
+    font-weight:700; font-size:11px; letter-spacing:.08em;
+  }
+  .slab .art{
+    flex:1;
+    margin:10px;
+    border-radius:6px;
+    background:
+      repeating-linear-gradient(45deg, rgba(15,20,16,.06) 0 6px, transparent 6px 12px),
+      var(--cream);
+    border:1px dashed var(--ink-30);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-size:9px; letter-spacing:.22em; color:var(--ink-50); text-align:center; text-transform:uppercase;
+    padding:10px;
+  }
+  .slab .foot{
+    display:flex; justify-content:space-between;
+    padding:8px 12px 10px;
+    font-family:var(--mono); font-size:8px; letter-spacing:.18em; color:var(--ink-50); text-transform:uppercase;
+  }
+
+  /* — V5 Studio photo placeholder */
+  .v-studio{
+    height:100%;
+    background:linear-gradient(180deg, #e9e6dd 0%, #d5d1c5 100%);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative;
+    padding:24px;
+  }
+  .v-studio .silhouette{
+    width:60%;
+    height:64%;
+    background:
+      radial-gradient(ellipse at 50% 30%, rgba(15,20,16,.4), transparent 70%);
+    position:relative;
+  }
+  .v-studio .card-tilt{
+    position:absolute; left:50%; top:50%;
+    width:120px; height:170px;
+    transform:translate(-50%,-50%) rotate(-12deg);
+    background:linear-gradient(135deg, rgba(255,255,255,.7), rgba(255,255,255,.3));
+    border:1px solid rgba(255,255,255,.7);
+    border-radius:8px;
+    box-shadow:0 30px 40px -10px rgba(0,0,0,.35);
+    backdrop-filter:blur(2px);
+  }
+  .v-studio .lbl{
+    position:absolute; bottom:18px; left:50%; transform:translateX(-50%);
+    font-family:var(--mono); font-size:9px; letter-spacing:.28em; color:var(--ink-50); text-transform:uppercase; text-align:center;
+  }
+
+  /* — V6 Type detail */
+  .v-type{
+    height:100%;
+    background:var(--cream);
+    padding:32px 28px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    color:var(--ink);
+  }
+  .v-type .big{
+    font-family:var(--sans);
+    font-weight:600;
+    font-size:130px;
+    line-height:.9;
+    letter-spacing:-0.05em;
+  }
+  .v-type .meta{font-family:var(--mono); font-size:9.5px; letter-spacing:.22em; color:var(--ink-50); text-transform:uppercase;}
+  .v-type .row{display:flex; justify-content:space-between; align-items:flex-end;}
+
+  /* — V7 Icon set */
+  .v-icons{
+    height:100%;
+    background:var(--paper);
+    padding:24px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    grid-template-rows:repeat(2,1fr);
+    gap:0;
+  }
+  .v-icons .cell{
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    border-right:1px solid var(--ink-08);
+    border-bottom:1px solid var(--ink-08);
+  }
+  .v-icons .cell:nth-child(2),
+  .v-icons .cell:nth-child(4){border-right:none;}
+  .v-icons .cell:nth-child(3),
+  .v-icons .cell:nth-child(4){border-bottom:none;}
+  .v-icons .cell svg{width:64%; height:64%;}
+  .v-icons .cell .tag{position:absolute; bottom:8px; left:50%; transform:translateX(-50%); font-family:var(--mono); font-size:8px; letter-spacing:.2em; color:var(--ink-50); text-transform:uppercase;}
+
+  /* — V8 Drop grid */
+  .v-drop{height:100%; background:var(--paper); padding:18px; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:repeat(4,1fr); gap:8px;}
+  .v-drop .tile{
+    background:var(--cream);
+    border:1px solid var(--ink-08);
+    border-radius:5px;
+    position:relative;
+    overflow:hidden;
+  }
+  .v-drop .tile::before{
+    content:""; position:absolute; inset:18% 22%;
+    background:
+      linear-gradient(135deg, rgba(15,20,16,.18), rgba(15,20,16,.05));
+    border-radius:4px;
+  }
+  .v-drop .tile.feat{background:var(--ink);}
+  .v-drop .tile.feat::before{background:linear-gradient(135deg, var(--mint), rgba(94,226,160,.4));}
+  .v-drop .tile.holo::before{
+    background:linear-gradient(135deg, #FFB3C8, #B8A0FF, #6BE0E8);
+  }
+
+  /* ============ ICONOGRAPHY / BADGES ============ */
+  .icons-row{display:grid; grid-template-columns: repeat(6,1fr); gap:18px;}
+  .icon-card{
+    background:var(--paper); border-radius:12px;
+    aspect-ratio:1/1;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    border:1px solid var(--ink-08);
+  }
+  .icon-card svg{width:55%; height:55%;}
+  .icon-card .lbl{position:absolute; bottom:10px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:8.5px; letter-spacing:.22em; color:var(--ink-50); text-transform:uppercase;}
+
+  .badge-row{display:grid; grid-template-columns: repeat(4,1fr); gap:24px; margin-top:24px;}
+  .badge-card{
+    background:var(--paper); border-radius:12px;
+    padding:36px 20px; display:flex; flex-direction:column; align-items:center; gap:14px;
+    border:1px solid var(--ink-08);
+  }
+  .badge{
+    width:96px; height:96px; border-radius:50%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .badge.psa{
+    background:var(--mint);
+    border:2px solid var(--ink);
+  }
+  .badge.psa .m{font-family:var(--sans); font-weight:700; font-size:32px; color:var(--ink); line-height:.9; letter-spacing:-0.04em;}
+  .badge.psa .g{font-family:var(--mono); font-size:8.5px; letter-spacing:.22em; color:var(--ink); font-weight:700; margin-top:3px;}
+  .badge.verif{
+    background:var(--ink); color:var(--mint);
+    border:2px solid var(--ink);
+  }
+  .badge.verif svg{width:42px; height:42px;}
+  .badge.mint{
+    background:var(--paper);
+    border:2px solid var(--ink);
+  }
+  .badge.mint .m{font-family:var(--mono); font-size:10px; letter-spacing:.22em; font-weight:700; color:var(--ink); text-transform:uppercase; line-height:1.2; text-align:center;}
+  .badge.sealed{
+    background:var(--ink); color:var(--paper);
+  }
+  .badge.sealed .m{font-family:var(--mono); font-size:9.5px; letter-spacing:.24em; font-weight:600; text-transform:uppercase; line-height:1.2; text-align:center;}
+  .badge-card .desc{font-family:var(--mono); font-size:9.5px; letter-spacing:.22em; color:var(--ink-50); text-transform:uppercase; text-align:center;}
+
+  /* ============ EDITORIAL WORDS ============ */
+  .words{
+    background:var(--ink);
+    color:var(--paper);
+    border-radius:14px;
+    padding:64px 56px;
+    position:relative;
+    overflow:hidden;
+  }
+  .words .corner{position:absolute; font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:rgba(242,239,231,.45); text-transform:uppercase;}
+  .words .c-tl{top:24px; left:30px;}
+  .words .c-tr{top:24px; right:30px;}
+  .words .c-bl{bottom:24px; left:30px;}
+  .words .c-br{bottom:24px; right:30px;}
+  .words .grid-w{
+    display:grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap:14px 30px;
+    align-items:baseline;
+    padding:30px 0 18px;
+  }
+  .words .w{
+    font-family:var(--sans);
+    font-weight:500;
+    letter-spacing:-0.02em;
+    color:var(--paper);
+    line-height:1;
+    text-wrap:balance;
+  }
+  .words .w em{color:var(--mint); font-style:normal;}
+  .words .w b{font-weight:700;}
+  .words .w.sz1{font-size:60px;}
+  .words .w.sz2{font-size:44px;}
+  .words .w.sz3{font-size:32px;}
+  .words .w.sz4{font-size:24px;}
+  .words .w.serif{font-family:var(--mono); text-transform:uppercase; font-size:14px; letter-spacing:.32em; font-weight:500; color:rgba(242,239,231,.7);}
+  .words .col{display:flex; flex-direction:column; gap:18px;}
+  .words .rule{height:1px; background:rgba(242,239,231,.18); margin:14px 0;}
+
+  /* ============ TEXTURES & ANTI-REFS ============ */
+  .notes{
+    display:grid;
+    grid-template-columns:1.05fr .95fr;
+    gap:28px;
+  }
+  .note-card{
+    background:var(--paper);
+    border-radius:14px;
+    padding:36px 36px 32px;
+    border:1px solid var(--ink-08);
+  }
+  .note-card h3{
+    margin:0 0 18px;
+    font-family:var(--mono);
+    font-size:11px; letter-spacing:.32em; font-weight:600; text-transform:uppercase;
+  }
+  .note-card ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:12px;}
+  .note-card li{
+    font-family:var(--sans); font-size:14.5px; line-height:1.4; color:var(--ink-soft);
+    display:grid; grid-template-columns: 24px 1fr; gap:10px; align-items:start;
+    text-wrap:pretty;
+  }
+  .note-card li .mk{
+    font-family:var(--mono); font-size:11px; letter-spacing:.18em; color:var(--mint-deep); font-weight:600; text-transform:uppercase; line-height:1.7;
+  }
+  .note-card.anti li .mk{color:var(--holo-red);}
+  .note-card .meta{font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--ink-50); text-transform:uppercase; margin-top:20px; padding-top:18px; border-top:1px solid var(--ink-08);}
+
+  /* ============ FOOTER ============ */
+  .footer{
+    margin-top:80px;
+    padding-top:28px;
+    border-top:1px solid var(--ink-15);
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--mono); font-size:10px; letter-spacing:.22em; color:var(--ink-50); text-transform:uppercase;
+  }
+  .footer .signet{display:flex; align-items:center; gap:14px;}
+  .footer .signet .m{
+    width:34px; height:34px; border-radius:9px; background:var(--ink); color:var(--mint);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--sans); font-weight:600; font-size:22px; letter-spacing:-0.04em;
+    position:relative;
+  }
+  .footer .signet .m::after{
+    content:""; position:absolute; right:5px; bottom:6px; width:5px; height:5px; border-radius:50%; background:var(--mint);
+  }
+
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+<div class="board" id="board">
+
+  <!-- ============ HEADER ============ -->
+  <header class="topbar">
+    <div class="title"><b>Minty</b> &nbsp;—&nbsp; Visual Identity 2026</div>
+    <div class="meta">
+      <span>FR · EU</span>
+      <span>v0.1 · Moodboard</span>
+      <span><i class="dot-mint"></i>&nbsp;&nbsp;Sell &middot; Buy &middot; Trade</span>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero-logo">
+      <span class="corner-tl">01 / Logo · Primary lockup</span>
+      <div class="frame-lockup">
+        <div class="lockup-frame">
+          <div class="word">Minty</div>
+          <div class="dot"></div>
+        </div>
+        <div class="lockup-tag">
+          <span>SELL</span><i></i><span>BUY</span><i></i><span>TRADE</span>
+        </div>
+      </div>
+      <div class="corner-br">
+        <span>Clearspace · 1×M</span>
+        <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--mint-deep);"></span>
+      </div>
+    </div>
+
+    <div class="hero-statement">
+      <div>
+        <div class="eyebrow">Positioning</div>
+        <h1>La rigueur d'une fintech, le désir d'un <em>drop</em>. Sérieux comme une banque, désirable comme un sneaker drop.</h1>
+      </div>
+
+      <div class="quotes">
+        <div class="q"><b>01</b> Confiance &middot;&nbsp;&nbsp;Mon argent &amp; mes cartes en sécurité</div>
+        <div class="q"><b>02</b> Excitation &middot;&nbsp;&nbsp;La chasse au trésor commence</div>
+        <div class="q"><b>03</b> Simplicité &middot;&nbsp;&nbsp;Enfin une app qui n'embrouille pas</div>
+      </div>
+
+      <div class="foot">
+        <span>Marketplace · TCG</span>
+        <span>Paris · 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CORE PALETTE ============ -->
+  <section class="section">
+    <div class="section-h">
+      <h2>02 · Core palette</h2>
+      <span class="idx">03 swatches / core</span>
+    </div>
+
+    <div class="pal-core">
+      <div class="swatch sw-ink">
+        <div class="top">
+          <span>Ink · Authority</span>
+          <span>01</span>
+        </div>
+        <div>
+          <div class="name">Noir profond</div>
+          <div class="bot">
+            <div class="hex">#0F1410</div>
+            <div class="role mono" style="font-size:10px;letter-spacing:.22em;">Type · UI base</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swatch sw-mint">
+        <div class="top">
+          <span>Mint · Signature</span>
+          <span>02</span>
+        </div>
+        <div>
+          <div class="name">Vert menthe</div>
+          <div class="bot">
+            <div class="hex">#5EE2A0</div>
+            <div class="role mono" style="font-size:10px;letter-spacing:.22em;">Accent · CTA · Dot</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="swatch sw-cream">
+        <div class="top">
+          <span>Cream · Paper</span>
+          <span>03</span>
+        </div>
+        <div>
+          <div class="name">Crème</div>
+          <div class="bot">
+            <div class="hex">#F2EFE7</div>
+            <div class="role mono" style="font-size:10px;letter-spacing:.22em;">Surface · BG</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TYPOGRAPHY ============ -->
+  <section class="section">
+    <div class="section-h">
+      <h2>03 · Typography</h2>
+      <span class="idx">Space Grotesk · 400 / 500 / 700</span>
+    </div>
+
+    <div class="type-block">
+      <div class="meta-tl label">Specimen · Wordmark</div>
+      <div class="meta-tr label">Geometric sans · 3 weights</div>
+
+      <div class="specimen">Minty<span class="dot"></span></div>
+      <div class="tag-line"><span>SELL</span><i></i><span>BUY</span><i></i><span>TRADE</span></div>
+
+      <div class="type-rules">
+        <div class="weight-card">
+          <div class="w reg">Aa 0 9</div>
+          <div class="meta">Regular · 400 · Body</div>
+          <div class="body">Marketplace française de cartes à collectionner. Authentification humaine, paiement scellé, livraison protégée. Trade safely.</div>
+        </div>
+        <div class="weight-card">
+          <div class="w med">Aa 0 9</div>
+          <div class="meta">Medium · 500 · UI</div>
+          <div class="body">Acheter · Vendre · Échanger. Boutons, libellés, navigation, prix marchand. Hiérarchie d'interface, sans bruit.</div>
+        </div>
+        <div class="weight-card">
+          <div class="w bld">Aa 0 9</div>
+          <div class="meta">Bold · 700 · Display</div>
+          <div class="body">Titres, hero, headlines marketing, packshots. À utiliser avec parcimonie, jamais en bloc de texte courant.</div>
+        </div>
+      </div>
+
+      <div class="tabular-row">
+        <div>
+          <div class="price num">1 247,00 &euro;</div>
+          <small>Charizard Holo · PSA 10 · Last sale</small>
+        </div>
+        <div>
+          <div class="price num"><span class="up">+ 18,4 %</span></div>
+          <small>30 jours · spot price</small>
+        </div>
+        <div>
+          <div class="price num">04 / 102</div>
+          <small>Set Base · numérotation</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOLO STRIP ============ -->
+  <section class="section--tight">
+    <div class="section-h">
+      <h2>04 · Holographic foil &middot; rarity gradient</h2>
+      <span class="idx">used sparingly · scarcity signal only</span>
+    </div>
+    <div class="holo-strip">
+      <div class="h-label">Iridescent · pearl · holo</div>
+      <div class="h-grade">Reserve for &nbsp;·&nbsp; <b>PSA 10 / Sealed / Rare drops</b></div>
+    </div>
+  </section>
+
+  <!-- ============ FUNCTIONAL PALETTE ============ -->
+  <section class="section--tight">
+    <div class="section-h">
+      <h2>05 · Functional accents &middot; data palette</h2>
+      <span class="idx">data · grading · trust signals</span>
+    </div>
+    <div class="func-row">
+      <div class="chip">
+        <div class="puck gold"></div>
+        <div>
+          <div class="n">Or · Gold</div>
+          <div class="meta">Grade 10 · Rare</div>
+        </div>
+        <div class="hex">#D4AF37</div>
+      </div>
+      <div class="chip">
+        <div class="puck silver"></div>
+        <div>
+          <div class="n">Argent · Silver</div>
+          <div class="meta">Grade 9 · Near mint</div>
+        </div>
+        <div class="hex">#B8B8B8</div>
+      </div>
+      <div class="chip">
+        <div class="puck bronze"></div>
+        <div>
+          <div class="n">Bronze</div>
+          <div class="meta">Grade 8 · Excellent</div>
+        </div>
+        <div class="hex">#CD7F32</div>
+      </div>
+      <div class="chip">
+        <div class="puck red"></div>
+        <div>
+          <div class="n">Rouge holo</div>
+          <div class="meta">Alert · Fake detected</div>
+        </div>
+        <div class="hex">#FF3B5C</div>
+      </div>
+      <div class="chip">
+        <div class="puck blue"></div>
+        <div>
+          <div class="n">Bleu trust</div>
+          <div class="meta">Verified · IA + Humans</div>
+        </div>
+        <div class="hex">#2D6CDF</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8 REFERENCE VIGNETTES ============ -->
+  <section class="section">
+    <div class="section-h">
+      <h2>06 · Visual references</h2>
+      <span class="idx">8 modules · style · matter · gesture</span>
+    </div>
+
+    <div class="grid g4">
+      <!-- 1 Fintech card -->
+      <div class="mod">
+        <div class="mod-visual ref-vis">
+          <div class="v-fintech">
+            <div class="hdr"><span>Wallet · Minty</span><span>•••</span></div>
+            <div class="bal"><small>Available balance</small>2 184,50 &euro;</div>
+            <div class="row"><span>23.04 · Sale</span><span>+ 487,00</span></div>
+            <div class="row down"><span>22.04 · Bid</span><span>− 142,00</span></div>
+            <div class="row"><span>21.04 · Payout</span><span>+ 1 247,00</span></div>
+            <div class="btn">Withdraw to bank</div>
+          </div>
+        </div>
+        <div class="mod-cap">
+          <span class="l">01 · Fintech surface</span>
+          <span class="r">Clean cards · tabular &euro;</span>
+        </div>
+      </div>
+
+      <!-- 2 Chart -->
+      <div class="mod">
+        <div class="mod-visual ref-vis">
+          <div class="v-chart">
+            <div class="top">
+              <div class="price">1 247 &euro;<small>+ 18,4 % · 30j</small></div>
+              <div class="name"><b>Charizard Holo</b>Base · PSA 10</div>
+            </div>
+            <svg viewBox="0 0 200 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="gFill" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#5EE2A0" stop-opacity=".35"/>
+                  <stop offset="100%" stop-color="#5EE2A0" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+              <path d="M0,72 L14,68 L28,74 L42,60 L58,64 L72,52 L88,58 L102,46 L118,50 L134,38 L150,42 L168,28 L184,32 L200,18 L200,100 L0,100 Z" fill="url(#gFill)"/>
+              <path d="M0,72 L14,68 L28,74 L42,60 L58,64 L72,52 L88,58 L102,46 L118,50 L134,38 L150,42 L168,28 L184,32 L200,18" fill="none" stroke="#0F1410" stroke-width="1.4" stroke-linejoin="round"/>
+              <circle cx="200" cy="18" r="3" fill="#5EE2A0" stroke="#0F1410" stroke-width="1"/>
+            </svg>
+            <div class="legend"><span>30 D</span><span>1 458 ventes</span><span>Bid · 1 195</span></div>
+          </div>
+        </div>
+        <div class="mod-cap">
+          <span class="l">02 · Bid / Ask &middot; history</span>
+          <span class="r">Drop · spot price</span>
+        </div>
+      </div>
+
+      <!-- 3 Holo foil -->
+      <div class="mod">
+        <div class="mod-visual ref-vis">
+          <div class="v-foil">
+            <div class="lbl">Foil · Holo · Macro</div>
+          </div>
+        </div>
+        <div class="mod-cap">
+          <span class="l">03 · Holographic texture</span>
+          <span class="r">Iridescent · ciblé</span>
+        </div>
+      </div>
+
+      <!-- 4 Slab -->
+      <div class="mod">
+        <div class="mod-visual ref-vis">
+          <div class="v-slab">
+            <div class="slab">
+              <div class="label-strip">
+                <span>MINTY · GRADED</span>
+                <b>MINT</b>
+                <span class="g">10</span>
+              </div>
+              <div class="art">Card art<br/>placeholder</div>
+              <div class="foot">
+                <span>Cert · 84 029 117</span>
+                <span>2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mod-cap">
+          <span class="l">04 · Graded slab</span>
+          <span class="r">Authentication seal</span>
+        </div>
+      </div>
+
+      <!-- 5 Studio photo -->
+      <div class="mod">
+        <div class="mod-visual ref-vis">
+          <div class="v-studio">
+            <div class="silhouette">
+              <div class="card-tilt"></div>
+            </div>
+            <div class="lbl">Photo &middot; Hand &middot; Card &middot; Studio</div>
+          </div>
+        </div>
+        <div class="mod-cap">
+          <span class="l">05 · Studio gesture</span>
+          <span class="r">Neutral · premium</span>
+        </div>
+      </div>
+
+      <!-- 6 Type detail -->
+      <div class="mod">
+        <div class="mod-visual ref-vis">
+          <div class="v-type">
+            <div class="row"><div class="meta">Specimen · 6pt → 130pt</div><div class="meta">Aa</div></div>
+            <div class="big">Aa</div>
+            <div class="row"><div class="meta">Space Grotesk · 600</div><div class="meta">SG-600</div></div>
+          </div>
+        </div>
+        <div class="mod-cap">
+          <span class="l">06 · Editorial type</span>
+          <span class="r">Ink on cream</span>
+        </div>
+      </div>
+
+      <!-- 7 Icons -->
+      <div class="mod">
+        <div class="mod-visual ref-vis">
+          <div class="v-icons">
+            <div class="cell">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M24 6 L40 14 V26 C40 34 33 41 24 44 C15 41 8 34 8 26 V14 Z"/>
+                <path d="M17 25 L22 30 L31 20"/>
+              </svg>
+              <span class="tag">Shield</span>
+            </div>
+            <div class="cell">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="24" cy="24" r="16"/>
+                <path d="M16 24 L22 30 L33 19"/>
+              </svg>
+              <span class="tag">Checkmark</span>
+            </div>
+            <div class="cell">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="11" y="20" width="26" height="20" rx="2"/>
+                <path d="M16 20 V14 a8 8 0 0 1 16 0 V20"/>
+              </svg>
+              <span class="tag">Sealed</span>
+            </div>
+            <div class="cell">
+              <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="21" cy="21" r="11"/>
+                <path d="M30 30 L40 40"/>
+              </svg>
+              <span class="tag">Loupe</span>
+            </div>
+          </div>
+        </div>
+        <div class="mod-cap">
+          <span class="l">07 · Line icons · 1.5 stroke</span>
+          <span class="r">Round caps · soft corners</span>
+        </div>
+      </div>
+
+      <!-- 8 Drop grid -->
+      <div class="mod">
+        <div class="mod-visual ref-vis">
+          <div class="v-drop">
+            <div class="tile"></div>
+            <div class="tile feat"></div>
+            <div class="tile"></div>
+            <div class="tile holo"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile"></div>
+            <div class="tile feat"></div>
+            <div class="tile"></div>
+            <div class="tile holo"></div>
+            <div class="tile"></div>
+          </div>
+        </div>
+        <div class="mod-cap">
+          <span class="l">08 · Drop grid &middot; marketplace</span>
+          <span class="r">Catalog rhythm</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ICONS + BADGES ============ -->
+  <section class="section">
+    <div class="section-h">
+      <h2>07 · Iconography &amp; badges</h2>
+      <span class="idx">line · stroke 1.5 · circle seals</span>
+    </div>
+
+    <div class="icons-row">
+      <div class="icon-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24 5 L41 13 V25 C41 34 33 42 24 44 C15 42 7 34 7 25 V13 Z"/>
+          <path d="M16 24 L22 30 L32 19"/>
+        </svg>
+        <span class="lbl">Trust</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="10" y="20" width="28" height="22" rx="2.5"/>
+          <path d="M16 20 V14 a8 8 0 0 1 16 0 V20"/>
+          <circle cx="24" cy="30" r="2.2" fill="#0F1410" stroke="none"/>
+          <path d="M24 32 V36"/>
+        </svg>
+        <span class="lbl">Sealed</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="21" cy="21" r="11"/>
+          <path d="M30 30 L40 40"/>
+          <path d="M17 21 H25 M21 17 V25"/>
+        </svg>
+        <span class="lbl">Inspect</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 30 L20 18 L28 26 L40 14"/>
+          <path d="M30 14 H40 V24"/>
+        </svg>
+        <span class="lbl">Trend</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="11" width="18" height="26" rx="2.5"/>
+          <rect x="21" y="11" width="18" height="26" rx="2.5"/>
+        </svg>
+        <span class="lbl">Trade</span>
+      </div>
+      <div class="icon-card">
+        <svg viewBox="0 0 48 48" fill="none" stroke="#0F1410" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 38 L8 22 L24 10 L40 22 L40 38 Z"/>
+          <path d="M19 38 V28 H29 V38"/>
+        </svg>
+        <span class="lbl">Home</span>
+      </div>
+    </div>
+
+    <div class="badge-row">
+      <div class="badge-card">
+        <div class="badge psa">
+          <div class="m">10</div>
+          <div class="g">MINT</div>
+        </div>
+        <div class="desc">Grade · 10 / Mint</div>
+      </div>
+      <div class="badge-card">
+        <div class="badge verif">
+          <svg viewBox="0 0 48 48" fill="none" stroke="#5EE2A0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 24 L21 31 L34 17"/>
+          </svg>
+        </div>
+        <div class="desc">Verified · IA + Humans</div>
+      </div>
+      <div class="badge-card">
+        <div class="badge mint">
+          <div class="m">Mint<br/>Condition</div>
+        </div>
+        <div class="desc">Quality seal</div>
+      </div>
+      <div class="badge-card">
+        <div class="badge sealed">
+          <div class="m">Sealed<br/>Payment</div>
+        </div>
+        <div class="desc">Escrow · trust</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EDITORIAL WORDS ============ -->
+  <section class="section">
+    <div class="section-h">
+      <h2>08 · Editorial voice</h2>
+      <span class="idx">word system · sober &middot; precise</span>
+    </div>
+
+    <div class="words">
+      <span class="corner c-tl">Tone · French · neutral</span>
+      <span class="corner c-tr">Voice · short sentences · period.</span>
+
+      <div class="grid-w">
+        <div class="col" style="grid-column: span 7;">
+          <div class="w sz1"><em>Authentifié.</em></div>
+          <div class="w sz2">Mint condition. Sealed payment.</div>
+          <div class="w sz3">Trade <em>safely.</em></div>
+          <div class="rule"></div>
+          <div class="w sz4">Verified by humans. <em>Backed by IA.</em></div>
+        </div>
+        <div class="col" style="grid-column: span 5; align-self:flex-end; padding-bottom:6px;">
+          <div class="w serif">Tagline · primary</div>
+          <div class="w sz3">Drop culture<br/>meets <em>trust.</em></div>
+          <div class="rule"></div>
+          <div class="w serif">Footprint</div>
+          <div class="w sz4">France &middot; <em>Europe coming soon.</em></div>
+          <div class="w serif">Always end with a period.</div>
+        </div>
+      </div>
+
+      <span class="corner c-bl">Voice keywords · 07</span>
+      <span class="corner c-br"><i class="dot-mint"></i>&nbsp;&nbsp;Minty &middot; tone</span>
+    </div>
+  </section>
+
+  <!-- ============ MATERIALS / ANTI-REFS ============ -->
+  <section class="section">
+    <div class="section-h">
+      <h2>09 · Materials &amp; guardrails</h2>
+      <span class="idx">do / don't · brand floor</span>
+    </div>
+
+    <div class="notes">
+      <div class="note-card">
+        <h3>Textures &amp; matter · Do</h3>
+        <ul>
+          <li><span class="mk">+</span><span>Surfaces mates &middot; papier crème, encre noire profonde.</span></li>
+          <li><span class="mk">+</span><span>Détails iridescents très ciblés &middot; uniquement pour signaler la rareté.</span></li>
+          <li><span class="mk">+</span><span>Aucun dégradé sauf foil holographique.</span></li>
+          <li><span class="mk">+</span><span>Ombres douces &middot; longues &middot; basses opacités.</span></li>
+          <li><span class="mk">+</span><span>Coins arrondis 12–16px sur tous les modules UI.</span></li>
+          <li><span class="mk">+</span><span>Icônes line &middot; stroke 1.5px, caps ronds, angles légèrement arrondis.</span></li>
+          <li><span class="mk">+</span><span>Le point vert comme signature &middot; badge, puce, séparateur.</span></li>
+        </ul>
+        <div class="meta">DO &middot; brand floor &middot; v0.1</div>
+      </div>
+
+      <div class="note-card anti">
+        <h3>Anti-references · Don't</h3>
+        <ul>
+          <li><span class="mk">—</span><span>Esthétique "geek/otaku" années 2000 &middot; legacy cardboard catalogs.</span></li>
+          <li><span class="mk">—</span><span>Couleurs criardes saturées partout &middot; pas de "vert kaki" agressif.</span></li>
+          <li><span class="mk">—</span><span>Mascottes officielles, fan-art, illustrations enfantines.</span></li>
+          <li><span class="mk">—</span><span>Effets 3D bling, néons gaming, glassmorphism daté.</span></li>
+          <li><span class="mk">—</span><span>Stock photos de mains tenant des billets.</span></li>
+          <li><span class="mk">—</span><span>Templates "startup générique" &middot; gradient violet/bleu SaaS.</span></li>
+        </ul>
+        <div class="meta">DON'T &middot; visual hygiene</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="signet">
+      <div class="m">M<span></span></div>
+      <span>Minty &middot; Visual Identity 2026</span>
+    </div>
+    <span>Marketplace &middot; TCG &middot; FR</span>
+    <span>Sell <i class="dot-mint" style="margin:0 6px"></i> Buy <i class="dot-mint" style="margin:0 6px"></i> Trade</span>
+  </footer>
+
+</div>
+</div>
+
+<script>
+  // Scale the 1600px-wide board to fit the viewport width (preserve scrollability vertically)
+  (function(){
+    var board = document.getElementById('board');
+    var stage = document.getElementById('stage');
+    function fit(){
+      var pad = 48; // 24px each side
+      var vw = stage.clientWidth - pad;
+      var scale = Math.min(1, vw / 1600);
+      board.style.transform = 'scale(' + scale + ')';
+      // adjust virtual height so scroll matches scaled content
+      var h = board.getBoundingClientRect().height;
+      board.style.marginBottom = (-(1 - scale) * board.offsetHeight) + 'px';
+    }
+    window.addEventListener('resize', fit);
+    // run once after fonts have a moment
+    requestAnimationFrame(fit);
+    setTimeout(fit, 300);
+    setTimeout(fit, 1000);
+  })();
+</script>
+</body>
+</html>

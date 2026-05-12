@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Minty · Logo explorations</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --mint-50:  #ecfcf3;
+    --mint-100: #c4f3d8;
+    --mint-300: #7eecb4;
+    --mint:     #5be7a6;   /* primary, close to your original */
+    --mint-600: #2ec77f;
+    --mint-800: #0e5a3a;
+    --mint-900: #0e3b2a;
+    --ink:      #0b1410;
+    --ink-2:    #1a2722;
+    --cream:    #f6f3ec;
+    --paper:    #fbfaf5;
+    --rule:     rgba(11,20,16,.14);
+  }
+  html,body{margin:0;background:#f0eee9;font-family:'Space Grotesk',ui-sans-serif,sans-serif;color:var(--ink)}
+
+  /* Shared logo primitives */
+  .lg{ display:flex; align-items:center; justify-content:center; width:100%; height:100%; position:relative; overflow:hidden; }
+  .lg--cream{ background:var(--cream); }
+  .lg--paper{ background:var(--paper); }
+  .lg--mint{  background:var(--mint); }
+  .lg--ink{   background:var(--ink); }
+  .lg--grid{
+    background:
+      linear-gradient(var(--paper),var(--paper)),
+      radial-gradient(circle, rgba(11,20,16,.06) 1px, transparent 1.2px) 0 0/16px 16px;
+    background-blend-mode: normal;
+  }
+
+  /* Wordmark base */
+  .word{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    letter-spacing:-0.025em;
+    line-height:1;
+  }
+  .mono{
+    font-family:'JetBrains Mono',ui-monospace,monospace;
+    font-weight:500;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+  }
+
+  /* ---- 01 · Refined frame (your direction, tightened) ---- */
+  .l01-frame{
+    border:2.5px solid var(--ink);
+    border-radius:22px;
+    padding:18px 34px 20px;
+    position:relative;
+    background:transparent;
+  }
+  .l01-word{ font-size:78px; }
+  .l01-dot{
+    position:absolute;
+    right:-22px; bottom:-2px;
+    width:18px; height:18px;
+    border-radius:50%;
+    background:var(--mint-600);
+    box-shadow:0 0 0 2.5px var(--ink);
+  }
+  .l01-tag{
+    margin-top:14px;
+    display:flex; gap:14px; justify-content:center;
+    font-size:11px; color:var(--ink);
+  }
+  .l01-tag span{display:inline-flex;align-items:center;gap:8px}
+  .l01-tag i{display:inline-block;width:3px;height:3px;border-radius:50%;background:var(--ink);}
+  .l01-wrap{display:flex;flex-direction:column;align-items:center}
+
+  /* ---- 02 · Card-frame ---- */
+  .l02{
+    width:180px; height:252px;
+    border:2px solid var(--ink);
+    border-radius:18px;
+    background:var(--mint);
+    position:relative;
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    padding:18px;
+  }
+  .l02-pip{
+    position:absolute; top:12px; left:12px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px; font-weight:600;
+    background:var(--ink); color:var(--mint);
+    padding:3px 7px; border-radius:999px;
+    letter-spacing:.1em;
+  }
+  .l02-num{
+    position:absolute; top:12px; right:14px;
+    font-family:'Space Grotesk'; font-weight:700;
+    font-size:14px; color:var(--ink);
+  }
+  .l02-word{ font-size:36px; font-weight:600; letter-spacing:-0.03em }
+  .l02-foot{
+    position:absolute; bottom:14px; left:0; right:0;
+    text-align:center;
+    font-family:'JetBrains Mono'; font-size:9px; letter-spacing:.22em; font-weight:600;
+    color:var(--ink);
+  }
+
+  /* ---- 03 · Pill ---- */
+  .l03{
+    background:var(--ink);
+    color:var(--mint);
+    padding:18px 34px 20px;
+    border-radius:999px;
+    font-size:54px; font-weight:600; letter-spacing:-0.02em;
+    display:inline-flex;
+    align-items:baseline;
+  }
+  .l03 b{font-weight:600}
+  .l03 .dot{ color:var(--mint); margin-left:1px }
+
+  /* ---- 04 · Card-stack mark + wordmark ---- */
+  .l04-wrap{display:flex; align-items:center; gap:18px}
+  .l04-mark{ width:64px; height:64px; position:relative; }
+  .l04-card{
+    position:absolute; inset:0;
+    border:2px solid var(--ink);
+    border-radius:9px;
+    background:var(--cream);
+  }
+  .l04-card.c1{ transform: translate(-10px,-6px) rotate(-9deg); background:var(--mint-100); }
+  .l04-card.c2{ transform: translate(2px,2px) rotate(2deg); background:var(--mint); }
+  .l04-card.c3{ transform: translate(12px,-2px) rotate(11deg); background:var(--cream); }
+  .l04-word{ font-size:54px; }
+  .l04-dot{ color:var(--mint-600); }
+
+  /* ---- 05 · Grade seal ---- */
+  .l05{
+    width:240px; height:240px;
+    border-radius:50%;
+    background:var(--cream);
+    border:2.5px solid var(--ink);
+    position:relative;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .l05-inner{
+    width:182px; height:182px; border-radius:50%;
+    border:1.5px solid var(--ink);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    background:var(--mint);
+  }
+  .l05-M{ font-size:74px; font-weight:700; letter-spacing:-0.03em; line-height:.9 }
+  .l05-grade{
+    margin-top:2px;
+    font-family:'JetBrains Mono'; font-size:10px; letter-spacing:.22em; font-weight:600;
+  }
+  .l05-arc{ position:absolute; inset:0; }
+  .l05-tick{
+    position:absolute; left:50%; top:7px;
+    width:2px; height:8px; background:var(--ink); transform-origin:1px 113px;
+  }
+
+  /* ---- 06 · Holo bar ---- */
+  .l06{
+    padding:22px 42px;
+    border-radius:14px;
+    color:#fff;
+    font-size:62px;
+    font-weight:600;
+    letter-spacing:-0.025em;
+    position:relative;
+    background:
+      linear-gradient(110deg,
+        #59e8a1 0%,
+        #6be0e8 28%,
+        #b8a0ff 55%,
+        #ffb3c8 78%,
+        #ffd58a 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.5),
+      0 12px 30px -10px rgba(11,20,16,.35);
+  }
+  .l06::before{
+    content:""; position:absolute; inset:0; border-radius:14px;
+    background:
+      repeating-linear-gradient(115deg, rgba(255,255,255,.18) 0 2px, transparent 2px 7px);
+    mix-blend-mode:overlay;
+    pointer-events:none;
+  }
+  .l06 .dot{color:#fff}
+
+  /* ---- 07 · Period as pip ---- */
+  .l07-word{ font-size:90px; display:inline-flex; align-items:flex-end; gap:4px; }
+  .l07-pip{
+    width:18px; height:18px; border-radius:5px;
+    background:var(--mint-600);
+    transform:rotate(45deg);
+    margin-bottom:8px;
+  }
+
+  /* ---- 08 · Stacked lockup w/ tagline ---- */
+  .l08{ text-align:center }
+  .l08 .w{ font-size:72px; font-weight:600; letter-spacing:-0.03em }
+  .l08 .w .dot{ color:var(--mint-600); }
+  .l08 .rule{ width:120px; height:1px; background:var(--ink); margin:14px auto }
+  .l08 .tag{ font-family:'JetBrains Mono'; font-size:11px; letter-spacing:.32em; font-weight:600; }
+
+  /* ---- 09 · App icon ---- */
+  .l09{
+    width:160px; height:160px;
+    border-radius:36px;
+    background:var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+    box-shadow:0 14px 30px -12px rgba(11,20,16,.4);
+  }
+  .l09 .m{
+    font-size:96px; font-weight:600; color:var(--mint); letter-spacing:-0.04em; line-height:.9;
+  }
+  .l09 .d{
+    width:16px; height:16px; border-radius:50%;
+    background:var(--mint);
+    position:absolute; right:32px; bottom:34px;
+  }
+
+  /* ---- 10 · Storefront avatar ---- */
+  .l10{
+    width:160px; height:160px;
+    border-radius:50%;
+    background:var(--mint);
+    display:flex; align-items:center; justify-content:center;
+    border:2.5px solid var(--ink);
+    position:relative;
+  }
+  .l10 .m{ font-size:88px; font-weight:700; letter-spacing:-0.04em; }
+  .l10 .ring{
+    position:absolute; inset:8px; border-radius:50%;
+    border:1.5px dashed rgba(11,20,16,.4);
+  }
+
+  /* ---- 11 · Card with authenticity stamp ---- */
+  .l11-card{
+    width:200px; height:280px;
+    border-radius:14px;
+    background:
+      linear-gradient(135deg,#1e2a24 0%, #0b1410 100%);
+    border:1.5px solid rgba(255,255,255,.08);
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 14px 30px -10px rgba(11,20,16,.45);
+  }
+  .l11-art{
+    position:absolute; left:14px; right:14px; top:14px; height:148px;
+    border-radius:9px;
+    background:
+      repeating-linear-gradient(45deg, rgba(91,231,166,.18) 0 8px, rgba(91,231,166,.06) 8px 16px);
+    border:1px dashed rgba(91,231,166,.45);
+    display:flex; align-items:center; justify-content:center;
+    color:rgba(255,255,255,.55);
+    font-family:'JetBrains Mono'; font-size:9px; letter-spacing:.2em;
+  }
+  .l11-meta{
+    position:absolute; left:14px; right:14px; bottom:48px; color:#fff;
+    font-family:'JetBrains Mono'; font-size:8.5px; letter-spacing:.18em; line-height:1.6;
+    opacity:.7;
+  }
+  .l11-name{
+    position:absolute; left:14px; right:14px; bottom:60px;
+    font-family:'Space Grotesk'; font-weight:600; color:#fff; font-size:14px; letter-spacing:-0.01em;
+  }
+  .l11-stamp{
+    position:absolute; right:10px; bottom:10px;
+    width:62px; height:62px; border-radius:50%;
+    background:var(--mint);
+    border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center; flex-direction:column;
+    transform:rotate(-8deg);
+    box-shadow:0 6px 14px -4px rgba(0,0,0,.4);
+  }
+  .l11-stamp .m{ font-size:24px; font-weight:700; letter-spacing:-0.04em; color:var(--ink); line-height:.9 }
+  .l11-stamp .g{
+    font-family:'JetBrains Mono'; font-size:7px; letter-spacing:.18em; font-weight:700;
+    color:var(--ink); margin-top:2px;
+  }
+
+  /* ---- intro block ---- */
+  .intro{ font-family:'Space Grotesk'; max-width:680px; line-height:1.5; font-size:14px; color:#3a3530; }
+  .intro h1{ font-size:22px; margin:0 0 8px; letter-spacing:-0.01em; color:var(--ink); font-weight:600; }
+  .intro p{ margin:6px 0 }
+  .intro code{
+    font-family:'JetBrains Mono'; font-size:12px;
+    background:#e9e6df; padding:1px 6px; border-radius:4px;
+  }
+  .swatches{display:flex;gap:6px;margin-top:10px}
+  .sw{width:26px;height:26px;border-radius:6px;border:1px solid rgba(0,0,0,.1)}
+</style>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body style="background-color: rgb(219, 171, 52)">
+<template id="__bundler_thumbnail" data-bg-color="#5be7a6">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect x="280" y="180" width="640" height="440" rx="80" fill="none" stroke="#0b1410" stroke-width="22"/>
+    <text x="600" y="470" text-anchor="middle" font-family="-apple-system, system-ui, sans-serif" font-weight="700" font-size="220" fill="#0b1410" letter-spacing="-8">Minty</text>
+    <circle cx="900" cy="600" r="40" fill="#2ec77f" stroke="#0b1410" stroke-width="22"/>
+  </svg>
+</template>
+<div id="root"></div>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="logos.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+</body>
+</html>
