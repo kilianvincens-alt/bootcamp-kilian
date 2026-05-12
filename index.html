@@ -135,6 +135,14 @@
 </head>
 <body class="bg-cream text-ink min-h-screen">
 
+  <!-- ============== App Loader (Supabase) ============== -->
+  <div id="app-loader" class="fixed inset-0 bg-cream z-[60] flex flex-col items-center justify-center">
+    <div class="w-12 h-12 rounded-full bg-mint flex items-center justify-center mb-4 ai-pulse">
+      <span class="text-ink font-bold text-xl">M</span>
+    </div>
+    <p class="label-mono">Connexion à Supabase…</p>
+  </div>
+
   <!-- ============== TopBar ============== -->
   <header class="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-ink/5">
     <div class="max-w-md mx-auto flex items-center justify-between px-4 py-3">
@@ -825,53 +833,42 @@
 
   <script>
   // =================================================================
-  //                          SEED DATA
+  //                       SUPABASE CLIENT
   // =================================================================
-  const CARDS = [
-    { id:'c1',  name:'Dracaufeu',  set:'Set de Base', number:'4/102',  image:'https://images.pokemontcg.io/base1/4_hires.png',  rarity:'Holo Rare', marketPrice:850 },
-    { id:'c2',  name:'Tortank',    set:'Set de Base', number:'2/102',  image:'https://images.pokemontcg.io/base1/2_hires.png',  rarity:'Holo Rare', marketPrice:320 },
-    { id:'c3',  name:'Florizarre', set:'Set de Base', number:'15/102', image:'https://images.pokemontcg.io/base1/15_hires.png', rarity:'Holo Rare', marketPrice:280 },
-    { id:'c4',  name:'Mewtwo',     set:'Set de Base', number:'10/102', image:'https://images.pokemontcg.io/base1/10_hires.png', rarity:'Holo Rare', marketPrice:195 },
-    { id:'c5',  name:'Alakazam',   set:'Set de Base', number:'1/102',  image:'https://images.pokemontcg.io/base1/1_hires.png',  rarity:'Holo Rare', marketPrice:90  },
-    { id:'c6',  name:'Pikachu',    set:'Set de Base', number:'58/102', image:'https://images.pokemontcg.io/base1/58_hires.png', rarity:'Commune',   marketPrice:18  },
-    { id:'c7',  name:'Léviator',   set:'Set de Base', number:'6/102',  image:'https://images.pokemontcg.io/base1/6_hires.png',  rarity:'Holo Rare', marketPrice:220 },
-    { id:'c8',  name:'Lugia',      set:'Neo Genesis', number:'9/111',  image:'https://images.pokemontcg.io/neo1/9_hires.png',   rarity:'Holo Rare', marketPrice:450 },
-    { id:'c9',  name:'Mew',        set:'Promo',       number:'8/8',    image:'https://images.pokemontcg.io/basep/8_hires.png',  rarity:'Promo',     marketPrice:140 },
-    { id:'c10', name:'Insécateur', set:'Jungle',      number:'10/64',  image:'https://images.pokemontcg.io/base2/10_hires.png', rarity:'Holo Rare', marketPrice:65  },
-    { id:'c11', name:'Ronflex',    set:'Jungle',      number:'11/64',  image:'https://images.pokemontcg.io/base2/11_hires.png', rarity:'Holo Rare', marketPrice:55  },
-    { id:'c12', name:'Dracolosse', set:'Fossile',     number:'4/62',   image:'https://images.pokemontcg.io/base3/4_hires.png',  rarity:'Holo Rare', marketPrice:140 },
-    { id:'c13', name:'Magmar',     set:'Fossile',     number:'39/62',  image:'https://images.pokemontcg.io/base3/39_hires.png', rarity:'Peu commune',marketPrice:8 },
-    { id:'c14', name:'Électhor',   set:'Fossile',     number:'15/62',  image:'https://images.pokemontcg.io/base3/15_hires.png', rarity:'Holo Rare', marketPrice:95 },
-    { id:'c15', name:'Artikodin',  set:'Fossile',     number:'2/62',   image:'https://images.pokemontcg.io/base3/2_hires.png',  rarity:'Holo Rare', marketPrice:110 },
-    { id:'c16', name:'Sulfura',    set:'Fossile',     number:'12/62',  image:'https://images.pokemontcg.io/base3/12_hires.png', rarity:'Holo Rare', marketPrice:130 },
-  ];
+  const SUPABASE_URL = 'https://psmdivtvaewlouobxyxn.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_eJB9sQpnfDr_N-n6Pl424g_75MLG_0U';
+  const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-  const USERS = [
-    { id:'u1', username:'MaxCollect',  avatar:'https://i.pravatar.cc/150?u=max',    rating:4.9, sales:247, isPower:true  },
-    { id:'u2', username:'LeoCards',    avatar:'https://i.pravatar.cc/150?u=leo',    rating:4.7, sales:38,  isMintyPlus:true },
-    { id:'u3', username:'Cécile_TCG',  avatar:'https://i.pravatar.cc/150?u=cecile', rating:4.8, sales:89   },
-    { id:'u4', username:'PokéParis',   avatar:'https://i.pravatar.cc/150?u=paris',  rating:4.6, sales:22   },
-    { id:'u5', username:'Yann_Vintage',avatar:'https://i.pravatar.cc/150?u=yann',   rating:5.0, sales:156, isPower:true  },
-    { id:'kilian', username:'Kilian_TCG', avatar:'https://i.pravatar.cc/150?u=kilian', rating:0, sales:0 },
-  ];
+  // Globaux remplis depuis Supabase au démarrage
+  let CARDS = [];
+  let USERS = [];
+  let LISTINGS = [];
 
-  let LISTINGS = [
-    { id:'l1',  cardId:'c1',  sellerId:'u1', price:820, condition:'NM',   auth:'verified',     boost:'featured',  shipping:4.5 },
-    { id:'l2',  cardId:'c2',  sellerId:'u3', price:310, condition:'EX',   auth:'verified',                          shipping:4.5 },
-    { id:'l3',  cardId:'c4',  sellerId:'u5', price:190, condition:'NM',   auth:'verified',     boost:'spotlight', shipping:3.5 },
-    { id:'l4',  cardId:'c8',  sellerId:'u1', price:440, condition:'Mint', auth:'verified',                          shipping:6.5 },
-    { id:'l5',  cardId:'c5',  sellerId:'u2', price:85,  condition:'NM',   auth:'verified',                          shipping:3.5 },
-    { id:'l6',  cardId:'c6',  sellerId:'u4', price:22,  condition:'EX',   auth:'pending',                           shipping:3.5 },
-    { id:'l7',  cardId:'c7',  sellerId:'u3', price:210, condition:'NM',   auth:'verified',                          shipping:4.5 },
-    { id:'l8',  cardId:'c12', sellerId:'u5', price:135, condition:'EX',   auth:'verified',                          shipping:4.5 },
-    { id:'l9',  cardId:'c3',  sellerId:'u1', price:270, condition:'NM',   auth:'verified',                          shipping:4.5 },
-    { id:'l10', cardId:'c9',  sellerId:'u2', price:145, condition:'NM',   auth:'unguaranteed',                      shipping:3.5 },
-    { id:'l11', cardId:'c10', sellerId:'u4', price:60,  condition:'LP',   auth:'verified',                          shipping:3.5 },
-    { id:'l12', cardId:'c11', sellerId:'u3', price:52,  condition:'EX',   auth:'verified',                          shipping:3.5 },
-    { id:'l13', cardId:'c14', sellerId:'u5', price:88,  condition:'NM',   auth:'verified',                          shipping:3.5 },
-    { id:'l14', cardId:'c15', sellerId:'u1', price:105, condition:'NM',   auth:'verified',                          shipping:3.5 },
-    { id:'l15', cardId:'c16', sellerId:'u3', price:125, condition:'EX',   auth:'verified',                          shipping:3.5 },
-  ];
+  async function loadFromSupabase() {
+    const [cardsRes, profilesRes, listingsRes] = await Promise.all([
+      sb.from('cards').select('*'),
+      sb.from('profiles').select('*'),
+      sb.from('listings').select('*'),
+    ]);
+    if (cardsRes.error)    throw new Error('cards: '    + cardsRes.error.message);
+    if (profilesRes.error) throw new Error('profiles: ' + profilesRes.error.message);
+    if (listingsRes.error) throw new Error('listings: ' + listingsRes.error.message);
+
+    CARDS = (cardsRes.data || []).map(c => ({
+      id: c.id, name: c.name, set: c.set_name, number: c.number,
+      image: c.image, rarity: c.rarity, marketPrice: Number(c.market_price),
+    }));
+    USERS = (profilesRes.data || []).map(p => ({
+      id: p.id, username: p.username, avatar: p.avatar,
+      rating: Number(p.rating), sales: p.sales,
+      isPower: p.is_power, isMintyPlus: p.is_minty_plus,
+    }));
+    LISTINGS = (listingsRes.data || []).map(l => ({
+      id: l.id, cardId: l.card_id, sellerId: l.seller_id,
+      price: Number(l.price), condition: l.condition, auth: l.auth_status,
+      boost: l.boost, shipping: Number(l.shipping),
+    }));
+  }
 
   // =================================================================
   //                            STATE
@@ -1861,10 +1858,29 @@
   // =================================================================
   //                            INIT
   // =================================================================
-  document.addEventListener('DOMContentLoaded', () => {
-    renderHome();
-    navigate();
-    window.addEventListener('hashchange', navigate);
+  document.addEventListener('DOMContentLoaded', async () => {
+    const loader = document.getElementById('app-loader');
+    try {
+      await loadFromSupabase();
+      renderHome();
+      navigate();
+      window.addEventListener('hashchange', navigate);
+    } catch (e) {
+      console.error('Supabase load failed:', e);
+      if (loader) {
+        loader.innerHTML = `
+          <div class="text-center p-6 max-w-xs">
+            <div class="w-12 h-12 rounded-full bg-holo-red/15 flex items-center justify-center mx-auto mb-3">
+              <span class="text-holo-red font-bold text-xl">!</span>
+            </div>
+            <p class="font-bold mb-1">Erreur de connexion Supabase</p>
+            <p class="text-xs text-ink/60 break-words">${e.message || 'Erreur inconnue'}</p>
+          </div>
+        `;
+      }
+      return;
+    }
+    if (loader) loader.style.display = 'none';
   });
   </script>
 </body>
