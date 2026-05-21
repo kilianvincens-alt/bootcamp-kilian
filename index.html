@@ -113,14 +113,24 @@
     }
     .toast.show { opacity:1; }
 
-    /* Condition pills */
+    /* Condition rows (état + définition) */
     .cond-pill {
-      flex:1; padding:0.6rem 0; border-radius:10px;
-      font-family:'JetBrains Mono',monospace; font-size:0.75rem;
-      text-align:center; cursor:pointer; transition:all 0.15s ease;
+      display:flex; align-items:center; gap:12px; width:100%;
+      padding:0.7rem 0.9rem; border-radius:12px; text-align:left;
+      cursor:pointer; transition:all 0.15s ease;
       border:1.5px solid rgba(15,20,16,0.08);
     }
     .cond-pill.active { background:#0F1410; color:#F2EFE7; border-color:#0F1410; }
+    .cond-pill .cab { font-family:'JetBrains Mono',monospace; font-size:0.78rem; font-weight:500; min-width:42px; }
+    .cond-pill .cdef { font-size:0.78rem; color:rgba(15,20,16,0.55); }
+    .cond-pill.active .cdef { color:rgba(242,239,231,0.6); }
+
+    /* Tooltip "?" — définition au survol (desktop) + clic (mobile) */
+    .tip { position:relative; display:inline-flex; align-items:center; justify-content:center; width:18px; height:18px; border-radius:50%; background:rgba(15,20,16,0.10); color:#0F1410; cursor:pointer; vertical-align:middle; margin-left:5px; flex-shrink:0; font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:600; line-height:1; }
+    .tip-bubble { position:absolute; top:calc(100% + 9px); left:50%; transform:translateX(-50%); width:220px; background:#0F1410; color:#F2EFE7; font-family:'Space Grotesk',sans-serif; font-size:11px; line-height:1.5; font-weight:400; letter-spacing:0; text-transform:none; text-align:left; padding:10px 12px; border-radius:10px; opacity:0; visibility:hidden; transition:opacity 0.15s ease; z-index:60; box-shadow:0 12px 30px -8px rgba(15,20,16,0.4); pointer-events:none; }
+    .tip-bubble::after { content:''; position:absolute; bottom:100%; left:50%; transform:translateX(-50%); border:6px solid transparent; border-bottom-color:#0F1410; }
+    .tip-link { position:relative; display:inline-flex; align-items:center; cursor:pointer; color:rgba(15,20,16,0.55); font-size:0.72rem; text-decoration:underline; text-decoration-style:dotted; text-underline-offset:2px; }
+    .tip:hover .tip-bubble, .tip.open .tip-bubble, .tip-link:hover .tip-bubble, .tip-link.open .tip-bubble { opacity:1; visibility:visible; }
 
     /* Photo slot */
     .photo-slot {
@@ -175,24 +185,29 @@
           Achète et vends tes cartes Pokémon <span class="text-mint-deep">sans peur</span> de l'arnaque.
         </h1>
         <p class="text-sm text-ink/65 mt-4 leading-relaxed">
-          Chaque carte vérifiée par notre IA puis par un expert humain. Paiement séquestré jusqu'à réception. Take rate 5 %.
+          Chaque carte vérifiée par notre IA puis par un expert humain. Paiement séquestré<span class="tip" onclick="toggleTip(this,event)">?<span class="tip-bubble">Ton argent est bloqué et protégé. Le vendeur n'est payé que lorsque tu confirmes avoir reçu ta carte. En cas de problème, tu es remboursé.</span></span> jusqu'à réception. Take rate 5 %.
         </p>
       </div>
 
-      <a href="#/trust" class="flex items-center gap-3 mt-6 p-3 bg-paper border border-ink/8 rounded-card hover:shadow-card transition">
-        <div class="w-9 h-9 rounded-full bg-mint/15 flex items-center justify-center flex-shrink-0">
-          <i data-lucide="shield-check" class="w-5 h-5 text-mint-deep"></i>
+      <a href="#/trust" class="block mt-6 p-5 bg-ink text-cream rounded-card hover:shadow-hover transition">
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-mint flex items-center justify-center flex-shrink-0">
+            <i data-lucide="shield-check" class="w-7 h-7 text-ink"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="font-bold text-base leading-tight">100 % sécurisé — vérifié par IA + experts humains</p>
+            <p class="text-xs text-cream/65 mt-1">Découvre comment on protège chaque transaction</p>
+          </div>
+          <i data-lucide="arrow-right" class="w-5 h-5 text-mint flex-shrink-0"></i>
         </div>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium">Système de confiance à 4 niveaux</p>
-          <p class="text-xs text-ink/55">IA · Expert humain · Escrow · Bannissement</p>
-        </div>
-        <i data-lucide="chevron-right" class="w-4 h-4 text-ink/40 flex-shrink-0"></i>
       </a>
 
       <section class="mt-8">
         <div class="flex items-end justify-between mb-3">
-          <h2 class="label-mono">Drops</h2>
+          <div>
+            <h2 class="label-mono">Drops</h2>
+            <p class="text-xs text-ink/50 mt-1">Les nouveautés mises en vente.</p>
+          </div>
           <a href="#/search" class="text-xs font-medium text-ink/55">Tout voir</a>
         </div>
         <div id="drops-row" class="flex gap-3 overflow-x-auto no-scrollbar -mx-4 px-4 pb-2 snap-x"></div>
@@ -200,7 +215,10 @@
 
       <section class="mt-8">
         <div class="flex items-end justify-between mb-3">
-          <h2 class="label-mono">Trending · 7 jours</h2>
+          <div>
+            <h2 class="label-mono">Trending · 7 jours</h2>
+            <p class="text-xs text-ink/50 mt-1">Les cartes les plus recherchées en ce moment.</p>
+          </div>
           <a href="#/search" class="text-xs font-medium text-ink/55">Tout voir</a>
         </div>
         <div id="trending-grid" class="grid grid-cols-2 gap-3"></div>
@@ -313,7 +331,7 @@
       <div class="mt-6 p-4 bg-mint/10 border border-mint/30 rounded-card flex items-start gap-3">
         <i data-lucide="lock" class="w-5 h-5 text-mint-deep mt-0.5 flex-shrink-0"></i>
         <div>
-          <p class="text-sm font-medium">Argent séquestré jusqu'à réception confirmée</p>
+          <p class="text-sm font-medium">Argent séquestré jusqu'à réception confirmée<span class="tip" onclick="toggleTip(this,event)">?<span class="tip-bubble">Ton argent est bloqué et protégé. Le vendeur n'est payé que lorsque tu confirmes avoir reçu ta carte. En cas de problème, tu es remboursé.</span></span></p>
           <p class="text-xs text-ink/65 mt-1">Si la carte ne correspond pas, tu es remboursé.</p>
         </div>
       </div>
@@ -342,7 +360,7 @@
           <i data-lucide="check" class="w-8 h-8 text-ink"></i>
         </div>
         <h1 class="text-3xl font-bold display">Commande confirmée.</h1>
-        <p class="text-sm text-ink/60 mt-3">Ton argent est en escrow. Le vendeur va expédier sous 48 h.</p>
+        <p class="text-sm text-ink/60 mt-3">Ton argent est en escrow<span class="tip" onclick="toggleTip(this,event)">?<span class="tip-bubble">Ton argent est bloqué et protégé. Le vendeur n'est payé que lorsque tu confirmes avoir reçu ta carte. En cas de problème, tu es remboursé.</span></span>. Le vendeur va expédier sous 48 h.</p>
       </div>
       <div class="mt-8 p-4 bg-paper border border-ink/8 rounded-card">
         <p class="label-mono mb-3">Étapes</p>
@@ -483,12 +501,12 @@
 
       <div class="mt-5">
         <p class="label-mono mb-3">État (grading standard TCG)</p>
-        <div class="flex gap-2" id="condition-pills">
-          <div class="cond-pill" data-cond="Mint"  onclick="setCondition('Mint')">Mint</div>
-          <div class="cond-pill active" data-cond="NM" onclick="setCondition('NM')">NM</div>
-          <div class="cond-pill" data-cond="EX"   onclick="setCondition('EX')">EX</div>
-          <div class="cond-pill" data-cond="LP"   onclick="setCondition('LP')">LP</div>
-          <div class="cond-pill" data-cond="DMG"  onclick="setCondition('DMG')">DMG</div>
+        <div class="space-y-2" id="condition-pills">
+          <div class="cond-pill" data-cond="Mint" onclick="setCondition('Mint')"><span class="cab">Mint</span><span class="cdef">Comme neuve, jamais manipulée.</span></div>
+          <div class="cond-pill active" data-cond="NM" onclick="setCondition('NM')"><span class="cab">NM</span><span class="cdef">Near Mint — quasi parfaite, défauts infimes.</span></div>
+          <div class="cond-pill" data-cond="EX" onclick="setCondition('EX')"><span class="cab">EX</span><span class="cdef">Excellent — légères traces d'usure visibles.</span></div>
+          <div class="cond-pill" data-cond="LP" onclick="setCondition('LP')"><span class="cab">LP</span><span class="cdef">Lightly Played — usure nette mais carte propre.</span></div>
+          <div class="cond-pill" data-cond="DMG" onclick="setCondition('DMG')"><span class="cab">DMG</span><span class="cdef">Damaged — pliures, taches ou déchirures.</span></div>
         </div>
       </div>
 
@@ -509,6 +527,7 @@
         <div class="space-y-1.5" id="sell-state-breakdown">
           <div class="flex justify-between"><span class="text-ink/60">Prix de vente</span><span class="font-mono" id="brk-price">—</span></div>
           <div class="flex justify-between"><span class="text-ink/60">Commission Minty (5 %)</span><span class="font-mono text-coral" id="brk-fee">—</span></div>
+          <div><span class="tip-link" onclick="toggleTip(this,event)">Ce que ça couvre<span class="tip-bubble">La commission couvre la vérification IA + expert humain, le paiement séquestré jusqu'à réception, et le remboursement automatique si la carte ne correspond pas.</span></span></div>
           <div class="flex justify-between pt-2 border-t border-ink/10 mt-2"><span class="font-medium">Tu touches</span><span class="font-mono font-bold" id="brk-net">—</span></div>
         </div>
       </div>
@@ -708,6 +727,14 @@
         <p class="label-mono mb-2" style="color:#5EE2A0;">Commission</p>
         <p class="text-5xl font-bold font-mono">5 %</p>
         <p class="text-sm text-cream/65 mt-2">Prélevée à la livraison confirmée. Pas un centime caché.</p>
+
+        <div class="mt-5 space-y-2.5">
+          <div class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-mint mt-0.5 flex-shrink-0"></i><span class="text-sm text-cream/85">Vérification IA + expert humain de chaque carte</span></div>
+          <div class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-mint mt-0.5 flex-shrink-0"></i><span class="text-sm text-cream/85">Paiement séquestré (escrow) jusqu'à réception</span></div>
+          <div class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-mint mt-0.5 flex-shrink-0"></i><span class="text-sm text-cream/85">Remboursement automatique si la carte ne correspond pas</span></div>
+        </div>
+        <p class="text-sm text-mint mt-4 leading-relaxed">La commission n'est pas un frais caché — c'est ce qui rend chaque transaction sûre.</p>
+
         <div class="mt-5 pt-5 border-t border-cream/10 space-y-2 text-sm">
           <div class="flex justify-between"><span class="text-cream/55">Vinted</span><span class="font-mono">10 %</span></div>
           <div class="flex justify-between"><span class="text-cream/55">Whatnot</span><span class="font-mono">8 %</span></div>
@@ -805,6 +832,58 @@
       </div>
     </section>
 
+    <!-- ===== SIGNUP ===== -->
+    <section id="screen-signup" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-4">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <h1 class="text-3xl font-bold display">Créer un compte.</h1>
+        <p class="text-sm text-ink/60 mt-2">Rejoins la communauté Minty pour vendre et troquer en confiance.</p>
+      </div>
+      <div class="mt-6 space-y-3">
+        <div>
+          <p class="label-mono mb-2">Pseudo</p>
+          <input id="su-pseudo" type="text" placeholder="MaxCollect" autocomplete="off" class="w-full bg-paper border border-ink/10 rounded-card py-3 px-4 text-sm outline-none focus:border-ink/30" />
+        </div>
+        <div>
+          <p class="label-mono mb-2">Email</p>
+          <input id="su-email" type="email" placeholder="toi@email.com" autocomplete="off" class="w-full bg-paper border border-ink/10 rounded-card py-3 px-4 text-sm outline-none focus:border-ink/30" />
+        </div>
+        <div>
+          <p class="label-mono mb-2">Mot de passe</p>
+          <input id="su-pass" type="password" placeholder="••••••••" autocomplete="off" class="w-full bg-paper border border-ink/10 rounded-card py-3 px-4 text-sm outline-none focus:border-ink/30" />
+        </div>
+      </div>
+      <button onclick="authSuccess()" class="w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition">Créer mon compte</button>
+      <p class="text-center text-sm text-ink/60 mt-4">Déjà inscrit ? <a href="#/login" class="font-medium text-ink underline">Se connecter</a></p>
+      <p class="text-center text-[11px] text-ink/40 mt-6">Démo — compte simulé, aucune donnée enregistrée.</p>
+    </section>
+
+    <!-- ===== LOGIN ===== -->
+    <section id="screen-login" class="screen">
+      <div class="pt-4">
+        <button onclick="goBack()" class="flex items-center gap-1.5 text-sm text-ink/60 mb-4">
+          <i data-lucide="chevron-left" class="w-4 h-4"></i> Retour
+        </button>
+        <h1 class="text-3xl font-bold display">Connexion.</h1>
+        <p class="text-sm text-ink/60 mt-2">Content de te revoir.</p>
+      </div>
+      <div class="mt-6 space-y-3">
+        <div>
+          <p class="label-mono mb-2">Email</p>
+          <input id="li-email" type="email" placeholder="toi@email.com" autocomplete="off" class="w-full bg-paper border border-ink/10 rounded-card py-3 px-4 text-sm outline-none focus:border-ink/30" />
+        </div>
+        <div>
+          <p class="label-mono mb-2">Mot de passe</p>
+          <input id="li-pass" type="password" placeholder="••••••••" autocomplete="off" class="w-full bg-paper border border-ink/10 rounded-card py-3 px-4 text-sm outline-none focus:border-ink/30" />
+        </div>
+      </div>
+      <button onclick="authSuccess()" class="w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card hover:bg-ink-soft transition">Se connecter</button>
+      <p class="text-center text-sm text-ink/60 mt-4">Pas encore de compte ? <a href="#/signup" class="font-medium text-ink underline">Créer un compte</a></p>
+      <p class="text-center text-[11px] text-ink/40 mt-6">Démo — compte simulé, aucune donnée enregistrée.</p>
+    </section>
+
   </main>
 
   <!-- ============== BottomNav ============== -->
@@ -882,6 +961,8 @@
     isMintyPlus: false,
     sellDraft: null,
     tradeProposal: null,
+    isLoggedIn: false,         // auth simulée (démo, pas de vrai backend)
+    redirectAfterAuth: null,   // route où renvoyer après "connexion"
   };
 
   // =================================================================
@@ -903,6 +984,18 @@
       setTimeout(() => el.remove(), 300);
     }, 2200);
   }
+
+  // Tooltip "?" : toggle au clic (mobile), survol géré en CSS (desktop)
+  function toggleTip(el, ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+    const wasOpen = el.classList.contains('open');
+    document.querySelectorAll('.tip.open, .tip-link.open').forEach(t => t.classList.remove('open'));
+    if (!wasOpen) el.classList.add('open');
+  }
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.tip, .tip-link')) document.querySelectorAll('.tip.open, .tip-link.open').forEach(t => t.classList.remove('open'));
+  });
 
   function authBadge(auth) {
     const map = {
@@ -1155,7 +1248,7 @@
       </div>
       <div class="mt-4 p-3 bg-mint/10 border border-mint/25 rounded-card flex items-start gap-2.5">
         <i data-lucide="lock" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i>
-        <p class="text-xs">Argent séquestré jusqu'à confirmation de réception. Remboursement automatique si litige.</p>
+        <p class="text-xs">Argent séquestré<span class="tip" onclick="toggleTip(this,event)">?<span class="tip-bubble">Ton argent est bloqué et protégé. Le vendeur n'est payé que lorsque tu confirmes avoir reçu ta carte. En cas de problème, tu es remboursé.</span></span> jusqu'à confirmation de réception. Remboursement automatique si litige.</p>
       </div>
       <a href="#/checkout" class="block w-full mt-4 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">Procéder au paiement</a>
     `;
@@ -1329,6 +1422,16 @@
     }, 2600);
   }
 
+  function boostLabel(b) {
+    return { spotlight:'Spotlight · 24 h', top7:'Top · 7 jours', featured:'Home Featured · 48 h' }[b] || 'Boosté';
+  }
+  function applyBoost(type) {
+    const listing = findListing(STATE.myListings[0]);
+    if (listing) listing.boost = type;
+    toast('Boost activé : ' + boostLabel(type) + ' 🚀');
+    renderSellPublished();
+  }
+
   function renderSellPublished() {
     if (!STATE.sellDraft?.cardId) { window.location.hash = '#/sell'; return; }
     const listingId = STATE.myListings[0];
@@ -1368,16 +1471,38 @@
         </div>
       </div>
 
-      ${auth === 'verified' ? `
-      <div class="mt-6 p-4 bg-coral/10 border border-coral/25 rounded-card">
-        <p class="featured-label mb-1">Suggestion</p>
-        <p class="font-medium">Booste cette carte pour vendre 3× plus vite</p>
-        <p class="text-xs text-ink/60 mt-1">Cette carte se vend mieux en Home Featured 48 h.</p>
-        <a href="#/pricing" class="inline-flex items-center gap-1.5 mt-3 px-3 py-2 bg-coral text-cream text-xs font-medium rounded-pill">
-          Voir les Boosts <i data-lucide="arrow-right" class="w-3 h-3"></i>
-        </a>
+      ${listing.boost ? `
+      <div class="mt-6 p-4 bg-coral/10 border border-coral/30 rounded-card flex items-center gap-3">
+        <i data-lucide="zap" class="w-5 h-5 text-coral flex-shrink-0"></i>
+        <div class="flex-1">
+          <p class="font-medium text-sm">Vente boostée 🚀</p>
+          <p class="text-xs text-ink/60">${boostLabel(listing.boost)} — ta carte gagne en visibilité.</p>
+        </div>
       </div>
-      ` : ''}
+      ` : `
+      <div class="mt-6">
+        <p class="label-mono mb-1">Booster ta vente</p>
+        <p class="text-xs text-ink/55 mb-3">Plus de visibilité = vente plus rapide. Optionnel.</p>
+        <div class="space-y-2">
+          <button onclick="applyBoost('spotlight')" class="w-full flex items-center gap-3 p-3 bg-paper border border-ink/10 rounded-card text-left hover:border-coral transition">
+            <i data-lucide="zap" class="w-5 h-5 text-coral flex-shrink-0"></i>
+            <div class="flex-1"><p class="text-sm font-medium">Spotlight · 24 h</p><p class="text-xs text-ink/55">En tête des recherches sur ta carte</p></div>
+            <span class="font-mono text-sm font-bold">1,99 €</span>
+          </button>
+          <button onclick="applyBoost('top7')" class="w-full flex items-center gap-3 p-3 bg-paper border border-ink/10 rounded-card text-left hover:border-coral transition">
+            <i data-lucide="trending-up" class="w-5 h-5 text-coral flex-shrink-0"></i>
+            <div class="flex-1"><p class="text-sm font-medium">Top · 7 jours</p><p class="text-xs text-ink/55">Top 3 des résultats de ton set</p></div>
+            <span class="font-mono text-sm font-bold">4,99 €</span>
+          </button>
+          <button onclick="applyBoost('featured')" class="w-full flex items-center gap-3 p-3 bg-paper border border-ink/10 rounded-card text-left hover:border-coral transition">
+            <i data-lucide="sparkles" class="w-5 h-5 text-coral flex-shrink-0"></i>
+            <div class="flex-1"><p class="text-sm font-medium">Home Featured · 48 h</p><p class="text-xs text-ink/55">Carrousel d'accueil + push aux abonnés</p></div>
+            <span class="font-mono text-sm font-bold">9,99 €</span>
+          </button>
+        </div>
+        <p class="text-[11px] text-ink/40 mt-2 text-center">Tous les boosts inclus avec Minty+</p>
+      </div>
+      `}
 
       <a href="#/dashboard" class="block w-full mt-6 py-4 bg-ink text-cream font-medium rounded-card text-center hover:bg-ink-soft transition">
         Voir mes annonces
@@ -1686,7 +1811,7 @@
       <div class="mt-4 p-3 bg-mint/10 border border-mint/25 rounded-card flex items-start gap-2.5">
         <i data-lucide="shield-check" class="w-4 h-4 text-mint-deep mt-0.5 flex-shrink-0"></i>
         <p class="text-xs">
-          <span class="font-medium">Escrow double envoi</span> — les deux cartes sont expédiées au même moment et validées à réception. Si une carte n'arrive pas, on rembourse l'autre côté.
+          <span class="font-medium">Escrow double envoi</span><span class="tip" onclick="toggleTip(this,event)">?<span class="tip-bubble">Ton argent est bloqué et protégé. Le vendeur n'est payé que lorsque tu confirmes avoir reçu ta carte. En cas de problème, tu es remboursé.</span></span> — les deux cartes sont expédiées au même moment et validées à réception. Si une carte n'arrive pas, on rembourse l'autre côté.
         </p>
       </div>
 
@@ -1759,6 +1884,15 @@
   // =================================================================
   //                           ROUTER
   // =================================================================
+  // ---------- AUTH (simulée, démo) ----------
+  function authSuccess() {
+    STATE.isLoggedIn = true;
+    toast('Bienvenue sur Minty 🎉');
+    const dest = STATE.redirectAfterAuth || '#/home';
+    STATE.redirectAfterAuth = null;
+    window.location.hash = dest;
+  }
+
   function navigate() {
     const hash = window.location.hash || '#/home';
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
@@ -1785,6 +1919,7 @@
       document.getElementById('screen-sell').classList.add('active');
       routeKey = 'sell';
     } else if (hash === '#/sell/pick') {
+      if (!STATE.isLoggedIn) { STATE.redirectAfterAuth = '#/sell/pick'; window.location.hash = '#/signup'; return; }
       if (!STATE.sellDraft) initSellDraft();
       renderSellPickGrid();
       document.getElementById('screen-sell-pick').classList.add('active');
@@ -1839,6 +1974,12 @@
       renderProfile();
       document.getElementById('screen-profile').classList.add('active');
       routeKey = 'profile';
+    } else if (hash === '#/signup') {
+      document.getElementById('screen-signup').classList.add('active');
+      routeKey = '';
+    } else if (hash === '#/login') {
+      document.getElementById('screen-login').classList.add('active');
+      routeKey = '';
     } else {
       routeKey = hash.replace('#/', '');
       const el = document.getElementById('screen-' + routeKey);
